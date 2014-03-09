@@ -47,8 +47,8 @@ You start over from step 1  or 2 and spend potentially just as much time as you 
 
 You edit your data and scripts as needed and rerun the master script.   Yes, you spent a bit more time setting things up initially but now rerunning analyses is trivial.
 
-
-For an overview of R packages for Reproducible Research see the following CRAN R task view..
+**CRAN Task View on Reproducible Research**
+For an overview of R packages for Reproducible Research see the following..
 
 [CRAN Task View: Reproducible Research] (http://cran.r-project.org/web/views/ReproducibleResearch.html)
 
@@ -84,7 +84,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##  19.585   0.316  20.057
+##  17.165   0.144  17.433
 ```
 
 
@@ -102,11 +102,11 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.368   0.040   0.422
+##   0.304   0.012   0.313
 ```
 
 
-The loading of the binary data file was over 48 times faster than loading the csv file!
+The loading of the binary data file was over 56 times faster than loading the csv file!
 
 
 ### Data Types
@@ -134,20 +134,43 @@ Most people are familiar with the "wide" data format where each row represents a
 ```r
 # loading a useful package for creating formatted tables
 library(xtable)
-```
-
-```
-## Error: there is no package called 'xtable'
-```
-
-```r
 spdat <- read.csv("wk1spdat.csv")
 print(xtable(spdat), type = "html")
 ```
 
+<!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
+<!-- Sun Mar  9 14:44:35 2014 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> Site </TH> <TH> Date </TH> <TH> species1 </TH> <TH> species2 </TH> <TH> species3 </TH> <TH> species4 </TH>  </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD align="right">   1 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   4 </TD> </TR>
+  <TR> <TD align="right"> 2 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD align="right">   2 </TD> <TD align="right">   7 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> 3 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD align="right">   0 </TD> <TD align="right">   2 </TD> <TD align="right">   2 </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD align="right"> 4 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD align="right">   0 </TD> <TD align="right">   1 </TD> <TD align="right">   1 </TD> <TD align="right">   5 </TD> </TR>
+  <TR> <TD align="right"> 5 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD align="right">   0 </TD> <TD align="right">   2 </TD> <TD align="right">   1 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 6 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD align="right">   1 </TD> <TD align="right">   5 </TD> <TD align="right">   2 </TD> <TD align="right">   0 </TD> </TR>
+   </TABLE>
+
+```r
+print(xtable(spdat), type = "latex")
 ```
-## Error: could not find function "xtable"
-```
+
+% latex table generated in R 3.0.2 by xtable 1.7-3 package
+% Sun Mar  9 14:44:35 2014
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrrrr}
+  \hline
+ & Site & Date & species1 & species2 & species3 & species4 \\ 
+  \hline
+1 & A & 2009-03-10 &   1 &   0 &   0 &   4 \\ 
+  2 & B & 2009-03-10 &   2 &   7 &   0 &   0 \\ 
+  3 & C & 2009-03-10 &   0 &   2 &   2 &   0 \\ 
+  4 & A & 2009-04-13 &   0 &   1 &   1 &   5 \\ 
+  5 & B & 2009-04-13 &   0 &   2 &   1 &   2 \\ 
+  6 & C & 2009-04-13 &   1 &   5 &   2 &   0 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 
 
@@ -163,9 +186,26 @@ spdat2 <- spdat2[spdat2$Count > 0, ]
 print(xtable(spdat2), type = "html")
 ```
 
-```
-## Error: could not find function "xtable"
-```
+<!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
+<!-- Sun Mar  9 14:44:36 2014 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> Site </TH> <TH> Date </TH> <TH> Speices </TH> <TH> Count </TH>  </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD> species1 </TD> <TD align="right">   1 </TD> </TR>
+  <TR> <TD align="right"> 2 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD> species1 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 6 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species1 </TD> <TD align="right">   1 </TD> </TR>
+  <TR> <TD align="right"> 8 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD> species2 </TD> <TD align="right">   7 </TD> </TR>
+  <TR> <TD align="right"> 9 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD> species2 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 10 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   1 </TD> </TR>
+  <TR> <TD align="right"> 11 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 12 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   5 </TD> </TR>
+  <TR> <TD align="right"> 15 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD> species3 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 16 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   1 </TD> </TR>
+  <TR> <TD align="right"> 17 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   1 </TD> </TR>
+  <TR> <TD align="right"> 18 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   2 </TD> </TR>
+  <TR> <TD align="right"> 19 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD> species4 </TD> <TD align="right">   4 </TD> </TR>
+  <TR> <TD align="right"> 22 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species4 </TD> <TD align="right">   5 </TD> </TR>
+  <TR> <TD align="right"> 23 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species4 </TD> <TD align="right">   2 </TD> </TR>
+   </TABLE>
 
 
 
@@ -225,17 +265,17 @@ df
 ```
 
 ```
-##     x     y
-## 1   1  1.33
-## 2   2  2.38
-## 3   3  2.03
-## 4   4  4.44
-## 5   5  3.28
-## 6   6  5.93
-## 7   7  5.77
-## 8   8  8.65
-## 9   9 10.41
-## 10 10  8.52
+##     x    y
+## 1   1 0.99
+## 2   2 2.21
+## 3   3 3.52
+## 4   4 5.09
+## 5   5 5.65
+## 6   6 5.35
+## 7   7 7.21
+## 8   8 8.91
+## 9   9 9.65
+## 10 10 9.22
 ```
 
 ## R Code chunk features
@@ -252,9 +292,9 @@ The following code hides the command input (i.e., `echo=FALSE`), and outputs the
  
 Here are some dot points
 
-* The value of y[1] is 1.33
-* The value of y[2] is 2.38
-* The value of y[3] is 2.03
+* The value of y[1] is 0.99
+* The value of y[2] is 2.21
+* The value of y[3] is 3.52
 
 1, 3, 5, 7, 9
 hello

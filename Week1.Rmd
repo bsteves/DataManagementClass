@@ -121,6 +121,7 @@ Most people are familiar with the "wide" data format where each row represents a
 library(xtable) 
 spdat<-read.csv("wk1spdat.csv")
 print(xtable(spdat), type='html')
+print(xtable(spdat), type='latex')
 ``` 
 
 
