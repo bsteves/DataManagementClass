@@ -47,6 +47,10 @@ You start over from step 1  or 2 and spend potentially just as much time as you 
 
 You edit your data and scripts as needed and rerun the master script.   Yes, you spent a bit more time setting things up initially but now rerunning analyses is trivial.
 
+**CRAN Task View on Reproducible Research**
+For an overview of R packages for Reproducible Research see the following..
+
+[CRAN Task View: Reproducible Research] (http://cran.r-project.org/web/views/ReproducibleResearch.html)
 
 
 ## Data Storage
