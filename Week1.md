@@ -3,10 +3,10 @@ ESM 505/ESR 605 : Data Management, Spring 2014
 Week 1: Introduction 
 ====================
 
-## Course Description and Objectives
+## 1 Course Description and Objectives
 This course is designed to explore the concept of reproducible research for environmental sciences. We will cover proper data storage and the use of the R statistical computing environment to manipulate that data for statistical and graphical analysis. A background in a computer language and statistics is a plus but not required.
 
-### What is "Reproducible Research"?
+### 1.1 What is "Reproducible Research"?
 In a very general sense, reproducible research is one of the fundamental aims of science.  When we write a paper we include methods and results sections so that, in theory, other researchers can potentially reproduce and confirm our results.
 
 Lately, the term "Reproducible Research" has been used to really mean "Reproducible Data Analysis".  Every step of data analysis (often in the form of code) is prodvided.. 
@@ -15,13 +15,13 @@ Lately, the term "Reproducible Research" has been used to really mean "Reproduci
 * Create plots and tables.
 * Incorporate analysis and plots into a report.
 
-### Benefits of "Reproducible Research".
+### 1.2 Benefits of "Reproducible Research".
 
 Many journals currently have data sharing and code sharing policies in place and that number has been increasing in recent years (Stodden et al 2013).  
 
 Even if you aren't planning on publishing in a journal with such policies, there is much to be said about being able to reproduce your own data analysis in as little effort as possible.
 
-#### Example of non-reproducible data analysis
+#### 1.2.1 Example of non-reproducible data analysis
 1. Enter raw data into Excel
 2. Hand edit data for QA/QC
 3. Copy and paste data subsets of data into new worksheet as "processed data" 
@@ -34,7 +34,7 @@ Even if you aren't planning on publishing in a journal with such policies, there
 
 You start over from step 1  or 2 and spend potentially just as much time as you initially did running your analysis.
 
-#### Example of reproducible data analysis
+#### 1.2.2 Example of reproducible data analysis
 1. Enter raw data into database, Excel, or CSV files
 2. Use R to assist QA/QC
 3. Use R to process your data for further analysis
@@ -47,15 +47,15 @@ You start over from step 1  or 2 and spend potentially just as much time as you 
 
 You edit your data and scripts as needed and rerun the master script.   Yes, you spent a bit more time setting things up initially but now rerunning analyses is trivial.
 
-**CRAN Task View on Reproducible Research**
+### 1.2 CRAN Task View on Reproducible Research 
 For an overview of R packages for Reproducible Research see the following..
 
 [CRAN Task View: Reproducible Research] (http://cran.r-project.org/web/views/ReproducibleResearch.html)
 
 
-## Data Storage
+## 2 Data Storage
 
-### Spreadsheets
+### 2.1 Spreadsheets
 Microsoft Excel and other spreadsheets (such as Google Speadsheets or Open Office) are probably the most common method for data entry and data sharing.  However, many people use spreadsheets in a way that makes the data practially unusable to others software.
 
 ![Example of a bad spreadsheet design](figure/badspreadsheet.jpg)
@@ -66,15 +66,19 @@ A proper data spreadsheet should look more like a database tabale with unique da
 
 One other complication to using spreadsheets in this fashion is that there can be incompatibilites based on which version of the spreadsheet software is being used.
 
-### Databases (Microsoft Access, MySQL, PostgreSQL, etc..)
-Sometimes data is too big and too complicated to store in a simple spreadsheet.  When this happens databases are needed.   
+### 2.2 Relational Databases (Microsoft Access, MySQL, PostgreSQL, etc..)
+Sometimes data is too big and too complicated to store in a simple spreadsheet.  When this happens databases are needed.  Relational databases are collections of data tables in which the relationships between the tables is formally described.  For example, site information might be in one table called "sites" while sample information might be in a table called "samples".  Each site might have multiple samples and each sample belongs to one particular site.  This relationship would be called a "one-to-many" relationship.  For each record in the samples table there would be a "site id" of some sort which helps define how each sample record is related to the sites table.
 
+Microsoft Access is great for creating quick desktop based data entry forms and has a nice visual method of creating data queries.
 
+Other databases like MySQL and PostgreSQL are a bit more powerful and are often used in conjunction with a webserver to serve datasets online.
 
-### CSV (comma seperated values)
+There are special packages in R that allow you to access data from relational databases.
+
+### 2.3 CSV (comma seperated values)
 Almost every spreadsheet and database can export properly formatted data into CSV files.  Likewise, just about every program used for data analysis can import CSV files.  Because CSV files are simple text files, they are the *lingua franca* of data formats.  However, large amounts of data in text format can take awhile to load.
 
-The following code shows who long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  
+The following code shows how long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  
 
 
 ```r
@@ -84,138 +88,259 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##  17.165   0.144  17.433
+##   4.189   0.053   4.237
 ```
 
 
 Here I've wrapped the 'system.time' function call around the 'read.csv' function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.
 
-### Binary Files (e.g. '.Rdata')
+### 2.4 Binary Files (e.g. '.Rdata')
 One option to speed this process up in R is to save the data in a binary Rdata file.  This file format compresses the data in such a way that it can be reopened at least 10 times faster then .
 
 
 ```r
-save(data, file = "WSA_data.Rdata")
-binary_speed <- system.time(load(file = "WSA_data.Rdata"))
+save(data, file = "data/WSA_data.Rdata")
+binary_speed <- system.time(load(file = "data/WSA_data.Rdata"))
 print(binary_speed)
 ```
 
 ```
 ##    user  system elapsed 
-##   0.304   0.012   0.313
+##   0.095   0.000   0.094
 ```
 
 
-The loading of the binary data file was over 56 times faster than loading the csv file!
+The loading of the binary data file was over **45** times faster than loading the csv file!
 
 
-### Data Types
+### 2.5 R Objects 
+
+#### R Object Types
+
+
+
+
+
+
+#### R Object Structures
+
+|Dimensions  |Homogeneous    |Heterogeneous  |
+|:-----------|:--------------|:--------------|
+|1d          |Atomic Vector  |List           |
+|2d          |Matrix         |Data Frame     |
+|3d          |array          |               |
+
 
 #### Vectors
+
+The most basic variable structure is a vector (1d, homogeneous).  Generally created using "c()" to concatenate values of the same type.
+
+A vector of numbers
+
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+```
+
+
+A vector of characters
+
+
+```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
+```
+
+
 #### Matrices
+
+Matrices are two dimensional structures of a single data type. 
+
+A matrix of numbers
+
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    5    9   13   17   21
+## [2,]    2    6   10   14   18   22
+## [3,]    3    7   11   15   19   23
+## [4,]    4    8   12   16   20   24
+```
+
+
+A matrix of characters
+
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,] "a"  "e"  "i"  "m"  "q"  "u" 
+## [2,] "b"  "f"  "j"  "n"  "r"  "v" 
+## [3,] "c"  "g"  "k"  "o"  "s"  "w" 
+## [4,] "d"  "h"  "l"  "p"  "t"  "x"
+```
+
+
 #### Arrays
+
+An array is like a matrix to but with more dimensions..
+
+
+```
+## , , 1
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]   13   16   19   22
+## [2,]   14   17   20   23
+## [3,]   15   18   21   24
+```
+
+
 #### Data Frames
+Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.
+
+
+```
+##    x  y fac
+## 1  1  1   C
+## 2  1  2   B
+## 3  1  3   C
+## 4  1  4   A
+## 5  1  5   C
+## 6  1  6   B
+## 7  1  7   A
+## 8  1  8   C
+## 9  1  9   A
+## 10 1 10   B
+```
+
+
+
+
 #### Lists
+
+
 #### Factors
-
-
 #### Numeric
 #### Iteger
 #### Character
 #### Date
 
 
-### Data Format (Wide vs Narrow)
-
-Most people are familiar with the "wide" data format where each row represents an observation and each column represents all the various attributes for that observation.
+### 2.6 Data Format (Wide vs Narrow)
 
 
+#### 2.6.1 Wide Data Format
 
-```r
-# loading a useful package for creating formatted tables
-library(xtable)
-spdat <- read.csv("wk1spdat.csv")
-print(xtable(spdat), type = "html")
-```
+Most people are familiar with the "wide" data format where each row represents an observation and each column represents all the various attributes for that observation.  In the following example, each species has its own column of count data.
 
-<!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
-<!-- Sun Mar  9 14:44:35 2014 -->
-<TABLE border=1>
-<TR> <TH>  </TH> <TH> Site </TH> <TH> Date </TH> <TH> species1 </TH> <TH> species2 </TH> <TH> species3 </TH> <TH> species4 </TH>  </TR>
-  <TR> <TD align="right"> 1 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD align="right">   1 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> <TD align="right">   4 </TD> </TR>
-  <TR> <TD align="right"> 2 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD align="right">   2 </TD> <TD align="right">   7 </TD> <TD align="right">   0 </TD> <TD align="right">   0 </TD> </TR>
-  <TR> <TD align="right"> 3 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD align="right">   0 </TD> <TD align="right">   2 </TD> <TD align="right">   2 </TD> <TD align="right">   0 </TD> </TR>
-  <TR> <TD align="right"> 4 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD align="right">   0 </TD> <TD align="right">   1 </TD> <TD align="right">   1 </TD> <TD align="right">   5 </TD> </TR>
-  <TR> <TD align="right"> 5 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD align="right">   0 </TD> <TD align="right">   2 </TD> <TD align="right">   1 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 6 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD align="right">   1 </TD> <TD align="right">   5 </TD> <TD align="right">   2 </TD> <TD align="right">   0 </TD> </TR>
-   </TABLE>
 
-```r
-print(xtable(spdat), type = "latex")
-```
-
-% latex table generated in R 3.0.2 by xtable 1.7-3 package
-% Sun Mar  9 14:44:35 2014
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllrrrr}
-  \hline
- & Site & Date & species1 & species2 & species3 & species4 \\ 
-  \hline
-1 & A & 2009-03-10 &   1 &   0 &   0 &   4 \\ 
-  2 & B & 2009-03-10 &   2 &   7 &   0 &   0 \\ 
-  3 & C & 2009-03-10 &   0 &   2 &   2 &   0 \\ 
-  4 & A & 2009-04-13 &   0 &   1 &   1 &   5 \\ 
-  5 & B & 2009-04-13 &   0 &   2 &   1 &   2 \\ 
-  6 & C & 2009-04-13 &   1 &   5 &   2 &   0 \\ 
-   \hline
-\end{tabular}
-\end{table}
+|Site  |Date        |  species1|  species2|  species3|  species4|
+|:-----|:-----------|---------:|---------:|---------:|---------:|
+|A     |2009-03-10  |         1|         0|         0|         4|
+|B     |2009-03-10  |         2|         7|         0|         0|
+|C     |2009-03-10  |         0|         2|         2|         0|
+|A     |2009-04-13  |         0|         1|         1|         5|
+|B     |2009-04-13  |         0|         2|         1|         2|
+|C     |2009-04-13  |         1|         5|         2|         0|
 
 
 
+#### 2.6.2 Narrow Data Format
 
-```r
-# loading a package for reshaping data between wide and narrow formats
-library(reshape2)
+Another representation of this data is called the "narrow" data format.  In this next example, species name becomes a single data field called "Species" and a new column called "Count" is created.  Also in this example, counts of zero for species not present are dropped.
 
-# converting wide format to narrow format
-spdat2 <- melt(spdat, id = c("Site", "Date"), variable.name = "Speices", value.name = "Count")
-# removing data rows where species counts are 0
-spdat2 <- spdat2[spdat2$Count > 0, ]
-print(xtable(spdat2), type = "html")
-```
-
-<!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
-<!-- Sun Mar  9 14:44:36 2014 -->
-<TABLE border=1>
-<TR> <TH>  </TH> <TH> Site </TH> <TH> Date </TH> <TH> Speices </TH> <TH> Count </TH>  </TR>
-  <TR> <TD align="right"> 1 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD> species1 </TD> <TD align="right">   1 </TD> </TR>
-  <TR> <TD align="right"> 2 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD> species1 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 6 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species1 </TD> <TD align="right">   1 </TD> </TR>
-  <TR> <TD align="right"> 8 </TD> <TD> B </TD> <TD> 2009-03-10 </TD> <TD> species2 </TD> <TD align="right">   7 </TD> </TR>
-  <TR> <TD align="right"> 9 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD> species2 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 10 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   1 </TD> </TR>
-  <TR> <TD align="right"> 11 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 12 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species2 </TD> <TD align="right">   5 </TD> </TR>
-  <TR> <TD align="right"> 15 </TD> <TD> C </TD> <TD> 2009-03-10 </TD> <TD> species3 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 16 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   1 </TD> </TR>
-  <TR> <TD align="right"> 17 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   1 </TD> </TR>
-  <TR> <TD align="right"> 18 </TD> <TD> C </TD> <TD> 2009-04-13 </TD> <TD> species3 </TD> <TD align="right">   2 </TD> </TR>
-  <TR> <TD align="right"> 19 </TD> <TD> A </TD> <TD> 2009-03-10 </TD> <TD> species4 </TD> <TD align="right">   4 </TD> </TR>
-  <TR> <TD align="right"> 22 </TD> <TD> A </TD> <TD> 2009-04-13 </TD> <TD> species4 </TD> <TD align="right">   5 </TD> </TR>
-  <TR> <TD align="right"> 23 </TD> <TD> B </TD> <TD> 2009-04-13 </TD> <TD> species4 </TD> <TD align="right">   2 </TD> </TR>
-   </TABLE>
+|Site  |Date        |Species   |  Count|
+|:-----|:-----------|:---------|------:|
+|A     |2009-03-10  |species1  |      1|
+|A     |2009-03-10  |species4  |      4|
+|B     |2009-03-10  |species1  |      2|
+|B     |2009-03-10  |species2  |      7|
+|C     |2009-03-10  |species2  |      2|
+|C     |2009-03-10  |species3  |      2|
+|A     |2009-04-13  |species2  |      1|
+|A     |2009-04-13  |species3  |      1|
+|A     |2009-04-13  |species4  |      5|
+|B     |2009-04-13  |species2  |      2|
+|B     |2009-04-13  |species3  |      1|
+|B     |2009-04-13  |species4  |      2|
+|C     |2009-04-13  |species1  |      1|
+|C     |2009-04-13  |species2  |      5|
+|C     |2009-04-13  |species3  |      2|
 
 
+#### 2.6.3 Which format is best?
 
+Initally, the wide format probably the easiest to read. However, the narrow format is has many advantages, particularly in this example with species counts ...
+
+1. It is easier to transform from narrow to wide than it is from wide to narrow
+2. Adding a new species doesn't require a new data column
+3. No need to record zeros all the time
+4. Species becomes a factor which makes subsetting the data easier (more on this later)
+
+The choice between wide and narrow table structure will depend on nature of the data being represented.  In general, if you have multiple columns that could be represented easily as a single factor and a related value field (like species counts) than narrow is the way to go.
+
+
+### 2.7 Normalizing Data Tables
+
+I mentioned eariler that if your data set is big and complex a database is often needed.  The process of deciding how to break up your data into related tables is called "normalization".  We do this primarly to organize the data and to reduce redundancy.
+
+Imagine you have sites and sample information.   Each site has a name, a latitude and longitude, and several other descriptive fields and each sample within a site has information on how and when it was sampled as well as what was found.  
+
+The following table is includes everything but is unnormalized.
+
+|site_name    |lake             |  latitude|  longitude|site_description       |site_notes                |sample_date  |sampled_by  |  temperature_C|  fish_count|notes           |
+|:------------|:----------------|---------:|----------:|:----------------------|:-------------------------|:------------|:-----------|--------------:|-----------:|:---------------|
+|Boat Ramp A  |Henry Hagg Lake  |     45.48|     -123.2|East side of the lake  |Closest to park entrance  |2008-02-22   |BPS         |            9.0|           0|empty           |
+|Boat Ramp A  |Henry Hagg Lake  |     45.48|     -123.2|East side of the lake  |Closest to park entrance  |2008-02-26   |BPS         |            9.2|           3|some bass       |
+|Boat Ramp A  |Henry Hagg Lake  |     45.48|     -123.2|East side of the lake  |Closest to park entrance  |2008-03-01   |BPS         |           10.0|           0|empty           |
+|Boat Ramp C  |Henry Hagg Lake  |     45.49|     -123.2|West site of lake      |Farthest from entrance    |2008-02-22   |BPS         |            8.9|          11|trout           |
+|Boat Ramp C  |Henry Hagg Lake  |     45.49|     -123.2|West site of lake      |Farthest from entrance    |2008-02-26   |BPS         |            9.1|          14|trout and bass  |
+
+
+Notice that all of the site related information gets repeated for each sample it has.  
+
+
+
+Here is that same information normalized into a "sites" table
+
+|  site_id|site_name    |lake             |  latitude|  longitude|site_description       |site_notes                |
+|--------:|:------------|:----------------|---------:|----------:|:----------------------|:-------------------------|
+|        1|Boat Ramp A  |Henry Hagg Lake  |     45.48|     -123.2|East side of the lake  |Closest to park entrance  |
+|        2|Boat Ramp C  |Henry Hagg Lake  |     45.49|     -123.2|West site of lake      |Farthest from entrance    |
+
+
+and a "samples" table
+
+|  sample_id|  site_id|sample_date  |sampled_by  |  temperature_C|  fish_count|notes           |
+|----------:|--------:|:------------|:-----------|--------------:|-----------:|:---------------|
+|          1|        1|2008-02-22   |BPS         |            9.0|           0|empty           |
+|          2|        1|2008-02-26   |BPS         |            9.2|           3|some bass       |
+|          3|        1|2008-03-01   |BPS         |           10.0|           0|empty           |
+|          4|        2|2008-02-22   |BPS         |            8.9|          11|trout           |
+|          5|        2|2008-02-26   |BPS         |            9.1|          14|trout and bass  |
+
+
+Now the site related information is only recorded once and we use a "site_id" to related the samples table to the sites table.   
+
+We can also join these two tables back up based on the "site_id" if for example we need the latitude and longitude where a sample was collected.
 
 ### Meta-data
 
+Metadata is "data about data".  
 
+Who collected this data?  
+Purpose of the data?  
+How the data was created?  
+When the data was created?  
+Descriptions of all tables and data fields.
 
-
-
+The more information you can record the better.
 
 ### Citations
 
@@ -225,80 +350,3 @@ print(xtable(spdat2), type = "html")
 
 
 
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **Help** toolbar button for more details on using R Markdown).
-
-When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-
-```r
-summary(cars)
-```
-
-```
-##      speed           dist    
-##  Min.   : 4.0   Min.   :  2  
-##  1st Qu.:12.0   1st Qu.: 26  
-##  Median :15.0   Median : 36  
-##  Mean   :15.4   Mean   : 43  
-##  3rd Qu.:19.0   3rd Qu.: 56  
-##  Max.   :25.0   Max.   :120
-```
-
-
-You can also embed plots, for example:
-
-
-```r
-plot(cars)
-```
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
-
-
-```r
-x <- 1:10
-y <- round(rnorm(10, x, 1), 2)
-df <- data.frame(x, y)
-df
-```
-
-```
-##     x    y
-## 1   1 0.99
-## 2   2 2.21
-## 3   3 3.52
-## 4   4 5.09
-## 5   5 5.65
-## 6   6 5.35
-## 7   7 7.21
-## 8   8 8.91
-## 9   9 9.65
-## 10 10 9.22
-```
-
-## R Code chunk features
-### Create Markdown code from R
-The following code hides the command input (i.e., `echo=FALSE`), and outputs the content directly as code (i.e., `results=asis`, which is similar to `results=tex` in Sweave).
- 
- 
-    
-    ```r
-    cat("Here are some dot points\n\n")
-    cat(paste("* The value of y[", 1:3, "] is ", y[1:3], sep = "", collapse = "\n"))
-    ```
-
- 
-Here are some dot points
-
-* The value of y[1] is 0.99
-* The value of y[2] is 2.21
-* The value of y[3] is 3.52
-
-1, 3, 5, 7, 9
-hello
-
- 
-
- 

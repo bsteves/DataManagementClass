@@ -1,139 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0014)about:internet -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv="x-ua-compatible" content="IE=9" >
 
 <title>Week 1: Introduction </title>
-
-<style type="text/css">
-body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 12px;
-   margin: 8px;
-}
-
-tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-}
-
-h1 { 
-   font-size:2.2em; 
-}
-
-h2 { 
-   font-size:1.8em; 
-}
-
-h3 { 
-   font-size:1.4em; 
-}
-
-h4 { 
-   font-size:1.0em; 
-}
-
-h5 { 
-   font-size:0.9em; 
-}
-
-h6 { 
-   font-size:0.8em; 
-}
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
-}
-
-pre {	
-   margin-top: 0;
-   max-width: 95%;
-   border: 1px solid #ccc;
-   white-space: pre-wrap;
-}
-
-pre code {
-   display: block; padding: 0.5em;
-}
-
-code.r, code.cpp {
-   background-color: #F8F8F8;
-}
-
-table, td, th {
-  border: none;
-}
-
-blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
-}
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
-}
-
-@media print {
-   * { 
-      background: transparent !important; 
-      color: black !important; 
-      filter:none !important; 
-      -ms-filter: none !important; 
-   }
-
-   body { 
-      font-size:12pt; 
-      max-width:100%; 
-   }
-       
-   a, a:visited { 
-      text-decoration: underline; 
-   }
-
-   hr { 
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote { 
-      padding-right: 1em; 
-      page-break-inside: avoid; 
-   }
-
-   tr, img { 
-      page-break-inside: avoid; 
-   }
-
-   img { 
-      max-width: 100% !important; 
-   }
-
-   @page :left { 
-      margin: 15mm 20mm 15mm 10mm; 
-   }
-     
-   @page :right { 
-      margin: 15mm 10mm 15mm 20mm; 
-   }
-
-   p, h2, h3 { 
-      orphans: 3; widows: 3; 
-   }
-
-   h2, h3 { 
-      page-break-after: avoid; 
-   }
-}
-
-</style>
 
 <!-- Styles for R syntax highlighter -->
 <style type="text/css">
@@ -143,19 +13,21 @@ hr {
    }
 
    pre .literal {
-     color: rgb(88, 72, 246)
+     color: #990073
    }
 
    pre .number {
-     color: rgb(0, 0, 205);
+     color: #099;
    }
 
    pre .comment {
-     color: rgb(76, 136, 107);
+     color: #998;
+     font-style: italic
    }
 
    pre .keyword {
-     color: rgb(0, 0, 255);
+     color: #900;
+     font-weight: bold
    }
 
    pre .identifier {
@@ -163,7 +35,7 @@ hr {
    }
 
    pre .string {
-     color: rgb(3, 106, 7);
+     color: #d14;
    }
 </style>
 
@@ -173,6 +45,35 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	background: #fff;
+	margin: 45px;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: left;
+}
+ 
+th {
+  font-size: 14px;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+ 
+td {
+  color: #669;
+	padding: 9px 8px 0px 8px;
+}
+</style>
 
 
 
@@ -183,11 +84,11 @@ hljs.initHighlightingOnLoad();
 
 <h1>Week 1: Introduction </h1>
 
-<h2>Course Description and Objectives</h2>
+<h2>1 Course Description and Objectives</h2>
 
 <p>This course is designed to explore the concept of reproducible research for environmental sciences. We will cover proper data storage and the use of the R statistical computing environment to manipulate that data for statistical and graphical analysis. A background in a computer language and statistics is a plus but not required.</p>
 
-<h3>What is &ldquo;Reproducible Research&rdquo;?</h3>
+<h3>1.1 What is &ldquo;Reproducible Research&rdquo;?</h3>
 
 <p>In a very general sense, reproducible research is one of the fundamental aims of science.  When we write a paper we include methods and results sections so that, in theory, other researchers can potentially reproduce and confirm our results.</p>
 
@@ -200,13 +101,13 @@ hljs.initHighlightingOnLoad();
 <li>Incorporate analysis and plots into a report.</li>
 </ul>
 
-<h3>Benefits of &ldquo;Reproducible Research&rdquo;.</h3>
+<h3>1.2 Benefits of &ldquo;Reproducible Research&rdquo;.</h3>
 
 <p>Many journals currently have data sharing and code sharing policies in place and that number has been increasing in recent years (Stodden et al 2013).  </p>
 
 <p>Even if you aren&#39;t planning on publishing in a journal with such policies, there is much to be said about being able to reproduce your own data analysis in as little effort as possible.</p>
 
-<h4>Example of non-reproducible data analysis</h4>
+<h4>1.2.1 Example of non-reproducible data analysis</h4>
 
 <ol>
 <li>Enter raw data into Excel</li>
@@ -222,7 +123,7 @@ hljs.initHighlightingOnLoad();
 
 <p>You start over from step 1  or 2 and spend potentially just as much time as you initially did running your analysis.</p>
 
-<h4>Example of reproducible data analysis</h4>
+<h4>1.2.2 Example of reproducible data analysis</h4>
 
 <ol>
 <li>Enter raw data into database, Excel, or CSV files</li>
@@ -238,13 +139,15 @@ hljs.initHighlightingOnLoad();
 
 <p>You edit your data and scripts as needed and rerun the master script.   Yes, you spent a bit more time setting things up initially but now rerunning analyses is trivial.</p>
 
-<p>For an overview of R packages for Reproducible Research see the following CRAN R task view..</p>
+<h3>1.2 CRAN Task View on Reproducible Research</h3>
+
+<p>For an overview of R packages for Reproducible Research see the following..</p>
 
 <p><a href="http://cran.r-project.org/web/views/ReproducibleResearch.html">CRAN Task View: Reproducible Research</a></p>
 
-<h2>Data Storage</h2>
+<h2>2 Data Storage</h2>
 
-<h3>Spreadsheets</h3>
+<h3>2.1 Spreadsheets</h3>
 
 <p>Microsoft Excel and other spreadsheets (such as Google Speadsheets or Open Office) are probably the most common method for data entry and data sharing.  However, many people use spreadsheets in a way that makes the data practially unusable to others software.</p>
 
@@ -256,50 +159,148 @@ hljs.initHighlightingOnLoad();
 
 <p>One other complication to using spreadsheets in this fashion is that there can be incompatibilites based on which version of the spreadsheet software is being used.</p>
 
-<h3>Databases (Microsoft Access, MySQL, PostgreSQL, etc..)</h3>
+<h3>2.2 Relational Databases (Microsoft Access, MySQL, PostgreSQL, etc..)</h3>
 
-<p>Sometimes data is too big and too complicated to store in a simple spreadsheet.  When this happens databases are needed.   </p>
+<p>Sometimes data is too big and too complicated to store in a simple spreadsheet.  When this happens databases are needed.  Relational databases are collections of data tables in which the relationships between the tables is formally described.  For example, site information might be in one table called &ldquo;sites&rdquo; while sample information might be in a table called &ldquo;samples&rdquo;.  Each site might have multiple samples and each sample belongs to one particular site.  This relationship would be called a &ldquo;one-to-many&rdquo; relationship.  For each record in the samples table there would be a &ldquo;site id&rdquo; of some sort which helps define how each sample record is related to the sites table.</p>
 
-<h3>CSV (comma seperated values)</h3>
+<p>Microsoft Access is great for creating quick desktop based data entry forms and has a nice visual method of creating data queries.</p>
+
+<p>Other databases like MySQL and PostgreSQL are a bit more powerful and are often used in conjunction with a webserver to serve datasets online.</p>
+
+<p>There are special packages in R that allow you to access data from relational databases.</p>
+
+<h3>2.3 CSV (comma seperated values)</h3>
 
 <p>Almost every spreadsheet and database can export properly formatted data into CSV files.  Likewise, just about every program used for data analysis can import CSV files.  Because CSV files are simple text files, they are the <em>lingua franca</em> of data formats.  However, large amounts of data in text format can take awhile to load.</p>
 
-<p>The following code shows who long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  </p>
+<p>The following code shows how long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  </p>
 
 <pre><code class="r">csv_speed &lt;- system.time(data &lt;- read.csv(&quot;~/WSA/Data/WSA_data.csv&quot;))
 print(csv_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##  19.585   0.316  20.057
+##   4.189   0.053   4.237
 </code></pre>
 
 <p>Here I&#39;ve wrapped the &#39;system.time&#39; function call around the &#39;read.csv&#39; function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.</p>
 
-<h3>Binary Files (e.g. &#39;.Rdata&#39;)</h3>
+<h3>2.4 Binary Files (e.g. &#39;.Rdata&#39;)</h3>
 
 <p>One option to speed this process up in R is to save the data in a binary Rdata file.  This file format compresses the data in such a way that it can be reopened at least 10 times faster then .</p>
 
-<pre><code class="r">save(data, file = &quot;WSA_data.Rdata&quot;)
-binary_speed &lt;- system.time(load(file = &quot;WSA_data.Rdata&quot;))
+<pre><code class="r">save(data, file = &quot;data/WSA_data.Rdata&quot;)
+binary_speed &lt;- system.time(load(file = &quot;data/WSA_data.Rdata&quot;))
 print(binary_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.368   0.040   0.422
+##   0.095   0.000   0.094
 </code></pre>
 
-<p>The loading of the binary data file was over 48 times faster than loading the csv file!</p>
+<p>The loading of the binary data file was over <strong>45</strong> times faster than loading the csv file!</p>
 
-<h3>Data Types</h3>
+<h3>2.5 R Objects</h3>
+
+<h4>R Object Types</h4>
+
+<h4>R Object Structures</h4>
+
+<table><thead>
+<tr>
+<th align="left">Dimensions</th>
+<th align="left">Homogeneous</th>
+<th align="left">Heterogeneous</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">1d</td>
+<td align="left">Atomic Vector</td>
+<td align="left">List</td>
+</tr>
+<tr>
+<td align="left">2d</td>
+<td align="left">Matrix</td>
+<td align="left">Data Frame</td>
+</tr>
+<tr>
+<td align="left">3d</td>
+<td align="left">array</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
 
 <h4>Vectors</h4>
 
+<p>The most basic variable structure is a vector (1d, homogeneous).  Generally created using &ldquo;c()&rdquo; to concatenate values of the same type.</p>
+
+<p>A vector of numbers</p>
+
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+</code></pre>
+
+<p>A vector of characters</p>
+
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot;
+</code></pre>
+
 <h4>Matrices</h4>
+
+<p>Matrices are two dimensional structures of a single data type. </p>
+
+<p>A matrix of numbers</p>
+
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    5    9   13   17   21
+## [2,]    2    6   10   14   18   22
+## [3,]    3    7   11   15   19   23
+## [4,]    4    8   12   16   20   24
+</code></pre>
+
+<p>A matrix of characters</p>
+
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,] &quot;a&quot;  &quot;e&quot;  &quot;i&quot;  &quot;m&quot;  &quot;q&quot;  &quot;u&quot; 
+## [2,] &quot;b&quot;  &quot;f&quot;  &quot;j&quot;  &quot;n&quot;  &quot;r&quot;  &quot;v&quot; 
+## [3,] &quot;c&quot;  &quot;g&quot;  &quot;k&quot;  &quot;o&quot;  &quot;s&quot;  &quot;w&quot; 
+## [4,] &quot;d&quot;  &quot;h&quot;  &quot;l&quot;  &quot;p&quot;  &quot;t&quot;  &quot;x&quot;
+</code></pre>
 
 <h4>Arrays</h4>
 
+<p>An array is like a matrix to but with more dimensions..</p>
+
+<pre><code>## , , 1
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]   13   16   19   22
+## [2,]   14   17   20   23
+## [3,]   15   18   21   24
+</code></pre>
+
 <h4>Data Frames</h4>
+
+<p>Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.</p>
+
+<pre><code>##    x  y fac
+## 1  1  1   C
+## 2  1  2   B
+## 3  1  3   C
+## 4  1  4   A
+## 5  1  5   C
+## 6  1  6   B
+## 7  1  7   A
+## 8  1  8   C
+## 9  1  9   A
+## 10 1 10   B
+</code></pre>
 
 <h4>Lists</h4>
 
@@ -313,109 +314,394 @@ print(binary_speed)
 
 <h4>Date</h4>
 
-<h3>Data Format (Wide vs Narrow)</h3>
+<h3>2.6 Data Format (Wide vs Narrow)</h3>
 
-<p>Most people are familiar with the &ldquo;wide&rdquo; data format where each row represents an observation and each column represents all the various attributes for that observation.</p>
+<h4>2.6.1 Wide Data Format</h4>
 
-<pre><code class="r"># loading a useful package for creating formatted tables
-library(xtable)
-</code></pre>
+<p>Most people are familiar with the &ldquo;wide&rdquo; data format where each row represents an observation and each column represents all the various attributes for that observation.  In the following example, each species has its own column of count data.</p>
 
-<pre><code>## Error: there is no package called &#39;xtable&#39;
-</code></pre>
+<table><thead>
+<tr>
+<th align="left">Site</th>
+<th align="left">Date</th>
+<th align="right">species1</th>
+<th align="right">species2</th>
+<th align="right">species3</th>
+<th align="right">species4</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-03-10</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-03-10</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-03-10</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-04-13</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-04-13</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-04-13</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
 
-<pre><code class="r">spdat &lt;- read.csv(&quot;wk1spdat.csv&quot;)
-print(xtable(spdat), type = &quot;html&quot;)
-</code></pre>
+<h4>2.6.2 Narrow Data Format</h4>
 
-<pre><code>## Error: could not find function &quot;xtable&quot;
-</code></pre>
+<p>Another representation of this data is called the &ldquo;narrow&rdquo; data format.  In this next example, species name becomes a single data field called &ldquo;Species&rdquo; and a new column called &ldquo;Count&rdquo; is created.  Also in this example, counts of zero for species not present are dropped.</p>
 
-<pre><code class="r"># loading a package for reshaping data between wide and narrow formats
-library(reshape2)
+<table><thead>
+<tr>
+<th align="left">Site</th>
+<th align="left">Date</th>
+<th align="left">Species</th>
+<th align="right">Count</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-03-10</td>
+<td align="left">species1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-03-10</td>
+<td align="left">species4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-03-10</td>
+<td align="left">species1</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-03-10</td>
+<td align="left">species2</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-03-10</td>
+<td align="left">species2</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-03-10</td>
+<td align="left">species3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-04-13</td>
+<td align="left">species2</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-04-13</td>
+<td align="left">species3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">2009-04-13</td>
+<td align="left">species4</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-04-13</td>
+<td align="left">species2</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-04-13</td>
+<td align="left">species3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">2009-04-13</td>
+<td align="left">species4</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-04-13</td>
+<td align="left">species1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-04-13</td>
+<td align="left">species2</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">2009-04-13</td>
+<td align="left">species3</td>
+<td align="right">2</td>
+</tr>
+</tbody></table>
 
-# converting wide format to narrow format
-spdat2 &lt;- melt(spdat, id = c(&quot;Site&quot;, &quot;Date&quot;), variable.name = &quot;Speices&quot;, value.name = &quot;Count&quot;)
-# removing data rows where species counts are 0
-spdat2 &lt;- spdat2[spdat2$Count &gt; 0, ]
-print(xtable(spdat2), type = &quot;html&quot;)
-</code></pre>
+<h4>2.6.3 Which format is best?</h4>
 
-<pre><code>## Error: could not find function &quot;xtable&quot;
-</code></pre>
+<p>Initally, the wide format probably the easiest to read. However, the narrow format is has many advantages, particularly in this example with species counts &hellip;</p>
+
+<ol>
+<li>It is easier to transform from narrow to wide than it is from wide to narrow</li>
+<li>Adding a new species doesn&#39;t require a new data column</li>
+<li>No need to record zeros all the time</li>
+<li>Species becomes a factor which makes subsetting the data easier (more on this later)</li>
+</ol>
+
+<p>The choice between wide and narrow table structure will depend on nature of the data being represented.  In general, if you have multiple columns that could be represented easily as a single factor and a related value field (like species counts) than narrow is the way to go.</p>
+
+<h3>2.7 Normalizing Data Tables</h3>
+
+<p>I mentioned eariler that if your data set is big and complex a database is often needed.  The process of deciding how to break up your data into related tables is called &ldquo;normalization&rdquo;.  We do this primarly to organize the data and to reduce redundancy.</p>
+
+<p>Imagine you have sites and sample information.   Each site has a name, a latitude and longitude, and several other descriptive fields and each sample within a site has information on how and when it was sampled as well as what was found.  </p>
+
+<p>The following table is includes everything but is unnormalized.</p>
+
+<table><thead>
+<tr>
+<th align="left">site_name</th>
+<th align="left">lake</th>
+<th align="right">latitude</th>
+<th align="right">longitude</th>
+<th align="left">site_description</th>
+<th align="left">site_notes</th>
+<th align="left">sample_date</th>
+<th align="left">sampled_by</th>
+<th align="right">temperature_C</th>
+<th align="right">fish_count</th>
+<th align="left">notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Boat Ramp A</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.48</td>
+<td align="right">-123.2</td>
+<td align="left">East side of the lake</td>
+<td align="left">Closest to park entrance</td>
+<td align="left">2008-02-22</td>
+<td align="left">BPS</td>
+<td align="right">9.0</td>
+<td align="right">0</td>
+<td align="left">empty</td>
+</tr>
+<tr>
+<td align="left">Boat Ramp A</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.48</td>
+<td align="right">-123.2</td>
+<td align="left">East side of the lake</td>
+<td align="left">Closest to park entrance</td>
+<td align="left">2008-02-26</td>
+<td align="left">BPS</td>
+<td align="right">9.2</td>
+<td align="right">3</td>
+<td align="left">some bass</td>
+</tr>
+<tr>
+<td align="left">Boat Ramp A</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.48</td>
+<td align="right">-123.2</td>
+<td align="left">East side of the lake</td>
+<td align="left">Closest to park entrance</td>
+<td align="left">2008-03-01</td>
+<td align="left">BPS</td>
+<td align="right">10.0</td>
+<td align="right">0</td>
+<td align="left">empty</td>
+</tr>
+<tr>
+<td align="left">Boat Ramp C</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.49</td>
+<td align="right">-123.2</td>
+<td align="left">West site of lake</td>
+<td align="left">Farthest from entrance</td>
+<td align="left">2008-02-22</td>
+<td align="left">BPS</td>
+<td align="right">8.9</td>
+<td align="right">11</td>
+<td align="left">trout</td>
+</tr>
+<tr>
+<td align="left">Boat Ramp C</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.49</td>
+<td align="right">-123.2</td>
+<td align="left">West site of lake</td>
+<td align="left">Farthest from entrance</td>
+<td align="left">2008-02-26</td>
+<td align="left">BPS</td>
+<td align="right">9.1</td>
+<td align="right">14</td>
+<td align="left">trout and bass</td>
+</tr>
+</tbody></table>
+
+<p>Notice that all of the site related information gets repeated for each sample it has.  </p>
+
+<p>Here is that same information normalized into a &ldquo;sites&rdquo; table</p>
+
+<table><thead>
+<tr>
+<th align="right">site_id</th>
+<th align="left">site_name</th>
+<th align="left">lake</th>
+<th align="right">latitude</th>
+<th align="right">longitude</th>
+<th align="left">site_description</th>
+<th align="left">site_notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Boat Ramp A</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.48</td>
+<td align="right">-123.2</td>
+<td align="left">East side of the lake</td>
+<td align="left">Closest to park entrance</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Boat Ramp C</td>
+<td align="left">Henry Hagg Lake</td>
+<td align="right">45.49</td>
+<td align="right">-123.2</td>
+<td align="left">West site of lake</td>
+<td align="left">Farthest from entrance</td>
+</tr>
+</tbody></table>
+
+<p>and a &ldquo;samples&rdquo; table</p>
+
+<table><thead>
+<tr>
+<th align="right">sample_id</th>
+<th align="right">site_id</th>
+<th align="left">sample_date</th>
+<th align="left">sampled_by</th>
+<th align="right">temperature_C</th>
+<th align="right">fish_count</th>
+<th align="left">notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">2008-02-22</td>
+<td align="left">BPS</td>
+<td align="right">9.0</td>
+<td align="right">0</td>
+<td align="left">empty</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="left">2008-02-26</td>
+<td align="left">BPS</td>
+<td align="right">9.2</td>
+<td align="right">3</td>
+<td align="left">some bass</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="left">2008-03-01</td>
+<td align="left">BPS</td>
+<td align="right">10.0</td>
+<td align="right">0</td>
+<td align="left">empty</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="left">2008-02-22</td>
+<td align="left">BPS</td>
+<td align="right">8.9</td>
+<td align="right">11</td>
+<td align="left">trout</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="left">2008-02-26</td>
+<td align="left">BPS</td>
+<td align="right">9.1</td>
+<td align="right">14</td>
+<td align="left">trout and bass</td>
+</tr>
+</tbody></table>
+
+<p>Now the site related information is only recorded once and we use a &ldquo;site_id&rdquo; to related the samples table to the sites table.   </p>
+
+<p>We can also join these two tables back up based on the &ldquo;site_id&rdquo; if for example we need the latitude and longitude where a sample was collected.</p>
 
 <h3>Meta-data</h3>
+
+<p>Metadata is &ldquo;data about data&rdquo;.  </p>
+
+<p>Who collected this data?<br/>
+Purpose of the data?<br/>
+How the data was created?<br/>
+When the data was created?<br/>
+Descriptions of all tables and data fields.</p>
+
+<p>The more information you can record the better.</p>
 
 <h3>Citations</h3>
 
 <p>[1] Stodden V, Guo P, Ma Z (2013) Toward Reproducible Computational Research: An Empirical Analysis of Data and Code Policy Adoption by Journals. PLoS ONE 8(6): e67111. doi:10.1371/journal.pone.0067111  <a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0067111">link</a></p>
 
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the <strong>Help</strong> toolbar button for more details on using R Markdown).</p>
-
-<p>When you click the <strong>Knit HTML</strong> button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-
-<pre><code class="r">summary(cars)
-</code></pre>
-
-<pre><code>##      speed           dist    
-##  Min.   : 4.0   Min.   :  2  
-##  1st Qu.:12.0   1st Qu.: 26  
-##  Median :15.0   Median : 36  
-##  Mean   :15.4   Mean   : 43  
-##  3rd Qu.:19.0   3rd Qu.: 56  
-##  Max.   :25.0   Max.   :120
-</code></pre>
-
-<p>You can also embed plots, for example:</p>
-
-<pre><code class="r">plot(cars)
-</code></pre>
-
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-4"/> </p>
-
-<pre><code class="r">x &lt;- 1:10
-y &lt;- round(rnorm(10, x, 1), 2)
-df &lt;- data.frame(x, y)
-df
-</code></pre>
-
-<pre><code>##     x     y
-## 1   1  1.33
-## 2   2  2.38
-## 3   3  2.03
-## 4   4  4.44
-## 5   5  3.28
-## 6   6  5.93
-## 7   7  5.77
-## 8   8  8.65
-## 9   9 10.41
-## 10 10  8.52
-</code></pre>
-
-<h2>R Code chunk features</h2>
-
-<h3>Create Markdown code from R</h3>
-
-<p>The following code hides the command input (i.e., <code>echo=FALSE</code>), and outputs the content directly as code (i.e., <code>results=asis</code>, which is similar to <code>results=tex</code> in Sweave).</p>
-
-<pre><code>```r
-cat(&quot;Here are some dot points\n\n&quot;)
-cat(paste(&quot;* The value of y[&quot;, 1:3, &quot;] is &quot;, y[1:3], sep = &quot;&quot;, collapse = &quot;\n&quot;))
-```
-</code></pre>
-
-<p>Here are some dot points</p>
-
-<ul>
-<li>The value of y[1] is 1.33</li>
-<li>The value of y[2] is 2.38</li>
-<li>The value of y[3] is 2.03</li>
-</ul>
-
-<p>1, 3, 5, 7, 9
-hello</p>
-
 </body>
 
 </html>
-
