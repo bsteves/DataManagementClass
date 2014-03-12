@@ -88,7 +88,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##   4.189   0.053   4.237
+##   4.335   0.089  24.964
 ```
 
 
@@ -106,11 +106,11 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.095   0.000   0.094
+##   0.091   0.003   0.095
 ```
 
 
-The loading of the binary data file was over **45** times faster than loading the csv file!
+The loading of the binary data file was over **263** times faster than loading the csv file!
 
 
 ### 2.5 R Objects 
@@ -202,27 +202,28 @@ An array is like a matrix to but with more dimensions..
 
 
 #### Data Frames
-Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.
+Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type.
 
 
 ```
 ##    x  y fac
-## 1  1  1   C
-## 2  1  2   B
+## 1  1  1   A
+## 2  1  2   C
 ## 3  1  3   C
-## 4  1  4   A
-## 5  1  5   C
-## 6  1  6   B
-## 7  1  7   A
+## 4  1  4   B
+## 5  1  5   B
+## 6  1  6   A
+## 7  1  7   C
 ## 8  1  8   C
-## 9  1  9   A
-## 10 1 10   B
+## 9  1  9   C
+## 10 1 10   C
 ```
 
 
 
-
 #### Lists
+You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.
+
 
 
 #### Factors

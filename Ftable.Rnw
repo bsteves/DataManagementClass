@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage[margin=0.5in]{geometry}
+\begin{document}
+
+<<echo=FALSE, results='asis'>>=
+library(xtable)
+ftable<-(outer(1:10,1:10, function(df1, df2) qf(0.95, df1, df2)))
+ftable<-t(ftable)
+print(xtable(ftable, "F Table alpha = 0.05"), size="\\small")
+
+ftable<-(outer(1:10,1:10, function(df1, df2) qf(0.99, df1, df2)))
+ftable<-t(ftable)
+print(xtable(ftable, "F Table alpha = 0.01"), size="\\small")
+
+ftable<-(outer(1:10,1:10, function(df1, df2) qf(0.999, df1, df2)))
+ftable<-t(ftable)
+print(xtable(ftable, caption="F Table alpha = 0.001"), size="\\small")
+@
+
+
+
+\end{document}

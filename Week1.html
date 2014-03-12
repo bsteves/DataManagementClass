@@ -1,9 +1,139 @@
 <!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
 
 <title>Week 1: Introduction </title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
 
 <!-- Styles for R syntax highlighter -->
 <style type="text/css">
@@ -13,21 +143,19 @@
    }
 
    pre .literal {
-     color: #990073
+     color: rgb(88, 72, 246)
    }
 
    pre .number {
-     color: #099;
+     color: rgb(0, 0, 205);
    }
 
    pre .comment {
-     color: #998;
-     font-style: italic
+     color: rgb(76, 136, 107);
    }
 
    pre .keyword {
-     color: #900;
-     font-weight: bold
+     color: rgb(0, 0, 255);
    }
 
    pre .identifier {
@@ -35,7 +163,7 @@
    }
 
    pre .string {
-     color: #d14;
+     color: rgb(3, 106, 7);
    }
 </style>
 
@@ -45,35 +173,6 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
-<!-- MathJax scripts -->
-<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-<style type="text/css">
-table {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
-	background: #fff;
-	margin: 45px;
-	width: 480px;
-	border-collapse: collapse;
-	text-align: left;
-}
- 
-th {
-  font-size: 14px;
-	font-weight: normal;
-	color: #039;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
-}
- 
-td {
-  color: #669;
-	padding: 9px 8px 0px 8px;
-}
-</style>
 
 
 
@@ -180,7 +279,7 @@ print(csv_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   4.189   0.053   4.237
+##   4.335   0.089  24.964
 </code></pre>
 
 <p>Here I&#39;ve wrapped the &#39;system.time&#39; function call around the &#39;read.csv&#39; function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.</p>
@@ -195,10 +294,10 @@ print(binary_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.095   0.000   0.094
+##   0.091   0.003   0.095
 </code></pre>
 
-<p>The loading of the binary data file was over <strong>45</strong> times faster than loading the csv file!</p>
+<p>The loading of the binary data file was over <strong>263</strong> times faster than loading the csv file!</p>
 
 <h3>2.5 R Objects</h3>
 
@@ -287,22 +386,24 @@ print(binary_speed)
 
 <h4>Data Frames</h4>
 
-<p>Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.</p>
+<p>Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type.</p>
 
 <pre><code>##    x  y fac
-## 1  1  1   C
-## 2  1  2   B
+## 1  1  1   A
+## 2  1  2   C
 ## 3  1  3   C
-## 4  1  4   A
-## 5  1  5   C
-## 6  1  6   B
-## 7  1  7   A
+## 4  1  4   B
+## 5  1  5   B
+## 6  1  6   A
+## 7  1  7   C
 ## 8  1  8   C
-## 9  1  9   A
-## 10 1 10   B
+## 9  1  9   C
+## 10 1 10   C
 </code></pre>
 
 <h4>Lists</h4>
+
+<p>You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.</p>
 
 <h4>Factors</h4>
 
@@ -705,3 +806,4 @@ Descriptions of all tables and data fields.</p>
 </body>
 
 </html>
+
