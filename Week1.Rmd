@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 1: Introduction 
+Week 1: Data
 ====================
 
 ## 1 Course Description and Objectives
@@ -123,15 +123,24 @@ The most basic variable structure is a vector (1d, homogeneous).  Generally crea
 A vector of numbers
 
 ```{r number_vector, echo=FALSE}
-    c(1:12)
+   n <- c(1:12)
+   print(n)
 ```
 
 A vector of characters
 
 ```{r letter_vector, echo=FALSE}
-    letters[1:12]
+    l<-letters[1:12]
+    print(l)
 ```
 
+
+A vector of booleans
+
+```{r boolean_vector, echo=FALSE}
+    b<-c(T,T,F,T,T,F,F,F,T,F,T,F)
+    print(b)
+```
 #### Matrices
 
 Matrices are two dimensional structures of a single data type. 
@@ -139,13 +148,15 @@ Matrices are two dimensional structures of a single data type.
 A matrix of numbers
 
 ```{r number_matrix, echo=FALSE}
-    matrix(1:24, nrow=4)
+    mn<-matrix(1:24, nrow=4)
+    print(mn)
 ```
 
 A matrix of characters
 
 ```{r letter_matrix, echo=FALSE}
-    matrix(letters[1:24], nrow=4)
+    ml<-matrix(letters[1:24], nrow=4)
+    print(ml)
 ```
 
 #### Arrays
@@ -153,29 +164,63 @@ A matrix of characters
 An array is like a matrix to but with more dimensions..
 
 ```{r number_array, echo=FALSE}
-   array(1:24, c(3,4,2))
+   a<-array(1:24, c(3,4,2))
+   print(a)
 ```
 
 #### Data Frames
-Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type.
+Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type and all columns must be the same length.
 
 ``` {r dataframe, echo=FALSE}
-L3 <- LETTERS[1:3]
-fac <- sample(L3, 10, replace = TRUE)
-(d <- data.frame(x = 1, y = 1:10, fac = fac))
+   df<-data.frame(l,n,b)
+   print(df)
 ```
 
 
 #### Lists
-You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.
+You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don't have to be the same size.
+
+``` {r list, echo=FALSE}
+   lst<-list(l,n,b, df)
+   print(lst)
+```
 
 
+
+#### Numeric
+Numeric variables are simply numbers with a decimal point
+
+#### Integer
+Numbers without a decimal point.
+
+#### Character
+Strings.
+
+#### Date
+Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..
+
+#### logical
+Simply TRUE or FALSE. 
 
 #### Factors
-#### Numeric
-#### Iteger
-#### Character
-#### Date
+Factors as a data type in R serve two main purposes... 
+1.) Factors reduce memory usage by coding large repeating portions of the data and replacing it with an integer.
+
+2.) We often need factors anyway in our statistics.   For example, in an ANOVA we might want to compare a dependant variable like growth among treatments.  These treatments are "factors". By identifing this variable as a factor, R will treat it as such in analysis.   
+
+``` {r factors, echo=TRUE}
+#list of treatments by sample
+treatments<-c(1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,4,4,4,4)
+print(treatments)
+summary(treatments)
+# This is Min, Median, Max, etc.. of the numeric values of the treatment numbers. Not what we want.
+
+#Turn treatments into a factor
+treatments<-factor(treatments)
+print(treatments)
+summary(treatments)
+# now the summary of the treatments is the count by treatment. Makes much more sense.
+```
 
 
 ### 2.6 Data Format (Wide vs Narrow)
@@ -278,6 +323,17 @@ The more information you can record the better.
 ### Citations
 
 [1] Stodden V, Guo P, Ma Z (2013) Toward Reproducible Computational Research: An Empirical Analysis of Data and Code Policy Adoption by Journals. PLoS ONE 8(6): e67111. doi:10.1371/journal.pone.0067111  [link] (http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0067111)
+
+
+
+
+## Homework
+
+1. Find at least one dataset you might be interested in working with over the next couple classes.  If you're stumped, try the following data repository...
+
+http://datadryad.org
+
+2. Find or create the metadata required to describe this found dataset.  Include the who, what, where, when, and how of the dataset as well as a description of the various data fields themselves.
 
 
 

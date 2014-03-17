@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=9" >
 
-<title>Week 1: Introduction </title>
+<title>Week 1: Data</title>
 
 <style type="text/css">
 body, td {
@@ -181,7 +181,7 @@ hljs.initHighlightingOnLoad();
 <body>
 <p>ESM 505/ESR 605 : Data Management, Spring 2014</p>
 
-<h1>Week 1: Introduction </h1>
+<h1>Week 1: Data</h1>
 
 <h2>1 Course Description and Objectives</h2>
 
@@ -279,7 +279,7 @@ print(csv_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   4.335   0.089  24.964
+##   4.232   0.072   4.360
 </code></pre>
 
 <p>Here I&#39;ve wrapped the &#39;system.time&#39; function call around the &#39;read.csv&#39; function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.</p>
@@ -294,10 +294,10 @@ print(binary_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.091   0.003   0.095
+##   0.094   0.000   0.094
 </code></pre>
 
-<p>The loading of the binary data file was over <strong>263</strong> times faster than loading the csv file!</p>
+<p>The loading of the binary data file was over <strong>46</strong> times faster than loading the csv file!</p>
 
 <h3>2.5 R Objects</h3>
 
@@ -343,6 +343,12 @@ print(binary_speed)
 <pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot;
 </code></pre>
 
+<p>A vector of booleans</p>
+
+<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+</code></pre>
+
 <h4>Matrices</h4>
 
 <p>Matrices are two dimensional structures of a single data type. </p>
@@ -386,34 +392,117 @@ print(binary_speed)
 
 <h4>Data Frames</h4>
 
-<p>Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type.</p>
+<p>Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type and all columns must be the same length.</p>
 
-<pre><code>##    x  y fac
-## 1  1  1   A
-## 2  1  2   C
-## 3  1  3   C
-## 4  1  4   B
-## 5  1  5   B
-## 6  1  6   A
-## 7  1  7   C
-## 8  1  8   C
-## 9  1  9   C
-## 10 1 10   C
+<pre><code>##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
 </code></pre>
 
 <h4>Lists</h4>
 
-<p>You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.</p>
+<p>You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don&#39;t have to be the same size.</p>
 
-<h4>Factors</h4>
+<pre><code>## [[1]]
+##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot;
+## 
+## [[2]]
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+## 
+## [[3]]
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+## 
+## [[4]]
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
+</code></pre>
 
 <h4>Numeric</h4>
 
-<h4>Iteger</h4>
+<p>Numeric variables are simply numbers with a decimal point</p>
+
+<h4>Integer</h4>
+
+<p>Numbers without a decimal point.</p>
 
 <h4>Character</h4>
 
+<p>Strings.</p>
+
 <h4>Date</h4>
+
+<p>Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..</p>
+
+<h4>logical</h4>
+
+<p>Simply TRUE or FALSE. </p>
+
+<h4>Factors</h4>
+
+<p>Factors as a data type in R serve two main purposes&hellip; 
+1.) Factors reduce memory usage by coding large repeating portions of the data and replacing it with an integer.</p>
+
+<p>2.) We often need factors anyway in our statistics.   For example, in an ANOVA we might want to compare a dependant variable like growth among treatments.  These treatments are &ldquo;factors&rdquo;. By identifing this variable as a factor, R will treat it as such in analysis.   </p>
+
+<pre><code class="r"># list of treatments by sample
+treatments &lt;- c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4)
+print(treatments)
+</code></pre>
+
+<pre><code>##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+</code></pre>
+
+<pre><code class="r">summary(treatments)
+</code></pre>
+
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.50    2.00    2.26    3.00    4.00
+</code></pre>
+
+<pre><code class="r"># This is Min, Median, Max, etc.. of the numeric values of the treatment
+# numbers. Not what we want.
+
+# Turn treatments into a factor
+treatments &lt;- factor(treatments)
+print(treatments)
+</code></pre>
+
+<pre><code>##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+## Levels: 1 2 3 4
+</code></pre>
+
+<pre><code class="r">summary(treatments)
+</code></pre>
+
+<pre><code>## 1 2 3 4 
+## 5 8 2 4
+</code></pre>
+
+<pre><code class="r"># now the summary of the treatments is the count by treatment. Makes much
+# more sense.
+</code></pre>
 
 <h3>2.6 Data Format (Wide vs Narrow)</h3>
 
@@ -802,6 +891,13 @@ Descriptions of all tables and data fields.</p>
 <h3>Citations</h3>
 
 <p>[1] Stodden V, Guo P, Ma Z (2013) Toward Reproducible Computational Research: An Empirical Analysis of Data and Code Policy Adoption by Journals. PLoS ONE 8(6): e67111. doi:10.1371/journal.pone.0067111  <a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0067111">link</a></p>
+
+<h2>Homework</h2>
+
+<ol>
+<li>Find at least one dataset you might be interested in working with over the next couple classes.</li>
+<li>Find or create the metadata required to describe this found dataset.  Include the who, what, where, when, and how of the dataset as well as a description of the various data fields themselves.</li>
+</ol>
 
 </body>
 

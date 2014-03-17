@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 1: Introduction 
+Week 1: Data
 ====================
 
 ## 1 Course Description and Objectives
@@ -88,7 +88,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##   4.335   0.089  24.964
+##   4.232   0.072   4.360
 ```
 
 
@@ -106,11 +106,11 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.091   0.003   0.095
+##   0.094   0.000   0.094
 ```
 
 
-The loading of the binary data file was over **263** times faster than loading the csv file!
+The loading of the binary data file was over **46** times faster than loading the csv file!
 
 
 ### 2.5 R Objects 
@@ -150,6 +150,15 @@ A vector of characters
 ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
 ```
 
+
+
+A vector of booleans
+
+
+```
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+```
 
 #### Matrices
 
@@ -202,35 +211,130 @@ An array is like a matrix to but with more dimensions..
 
 
 #### Data Frames
-Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type.
+Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type and all columns must be the same length.
 
 
 ```
-##    x  y fac
-## 1  1  1   A
-## 2  1  2   C
-## 3  1  3   C
-## 4  1  4   B
-## 5  1  5   B
-## 6  1  6   A
-## 7  1  7   C
-## 8  1  8   C
-## 9  1  9   C
-## 10 1 10   C
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
 ```
 
 
 
 #### Lists
-You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.
+You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don't have to be the same size.
 
 
+```
+## [[1]]
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
+## 
+## [[2]]
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+## 
+## [[3]]
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+## 
+## [[4]]
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
+```
+
+
+
+
+#### Numeric
+Numeric variables are simply numbers with a decimal point
+
+#### Integer
+Numbers without a decimal point.
+
+#### Character
+Strings.
+
+#### Date
+Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..
+
+#### logical
+Simply TRUE or FALSE. 
 
 #### Factors
-#### Numeric
-#### Iteger
-#### Character
-#### Date
+Factors as a data type in R serve two main purposes... 
+1.) Factors reduce memory usage by coding large repeating portions of the data and replacing it with an integer.
+
+2.) We often need factors anyway in our statistics.   For example, in an ANOVA we might want to compare a dependant variable like growth among treatments.  These treatments are "factors". By identifing this variable as a factor, R will treat it as such in analysis.   
+
+
+```r
+# list of treatments by sample
+treatments <- c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4)
+print(treatments)
+```
+
+```
+##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+```
+
+```r
+summary(treatments)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.50    2.00    2.26    3.00    4.00
+```
+
+```r
+# This is Min, Median, Max, etc.. of the numeric values of the treatment
+# numbers. Not what we want.
+
+# Turn treatments into a factor
+treatments <- factor(treatments)
+print(treatments)
+```
+
+```
+##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+## Levels: 1 2 3 4
+```
+
+```r
+summary(treatments)
+```
+
+```
+## 1 2 3 4 
+## 5 8 2 4
+```
+
+```r
+# now the summary of the treatments is the count by treatment. Makes much
+# more sense.
+```
+
 
 
 ### 2.6 Data Format (Wide vs Narrow)
@@ -349,5 +453,10 @@ The more information you can record the better.
 
 
 
+
+## Homework
+
+1. Find at least one dataset you might be interested in working with over the next couple classes.
+2. Find or create the metadata required to describe this found dataset.  Include the who, what, where, when, and how of the dataset as well as a description of the various data fields themselves.
 
 
