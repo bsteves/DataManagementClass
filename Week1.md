@@ -88,7 +88,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##   4.232   0.072   4.360
+##   4.557   0.075   4.716
 ```
 
 
@@ -106,23 +106,14 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.094   0.000   0.094
+##   0.097   0.000   0.096
 ```
 
 
-The loading of the binary data file was over **46** times faster than loading the csv file!
+The loading of the binary data file was over **49** times faster than loading the csv file!
 
 
 ### 2.5 R Objects 
-
-#### R Object Types
-
-
-
-
-
-
-#### R Object Structures
 
 |Dimensions  |Homogeneous    |Heterogeneous  |
 |:-----------|:--------------|:--------------|
@@ -337,10 +328,19 @@ summary(treatments)
 
 
 
-### 2.6 Data Format (Wide vs Narrow)
+### 2.6 NULL and NA
+
+There is often some confusion between NA and NULL values in R.  
+
+NULL represents a completely NULL object (i.e. the object contains no values).  If an object doesn't exist R will return a NULL.
+
+NA represents a missing value within an object. NA's appear within an object as "NA".
 
 
-#### 2.6.1 Wide Data Format
+### 2.7 Data Format (Wide vs Narrow)
+
+
+#### 2.7.1 Wide Data Format
 
 Most people are familiar with the "wide" data format where each row represents an observation and each column represents all the various attributes for that observation.  In the following example, each species has its own column of count data.
 
@@ -356,7 +356,7 @@ Most people are familiar with the "wide" data format where each row represents a
 
 
 
-#### 2.6.2 Narrow Data Format
+#### 2.7.2 Narrow Data Format
 
 Another representation of this data is called the "narrow" data format.  In this next example, species name becomes a single data field called "Species" and a new column called "Count" is created.  Also in this example, counts of zero for species not present are dropped.
 
@@ -379,7 +379,7 @@ Another representation of this data is called the "narrow" data format.  In this
 |C     |2009-04-13  |species3  |      2|
 
 
-#### 2.6.3 Which format is best?
+#### 2.7.3 Which format is best?
 
 Initally, the wide format probably the easiest to read. However, the narrow format is has many advantages, particularly in this example with species counts ...
 
@@ -391,7 +391,7 @@ Initally, the wide format probably the easiest to read. However, the narrow form
 The choice between wide and narrow table structure will depend on nature of the data being represented.  In general, if you have multiple columns that could be represented easily as a single factor and a related value field (like species counts) than narrow is the way to go.
 
 
-### 2.7 Normalizing Data Tables
+### 2.8 Normalizing Data Tables
 
 I mentioned eariler that if your data set is big and complex a database is often needed.  The process of deciding how to break up your data into related tables is called "normalization".  We do this primarly to organize the data and to reduce redundancy.
 
@@ -456,7 +456,13 @@ The more information you can record the better.
 
 ## Homework
 
-1. Find at least one dataset you might be interested in working with over the next couple classes.
+1. Find at least one dataset you might be interested in working with over the next couple classes.  If you're stumped, try the following data repository...
+
+http://datadryad.org
+
 2. Find or create the metadata required to describe this found dataset.  Include the who, what, where, when, and how of the dataset as well as a description of the various data fields themselves.
+
+
+
 
 

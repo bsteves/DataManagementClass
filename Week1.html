@@ -279,7 +279,7 @@ print(csv_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   4.232   0.072   4.360
+##   4.557   0.075   4.716
 </code></pre>
 
 <p>Here I&#39;ve wrapped the &#39;system.time&#39; function call around the &#39;read.csv&#39; function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.</p>
@@ -294,16 +294,12 @@ print(binary_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.094   0.000   0.094
+##   0.097   0.000   0.096
 </code></pre>
 
-<p>The loading of the binary data file was over <strong>46</strong> times faster than loading the csv file!</p>
+<p>The loading of the binary data file was over <strong>49</strong> times faster than loading the csv file!</p>
 
 <h3>2.5 R Objects</h3>
-
-<h4>R Object Types</h4>
-
-<h4>R Object Structures</h4>
 
 <table><thead>
 <tr>
@@ -504,9 +500,17 @@ print(treatments)
 # more sense.
 </code></pre>
 
-<h3>2.6 Data Format (Wide vs Narrow)</h3>
+<h3>2.6 NULL and NA</h3>
 
-<h4>2.6.1 Wide Data Format</h4>
+<p>There is often some confusion between NA and NULL values in R.  </p>
+
+<p>NULL represents a completely NULL object (i.e. the object contains no values).  If an object doesn&#39;t exist R will return a NULL.</p>
+
+<p>NA represents a missing value within an object. NA&#39;s appear within an object as &ldquo;NA&rdquo;.</p>
+
+<h3>2.7 Data Format (Wide vs Narrow)</h3>
+
+<h4>2.7.1 Wide Data Format</h4>
 
 <p>Most people are familiar with the &ldquo;wide&rdquo; data format where each row represents an observation and each column represents all the various attributes for that observation.  In the following example, each species has its own column of count data.</p>
 
@@ -570,7 +574,7 @@ print(treatments)
 </tr>
 </tbody></table>
 
-<h4>2.6.2 Narrow Data Format</h4>
+<h4>2.7.2 Narrow Data Format</h4>
 
 <p>Another representation of this data is called the &ldquo;narrow&rdquo; data format.  In this next example, species name becomes a single data field called &ldquo;Species&rdquo; and a new column called &ldquo;Count&rdquo; is created.  Also in this example, counts of zero for species not present are dropped.</p>
 
@@ -674,7 +678,7 @@ print(treatments)
 </tr>
 </tbody></table>
 
-<h4>2.6.3 Which format is best?</h4>
+<h4>2.7.3 Which format is best?</h4>
 
 <p>Initally, the wide format probably the easiest to read. However, the narrow format is has many advantages, particularly in this example with species counts &hellip;</p>
 
@@ -687,7 +691,7 @@ print(treatments)
 
 <p>The choice between wide and narrow table structure will depend on nature of the data being represented.  In general, if you have multiple columns that could be represented easily as a single factor and a related value field (like species counts) than narrow is the way to go.</p>
 
-<h3>2.7 Normalizing Data Tables</h3>
+<h3>2.8 Normalizing Data Tables</h3>
 
 <p>I mentioned eariler that if your data set is big and complex a database is often needed.  The process of deciding how to break up your data into related tables is called &ldquo;normalization&rdquo;.  We do this primarly to organize the data and to reduce redundancy.</p>
 
@@ -895,7 +899,12 @@ Descriptions of all tables and data fields.</p>
 <h2>Homework</h2>
 
 <ol>
-<li>Find at least one dataset you might be interested in working with over the next couple classes.</li>
+<li>Find at least one dataset you might be interested in working with over the next couple classes.  If you&#39;re stumped, try the following data repository&hellip;</li>
+</ol>
+
+<p><a href="http://datadryad.org">http://datadryad.org</a></p>
+
+<ol>
 <li>Find or create the metadata required to describe this found dataset.  Include the who, what, where, when, and how of the dataset as well as a description of the various data fields themselves.</li>
 </ol>
 
