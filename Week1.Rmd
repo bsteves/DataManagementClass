@@ -117,7 +117,7 @@ A vector of numbers
    n <- c(1:12)
    print(n)
 ```
-
+ 
 A vector of characters
 
 ```{r letter_vector, echo=FALSE}
