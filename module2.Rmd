@@ -132,6 +132,18 @@ A vector of booleans
     b<-c(T,T,F,T,T,F,F,F,T,F,T,F)
     print(b)
 ```
+
+
+to access values in a vector we use brackets "[]"
+
+To access the third element of our previous vectors
+```{r}
+n[3]
+l[3]
+b[3]
+
+```
+
 #### Matrices
 
 Matrices are two dimensional structures of a single data type. 
@@ -150,13 +162,42 @@ A matrix of characters
     print(ml)
 ```
 
+To access values in a matrix we use the "[]" but with two elements inside representing rows and columns.  The first element is for the first dimension (rows) and the second element is for the second dimension (columns)
+
+```{r}
+# first element row = 1 , column = 1
+ml[1,1]
+
+# entire first row
+ml[1,]
+
+#entire first column
+ml[,1]
+
+```
+
+
 #### Arrays
 
-An array is like a matrix to but with more dimensions..
+An array is like a matrix to but with more dimensions..  
 
 ```{r number_array, echo=FALSE}
    a<-array(1:24, c(3,4,2))
    print(a)
+```
+
+Accessing values in an array is similar to that of matrices but you add more elements in the brackets for each additional dimension [Rows, Columns, Extra Dimension 1, Extra Dimension 2, etc..]
+
+```{r}
+# first element (row = 1, column = 1, extra dimension element = 1)
+a[1,1,1]
+
+# second column of second extra dimension element
+a[,2,2]
+
+# third row of first extra dimension element
+
+a[3,,1]
 ```
 
 #### Data Frames
@@ -167,16 +208,60 @@ Most data tables are represented as data frames in R.  They are two dimensional 
    print(df)
 ```
 
+Accessing elements of a data frame can be done the same way as a matrix using "[row, column]" notation.  Data frame columns can also be referred to by name using the "$" to separate the data frame name and the column name
+
+```{r}
+#first element of the data frame
+df[1,1]
+
+#first row of the data frame
+df[1,]
+
+#first column of the data frame
+df[,1]
+
+# or access the first column by name "l"
+df$l
+
+# first value of the "l" column
+
+df$l[1]
+
+
+
+```
+
+
+
 
 #### Lists
-You can think of lists as mutli-dimensional data.frames.   They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don't have to be the same size.
+You can think of lists as mutli-dimensional data.frames.  Another way to think about them is a list of various objects. They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don't have to be the same size.
 
 ``` {r list, echo=FALSE}
    lst<-list(l,n,b, df)
    print(lst)
 ```
+To access values in a list you access the object in the list using "[[]]" and then, depending on that object's type, you access the values accordingly.. 
 
+```{r}
+# the first object in lst 
+lst[[1]]
 
+# the third item of the first object.
+lst[[1]][3]
+
+# the 4th object
+lst[[4]]
+
+# the fourth oject in the first column of the 4th object
+
+lst[[4]][4,1]
+
+# or 
+
+lst[[4]]$l[4]
+
+```
 
 #### Numeric
 Numeric variables are simply numbers with a decimal point
@@ -189,6 +274,25 @@ Strings.
 
 #### Date
 Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..
+
+```{r}
+
+today <- Sys.Date()
+
+format(today, "%d %B %Y")
+months(today)
+weekdays(today)
+
+mydates <- c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
+months(mydates)
+mydates2<-as.Date(mydates, "%d%b%Y")
+months(mydates2)
+
+```
+
+More on dates later..
+
+
 
 #### logical
 Simply TRUE or FALSE. 
