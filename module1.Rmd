@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 0: Introduction to R
+Module 1: Introduction to R
 ====================
 
 ## 1 Installing R

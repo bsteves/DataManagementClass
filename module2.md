@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 1: Data
+Module 2: Reproducible Research and Data
 ====================
 
 ## 1 Course Description and Objectives
@@ -88,7 +88,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##   3.904   0.034   3.948
+##   3.973   0.015   3.990
 ```
 
 
@@ -106,7 +106,7 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.095   0.000   0.095
+##   0.087   0.008   0.095
 ```
 
 

@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 1: Data
+Module 2: Reproducible Research and Data
 ====================
 
 ## 1 Course Description and Objectives

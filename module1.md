@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 0: Introduction to R
+Module 1: Introduction to R
 ====================
 
 ## 1 Installing R
@@ -207,14 +207,7 @@ install.packages("vegan")
 ```
 
 ```
-## Installing package into '/home/stevesb/R/x86_64-pc-linux-gnu-library/3.0'
-## (as 'lib' is unspecified)
-```
-
-```
-## 
-## The downloaded source packages are in
-## 	'/tmp/RtmpcpqdsY/downloaded_packages'
+## Error in install.packages : Updating loaded packages
 ```
 
 If you haven't told R or RStudio where you want to download this package from, it may ask you for you to select a mirror.  You'll probably want to pick either the closest mirror server or one that you feel is the quickest.    Once the package is downloaded, R will attempt to install it on your computer.  If anything goes wrong in the installation an error will be reported.  Packages can be installed for all users on the computer or just one specific user.  If you don't have full admin rights on your computer your package will be installed in a local user library of packages.
@@ -225,12 +218,6 @@ To load an install package for use you use the "library()" function.
 
 ```r
 library(vegan)
-```
-
-```
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.0-10
 ```
 
 

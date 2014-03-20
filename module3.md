@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 3: Creating, Importing, & Exporting Data
+Module 3: Creating, Importing, & Exporting Data
 ====================
 
 ## 1 Creating Data
@@ -160,27 +160,23 @@ print(data)
 
 ```r
 data2 <- list(name, weight, height)
-```
-
-```
-## Error: object 'name' not found
-```
-
-```r
 print(data2)
 ```
 
 ```
-## Error: object 'data2' not found
+## [[1]]
+## [1] "module3"
+## 
+## [[2]]
+## [1] 129 145 234 198
+## 
+## [[3]]
+## [1] 64 68 72 70
 ```
 
 ```r
 
 data3 <- list(name, weight, height, data)
-```
-
-```
-## Error: object 'name' not found
 ```
 
 
@@ -314,13 +310,6 @@ One common database is MySQL.  We can access MySQL databases using either the "R
 ```r
 
 library(RMySQL)
-```
-
-```
-## Loading required package: DBI
-```
-
-```r
 # make a connection to the database
 con <- dbConnect(MySQL(), user = "root", password = "", dbname = "nemesis_development", 
     host = "localhost")

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=9" >
 
-<title>Module 3: Creating, Importing, &amp; Exporting Data</title>
+<title>Module 1: Introduction to R</title>
 
 <style type="text/css">
 body, td {
@@ -181,361 +181,204 @@ hljs.initHighlightingOnLoad();
 <body>
 <p>ESM 505/ESR 605 : Data Management, Spring 2014</p>
 
-<h1>Module 3: Creating, Importing, &amp; Exporting Data</h1>
+<h1>Module 1: Introduction to R</h1>
 
-<h2>1 Creating Data</h2>
+<h2>1 Installing R</h2>
 
-<h3>1.1 Vectors</h3>
+<p>R is open source, free, and installs on most computing platforms including Linux, Windows and MacOS.  You should be able to find a compatible download of the most recent version of R at the follwing URL.</p>
 
-<p>To create a vector of values in R you use the concatenate &ldquo;c&rdquo; function.</p>
+<p><a href="http://www.r-project.org/">http://www.r-project.org/</a></p>
 
-<pre><code class="r"># numeric vector
-nv &lt;- c(2, 3, 4, 2)
-print(nv)
+<p>Follow the instructions provided for you operating system.</p>
+
+<h2>2 Installing RStudio IDE (inegrated development environment)</h2>
+
+<p>RStudio  an integrated development environment for R meaning it provides a suite of tools to help you interact with R.  </p>
+
+<p>It contains a code editor with sntax highlighting, code completion and smart indentation.   It also provides a well thought out layout for you to access your command history, current list of objects, plots, help, files, packages, etc.. from within on application.</p>
+
+<p>There are even some more advanced features concerning report generation and version control integration which we will cover towards the end of class.</p>
+
+<p>RStudio is also free, available for Windows, MacOS, and linux and can be downloaded for installation from the following URL. </p>
+
+<p><a href="http://www.rstudio.com/">http://www.rstudio.com/</a></p>
+
+<p>Follow the instructions provided for you operating system.</p>
+
+<h2>3 Basics of R</h2>
+
+<h3>3.1  Interactive R on the Console</h3>
+
+<p>In other words, entering code line by line rather than from a script.</p>
+
+<h4>3.1.1   Starting and stopping R</h4>
+
+<p>To start R from the command line simply type &ldquo;R&rdquo; and you&#39;ll get something like the following.</p>
+
+<pre><code>R version 3.0.3 (2014-03-06) -- &quot;Warm Puppy&quot;
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type &#39;license()&#39; or &#39;licence()&#39; for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type &#39;contributors()&#39; for more information and
+&#39;citation()&#39; on how to cite R or R packages in publications.
+
+Type &#39;demo()&#39; for some demos, &#39;help()&#39; for on-line help, or
+&#39;help.start()&#39; for an HTML browser interface to help.
+Type &#39;q()&#39; to quit R.
+
+&gt;
 </code></pre>
 
-<pre><code>## [1] 2 3 4 2
+<p>In RStudio, this console has its own window called &ldquo;Console&rdquo; and should start up automatically when you start RStudio.</p>
+
+<p>To quit R use the following command at the console prompt</p>
+
+<pre><code class="r">q()
+
 </code></pre>
+
+<p>of if you quit RStudio it will quit you out of R.</p>
+
+<h4>3.1.2  Getting help in R</h4>
+
+<p>You can get help on a specific topic using the &ldquo;help()&rdquo; function.  An alternative shortcut to help is &ldquo;?&rdquo;</p>
 
 <pre><code class="r">
-# character vector
-cv &lt;- c(&quot;put&quot;, &quot;some&quot;, &quot;words&quot;, &quot;here&quot;)
-print(cv)
+help(&quot;lm&quot;)
+
 </code></pre>
 
-<pre><code>## [1] &quot;put&quot;   &quot;some&quot;  &quot;words&quot; &quot;here&quot;
+<p>While using &ldquo;?&rdquo; is usually easier, there are time when the full help function is better.   For example &ldquo;?if&rdquo; will not evaluate while &ldquo;help(&#39;if&#39;)&rdquo; returns a help file about &ldquo;Control Flow&rdquo; which is probably what you want.</p>
+
+<p>You can also search the help files using &ldquo;help.search()&rdquo; function when you don&#39;t know the exact command you want help on.  The short cut to this is to use &ldquo;??&rdquo;.</p>
+
+<pre><code class="r">help.search(&quot;lm&quot;)
+
 </code></pre>
 
-<pre><code class="r">
-# logical vector
-lv &lt;- c(T, F, F, T)
-print(lv)
+<p>To run examples from a paticular function&hellip;</p>
+
+<pre><code class="r">example(&quot;lm&quot;)
 </code></pre>
 
-<pre><code>## [1]  TRUE FALSE FALSE  TRUE
+<h4>3.1.3  Assignment of data structures to objects</h4>
+
+<p>To can assign a data structure to an object using &ldquo;&lt;-&rdquo; or &ldquo;-&gt;&rdquo; or the &ldquo;assign()&rdquo; function.  The following are all equivalent.</p>
+
+<pre><code class="r">x &lt;- c(10, 7, 4, 5)
+
+x &lt;- c(10, 7, 4, 5)
+
+assign(&quot;x&quot;, c(10, 7, 4, 5))
 </code></pre>
 
-<h3>1.2 Matrices</h3>
+<p>Calling the object by name with print it</p>
 
-<p>The main methods to create matrices are the &ldquo;matrix&rdquo; function and the use of the &ldquo;cbind&rdquo; or &ldquo;rbind&rdquo; functions.</p>
-
-<p>The matrix function takes a vector (creatd with the &ldquo;c&rdquo; function) and then provides information on how many rows and/or columns to divide it into.  </p>
-
-<pre><code class="r">mat &lt;- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3)
-print(mat)
+<pre><code class="r">x
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    4    7
-## [2,]    2    5    8
-## [3,]    3    6    9
+<pre><code>## [1] 10  7  4  5
 </code></pre>
 
-<p>If you supply a number or rows that doesn&#39;t evenly divide the elements of the vector and error will appear. </p>
+<p>If you don&#39;t assign a result to an object the resulting value is printed and lost.</p>
 
-<pre><code class="r">matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 2)
+<pre><code class="r">c(10, 7, 4, 5)
 </code></pre>
 
-<pre><code>## Warning: data length [9] is not a sub-multiple or multiple of the number
-## of rows [2]
+<pre><code>## [1] 10  7  4  5
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    3    5    7    9
-## [2,]    2    4    6    8    1
+<h4>3.1.4  Listing of Objects</h4>
+
+<p>All of the current ojects in memory can be listed using the &ldquo;ls()&rdquo; or &ldquo;objects()&rdquo; functions.</p>
+
+<pre><code class="r">ls()
 </code></pre>
 
-<p>Using cbind or rbind to bind columns or rows will also work.  If the vectors you are binding are of the same class (numeric, character, logical), the resulting matrix will also be that class.  However, if the vectors differ the matrix will defualt to the most compatible type.  </p>
-
-<pre><code class="r">
-mat2 &lt;- cbind(nv, cv, lv)
-print(mat2)
+<pre><code>## [1] &quot;x&quot;
 </code></pre>
 
-<pre><code>##      nv  cv      lv     
-## [1,] &quot;2&quot; &quot;put&quot;   &quot;TRUE&quot; 
-## [2,] &quot;3&quot; &quot;some&quot;  &quot;FALSE&quot;
-## [3,] &quot;4&quot; &quot;words&quot; &quot;FALSE&quot;
-## [4,] &quot;2&quot; &quot;here&quot;  &quot;TRUE&quot;
+<h4>3.1.5  Recalling previous commands</h4>
+
+<p>While at the console, the up and down arrows will cycle the command prompt with the previously executed commands.</p>
+
+<h3>3.2  R Script files</h3>
+
+<p>Entering lines of code into the console might be fun but we can combine a series of commands into an R script file.  These files are simply text files that end with the &ldquo;.r&rdquo; or &ldquo;.R&rdquo; extension and contain a series of R commands.</p>
+
+<p>Once an R script is written and saved it can be evaluated in R using the &ldquo;source()&rdquo; command.</p>
+
+<p>If you plan on running more than a couple lines of code it really helps to use script files as it is much easier to edit a script file and rerun it than it is to retype a long series of commands over again.</p>
+
+<pre><code class="r">source(&quot;myScript.R&quot;)
 </code></pre>
 
-<pre><code class="r">mode(mat2)
+<h2>4  Contributed Packages</h2>
+
+<p>One of the great things about R is the diversity of code that has been written and is freely available to everyone.   The most common way people share R code is as a package of functions, usually with a unifing theme.</p>
+
+<h3>4.1 Finding Packages</h3>
+
+<h4>4.1.1 CRAN Task Views</h4>
+
+<p>Finding an appropriate package can be a bit of hit or miss as the quality ranges from exceptional to awful. One good place to start are the &ldquo;Task Views&rdquo; maintained on the main R project server.</p>
+
+<p><a href="http://cran.r-project.org/web/views/">http://cran.r-project.org/web/views/</a></p>
+
+<p>For example, if you are interested in &ldquo;Reproducible Research&rdquo; there is a Task View for that&hellip;
+<a href="http://cran.r-project.org/web/views/ReproducibleResearch.html">http://cran.r-project.org/web/views/ReproducibleResearch.html</a></p>
+
+<p>This task view is an annotated list of packages that relate to reproducible research.</p>
+
+<p>Another important task view for ecologists and environmental scientists is the &ldquo;Analysis of Ecological and Environmental Data&rdquo; task view&hellip;</p>
+
+<p><a href="http://cran.r-project.org/web/views/Environmetrics.html">http://cran.r-project.org/web/views/Environmetrics.html</a></p>
+
+<h4>4.1.2 Searching Google</h4>
+
+<p>If you already know which statistical technique you are looking to employ but don&#39;t know which R package might need you can always search Google for it.  Unfortuneatly, the letter &ldquo;R&rdquo; isn&#39;t much of a unique name for a Google search on R code. However, if you change &ldquo;R&rdquo; to  &ldquo;CRAN R&rdquo; in that query to refer to the &ldquo;Comprehensive R Archive Network&rdquo; you will often get better results.</p>
+
+<h3>4.2 Installing Packages</h3>
+
+<p>Once you know which R package you want to install you use the &ldquo;install.packages()&rdquo; command to install it.</p>
+
+<pre><code class="r">install.packages(&quot;vegan&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;character&quot;
+<pre><code>## Installing package into &#39;/home/stevesb/R/x86_64-pc-linux-gnu-library/3.0&#39;
+## (as &#39;lib&#39; is unspecified)
 </code></pre>
 
-<pre><code class="r">
-mat3 &lt;- cbind(nv, lv)
-print(mat3)
+<pre><code>## Error: trying to use CRAN without setting a mirror
 </code></pre>
 
-<pre><code>##      nv lv
-## [1,]  2  1
-## [2,]  3  0
-## [3,]  4  0
-## [4,]  2  1
+<p>If you haven&#39;t told R or RStudio where you want to download this package from, it may ask you for you to select a mirror.  You&#39;ll probably want to pick either the closest mirror server or one that you feel is the quickest.    Once the package is downloaded, R will attempt to install it on your computer.  If anything goes wrong in the installation an error will be reported.  Packages can be installed for all users on the computer or just one specific user.  If you don&#39;t have full admin rights on your computer your package will be installed in a local user library of packages.</p>
+
+<h3>4.3 Loading Packages</h3>
+
+<p>To load an install package for use you use the &ldquo;library()&rdquo; function.</p>
+
+<pre><code class="r">library(vegan)
 </code></pre>
 
-<pre><code class="r">mode(mat3)
-</code></pre>
-
-<pre><code>## [1] &quot;numeric&quot;
-</code></pre>
-
-<h3>1.3 Data Frames</h3>
-
-<p>Most imported data will end up a data frame by default.  However, you can create a data frame from other R objects using the &ldquo;data.frame&rdquo; function.  When making a data frame, the columns need to all be the same length and the rows need to be the same length.</p>
-
-<pre><code class="r">
-names &lt;- c(&quot;Fred&quot;, &quot;Bob&quot;, &quot;Bill&quot;, &quot;Jim&quot;)
-weight &lt;- c(129, 145, 234, 198)
-height &lt;- c(64, 68, 72, 70)
-
-data &lt;- data.frame(names, weight, height)
-print(data)
-</code></pre>
-
-<pre><code>##   names weight height
-## 1  Fred    129     64
-## 2   Bob    145     68
-## 3  Bill    234     72
-## 4   Jim    198     70
-</code></pre>
-
-<h3>1.4 Lists</h3>
-
-<pre><code class="r">data2 &lt;- list(name, weight, height)
-</code></pre>
-
-<pre><code>## Error: object &#39;name&#39; not found
-</code></pre>
-
-<pre><code class="r">print(data2)
-</code></pre>
-
-<pre><code>## Error: object &#39;data2&#39; not found
-</code></pre>
-
-<pre><code class="r">
-data3 &lt;- list(name, weight, height, data)
-</code></pre>
-
-<pre><code>## Error: object &#39;name&#39; not found
-</code></pre>
-
-<h3>1.5 Converting between types</h3>
-
-<pre><code class="r">a &lt;- c(&quot;10&quot;, &quot;20&quot;, &quot;30&quot;)
-print(a)
-</code></pre>
-
-<pre><code>## [1] &quot;10&quot; &quot;20&quot; &quot;30&quot;
-</code></pre>
-
-<pre><code class="r">class(a)
-</code></pre>
-
-<pre><code>## [1] &quot;character&quot;
-</code></pre>
-
-<pre><code class="r">
-b &lt;- as.numeric(a)
-print(b)
-</code></pre>
-
-<pre><code>## [1] 10 20 30
-</code></pre>
-
-<pre><code class="r">class(b)
-</code></pre>
-
-<pre><code>## [1] &quot;numeric&quot;
-</code></pre>
-
-<pre><code class="r">
-c &lt;- as.factor(b)
-print(c)
-</code></pre>
-
-<pre><code>## [1] 10 20 30
-## Levels: 10 20 30
-</code></pre>
-
-<pre><code class="r">class(c)
-</code></pre>
-
-<pre><code>## [1] &quot;factor&quot;
-</code></pre>
-
-<h2>2 Importing Data</h2>
-
-<p>Getting your data into R can sometimes be the hardest part.  Luckily there are packages and functions to help with this.</p>
-
-<h3>2.1 Copy/Paste</h3>
-
-<p>If you try to copy and paste some data in from a text file or an Excel spreadsheet and assign it to an object you just end up with a character vector with a single element made up of long string of characters. </p>
-
-<pre><code class="r">HaresLynx &lt;- &quot;Year  Hares  Lynx\n1900 30 4\n1901 47.2 6.1\n1902 70.2 9.8\n1903 77.4 35.2\n1904 36.3 59.4\n1905 20.6 41.7&quot;
-
-print(HaresLynx)
-</code></pre>
-
-<pre><code>## [1] &quot;Year  Hares  Lynx\n1900 30 4\n1901 47.2 6.1\n1902 70.2 9.8\n1903 77.4 35.2\n1904 36.3 59.4\n1905 20.6 41.7&quot;
-</code></pre>
-
-<p>Probably not what you wanted.</p>
-
-<p>To remedy this we use read.table and TextConnection to parse the characters into a data frame</p>
-
-<pre><code class="r">HaresLynx2 &lt;- read.table(textConnection(HaresLynx), header = TRUE)
-print(HaresLynx2)
-</code></pre>
-
-<pre><code>##   Year Hares Lynx
-## 1 1900  30.0  4.0
-## 2 1901  47.2  6.1
-## 3 1902  70.2  9.8
-## 4 1903  77.4 35.2
-## 5 1904  36.3 59.4
-## 6 1905  20.6 41.7
-</code></pre>
-
-<h3>2.2 Text Files</h3>
-
-<p>Probably the easiest way to import data is via text file.  I find CSV files to work the best..</p>
-
-<pre><code class="r">sites &lt;- read.csv(&quot;data/wk1sites.csv&quot;)
-print(sites)
-</code></pre>
-
-<pre><code>##   siteID        site            lake   lat    lon
-## 1      1 Boat Ramp A Henry Hagg Lake 45.48 -123.2
-## 2      2 Boat Ramp C Henry Hagg Lake 45.49 -123.2
-</code></pre>
-
-<h3>2.3 Database Connection</h3>
-
-<p>Connections can be made directly with a database.  However, which databases you can connect to is dependent on your operating system.  For example, you need to be using Windows to connect to a MS Access database.  </p>
-
-<p>One common database is MySQL.  We can access MySQL databases using either the &ldquo;RODBC&rdquo; library or the &ldquo;RMySQL&rdquo; library </p>
-
-<pre><code class="r">
-library(RMySQL)
-</code></pre>
-
-<pre><code>## Loading required package: DBI
-</code></pre>
-
-<pre><code class="r"># make a connection to the database
-con &lt;- dbConnect(MySQL(), user = &quot;root&quot;, password = &quot;&quot;, dbname = &quot;nemesis_development&quot;, 
-    host = &quot;localhost&quot;)
-
-# list the tables in that database
-dbListTables(con)
-</code></pre>
-
-<pre><code>##  [1] &quot;citations&quot;         &quot;comments&quot;          &quot;common_names&quot;     
-##  [4] &quot;dailyinvaders&quot;     &quot;distributions&quot;     &quot;ecologies&quot;        
-##  [7] &quot;images&quot;            &quot;journals&quot;          &quot;journals_old&quot;     
-## [10] &quot;news_items&quot;        &quot;occurrences&quot;       &quot;pages&quot;            
-## [13] &quot;references&quot;        &quot;references_old&quot;    &quot;regions&quot;          
-## [16] &quot;schema_migrations&quot; &quot;synonyms&quot;          &quot;taxa&quot;             
-## [19] &quot;users&quot;
-</code></pre>
-
-<pre><code class="r">
-# run a select query on a table in the database and limit it to 10 records
-taxa &lt;- dbGetQuery(con, &quot;select id, binomial, taxa_group from taxa limit 10;&quot;)
-print(taxa)
-</code></pre>
-
-<pre><code>##      id              binomial               taxa_group
-## 1  -578           Dasya sp. A     Crustaceans-Copepods
-## 2  -577        Dasya sessilis                    Algae
-## 3  -576       Pkea yoshizakii                    Algae
-## 4  -575 Chondracanthus teedei                    Algae
-## 5  -574                  &lt;NA&gt;                     &lt;NA&gt;
-## 6  -572 Tricellaria inopinata               Ectoprocts
-## 7  -571 Pachycordyle michaeli Coelenterates-Hydrozoans
-## 8  -570    Gambusia holbrooki                   Fishes
-## 9  -569       Corella inflata                Tunicates
-## 10 -568                  &lt;NA&gt;                     &lt;NA&gt;
-</code></pre>
-
-<h3>2.4 Other formats (JSON, XML, etc..)</h3>
-
-<p>Sometimes you&#39;ll find data in other formats.  It&#39;s worth looking to see if a package has been made to help import that kind of data.</p>
-
-<h2>3 Exporting Data</h2>
-
-<h3>3.1 Text Files</h3>
-
-<p>An analog to read.csv is write.csv.  You can write just about any data frame into a csv file with this command</p>
-
-<pre><code class="r">
-write.csv(taxa, &quot;taxa.csv&quot;)
-</code></pre>
-
-<h3>3.2 Database Connection</h3>
-
-<p>You can run append, insert, and update queries using a connection to the database.   You can also write a data frame into a table useing &ldquo;dbWriteTable(con, &quot;table name&rdquo;, a.data.frame)</p>
-
-<h3>3.3 Other formats (JSON, XML, etc..)</h3>
-
-<p>The same specialized R packages you used to import other types of data will likely have a function for writing that type of data from R objects.</p>
-
-<h3>3.4 dput function</h3>
-
-<p>It is often useful to useful to export an R object into an R statement that can be used to recreate that object elsewhere.  For example, say you wanted to ask an R question on <a href="http://stackoverflow.com/">http://stackoverflow.com/</a> and needed to include some small snippit of your data to help explain your issue.   Just doing a copynig and pasting will cause formatting issues and it will be difficult for others to usee your data to help you out.   However, if we use the &ldquo;dput&rdquo; function we can transform an R object into a the command we&#39;d need to recreate that structure.</p>
-
-<pre><code class="r">dput(taxa)
-</code></pre>
-
-<pre><code>## structure(list(id = c(-578L, -577L, -576L, -575L, -574L, -572L, 
-## -571L, -570L, -569L, -568L), binomial = c(&quot;Dasya sp. A&quot;, &quot;Dasya sessilis&quot;, 
-## &quot;Pkea yoshizakii&quot;, &quot;Chondracanthus teedei&quot;, NA, &quot;Tricellaria inopinata&quot;, 
-## &quot;Pachycordyle michaeli&quot;, &quot;Gambusia holbrooki&quot;, &quot;Corella inflata&quot;, 
-## NA), taxa_group = c(&quot;Crustaceans-Copepods&quot;, &quot;Algae&quot;, &quot;Algae&quot;, 
-## &quot;Algae&quot;, NA, &quot;Ectoprocts&quot;, &quot;Coelenterates-Hydrozoans&quot;, &quot;Fishes&quot;, 
-## &quot;Tunicates&quot;, NA)), .Names = c(&quot;id&quot;, &quot;binomial&quot;, &quot;taxa_group&quot;), row.names = c(NA, 
-## 10L), class = &quot;data.frame&quot;)
-</code></pre>
-
-<pre><code class="r">
-# If I copy the output to that and assign it to an object..
-
-taxanew &lt;- structure(list(id = c(-578L, -577L, -576L, -575L, -574L, -572L, -571L, 
-    -570L, -569L, -568L), binomial = c(&quot;Dasya sp. A&quot;, &quot;Dasya sessilis&quot;, &quot;Pkea yoshizakii&quot;, 
-    &quot;Chondracanthus teedei&quot;, NA, &quot;Tricellaria inopinata&quot;, &quot;Pachycordyle michaeli&quot;, 
-    &quot;Gambusia holbrooki&quot;, &quot;Corella inflata&quot;, NA), taxa_group = c(&quot;Crustaceans-Copepods&quot;, 
-    &quot;Algae&quot;, &quot;Algae&quot;, &quot;Algae&quot;, NA, &quot;Ectoprocts&quot;, &quot;Coelenterates-Hydrozoans&quot;, 
-    &quot;Fishes&quot;, &quot;Tunicates&quot;, NA)), .Names = c(&quot;id&quot;, &quot;binomial&quot;, &quot;taxa_group&quot;), 
-    row.names = c(NA, 10L), class = &quot;data.frame&quot;)
-
-
-# I get a copy of the original object
-print(taxanew)
-</code></pre>
-
-<pre><code>##      id              binomial               taxa_group
-## 1  -578           Dasya sp. A     Crustaceans-Copepods
-## 2  -577        Dasya sessilis                    Algae
-## 3  -576       Pkea yoshizakii                    Algae
-## 4  -575 Chondracanthus teedei                    Algae
-## 5  -574                  &lt;NA&gt;                     &lt;NA&gt;
-## 6  -572 Tricellaria inopinata               Ectoprocts
-## 7  -571 Pachycordyle michaeli Coelenterates-Hydrozoans
-## 8  -570    Gambusia holbrooki                   Fishes
-## 9  -569       Corella inflata                Tunicates
-## 10 -568                  &lt;NA&gt;                     &lt;NA&gt;
+<pre><code>## Loading required package: permute
+## Loading required package: lattice
+## This is vegan 2.0-10
 </code></pre>
 
 <h2>Homework</h2>
 
 <ol>
-<li><p>Import the dataset you found for you last homework into R. </p></li>
-<li><p>Submit both the your found datast and an R script of the code you used to import it onto d2l</p></li>
+<li>Install the latest versions of R onto your computer.</li>
+<li>Install the latest version of RStudio onto your computer.</li>
+<li>Find and install at least one R package.</li>
 </ol>
 
 </body>

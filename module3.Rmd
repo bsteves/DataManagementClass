@@ -1,6 +1,6 @@
 ESM 505/ESR 605 : Data Management, Spring 2014
 
-Week 3: Creating, Importing, & Exporting Data
+Module 3: Creating, Importing, & Exporting Data
 ====================
 
 ## 1 Creating Data
