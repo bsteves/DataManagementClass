@@ -1,6 +1,6 @@
-sample_id,site_id,sample_date,sampled_by,temperature_C,fish_count,notes
-1,1,2008-02-22,BPS,9,0,empty
-2,1,2008-02-26,BPS,9.2,3,some bass
-3,1,2008-03-01,BPS,10,0,empty
-4,2,2008-02-22,BPS,8.9,11,trout
-5,2,2008-02-26,BPS,9.1,14,trout and bass
+"sampleID","siteID","date","sampler","temp_C","fish"
+1,1,"2008-02-22","BPS",9,0
+2,1,"2008-02-26","BPS",9.2,3
+3,1,"2008-03-01","BPS",10,0
+4,2,"2008-02-22","BPS",8.9,11
+5,2,"2008-02-26","BPS",9.1,14

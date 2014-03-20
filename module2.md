@@ -80,32 +80,47 @@ Almost every spreadsheet and database can export properly formatted data into CS
 
 The following code shows how long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  
 
-```{r import_csv}
-    csv_speed<-system.time(data<-read.csv("~/WSA/Data/WSA_data.csv"))
-    print(csv_speed)
+
+```r
+csv_speed <- system.time(data <- read.csv("~/WSA/Data/WSA_data.csv"))
+print(csv_speed)
 ```
+
+```
+##    user  system elapsed 
+##   3.904   0.034   3.948
+```
+
 
 Here I've wrapped the 'system.time' function call around the 'read.csv' function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.
 
 ### 2.4 Binary Files (e.g. '.Rdata')
 One option to speed this process up in R is to save the data in a binary Rdata file.  This file format compresses the data in such a way that it can be reopened at least 10 times faster then .
 
-```{r open_binary}
-save(data, file="data/WSA_data.Rdata")
-binary_speed<-system.time(load(file="data/WSA_data.Rdata"))
+
+```r
+save(data, file = "data/WSA_data.Rdata")
+binary_speed <- system.time(load(file = "data/WSA_data.Rdata"))
 print(binary_speed)
 ```
 
-The loading of the binary data file was over **`r round(as.numeric(csv_speed[3]/binary_speed[3]),0)`** times faster than loading the csv file!
+```
+##    user  system elapsed 
+##   0.095   0.000   0.095
+```
+
+
+The loading of the binary data file was over **42** times faster than loading the csv file!
 
 
 ### 2.5 R Objects 
 
-``` {r fundamental_structures_table, results='asis', echo=FALSE}
-fund_strs<-data.frame(Dimensions=c("1d","2d","3d"), Homogeneous=c("Atomic Vector","Matrix","array"), Heterogeneous=c("List","Data Frame",""))
-kable(fund_strs, row.names=FALSE)
+|Dimensions  |Homogeneous    |Heterogeneous  |
+|:-----------|:--------------|:--------------|
+|1d          |Atomic Vector  |List           |
+|2d          |Matrix         |Data Frame     |
+|3d          |array          |               |
 
-```
 
 #### Vectors
 
@@ -113,36 +128,59 @@ The most basic variable structure is a vector (1d, homogeneous).  Generally crea
 
 A vector of numbers
 
-```{r number_vector, echo=FALSE}
-   n <- c(1:12)
-   print(n)
+
 ```
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+```
+
  
 A vector of characters
 
-```{r letter_vector, echo=FALSE}
-    l<-letters[1:12]
-    print(l)
+
 ```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
+```
+
 
 
 A vector of booleans
 
-```{r boolean_vector, echo=FALSE}
-    b<-c(T,T,F,T,T,F,F,F,T,F,T,F)
-    print(b)
+
 ```
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+```
+
 
 
 to access values in a vector we use brackets "[]"
 
 To access the third element of our previous vectors
-```{r}
+
+```r
 n[3]
-l[3]
-b[3]
+```
 
 ```
+## [1] 3
+```
+
+```r
+l[3]
+```
+
+```
+## [1] "c"
+```
+
+```r
+b[3]
+```
+
+```
+## [1] FALSE
+```
+
 
 #### Matrices
 
@@ -150,86 +188,201 @@ Matrices are two dimensional structures of a single data type.
 
 A matrix of numbers
 
-```{r number_matrix, echo=FALSE}
-    mn<-matrix(1:24, nrow=4)
-    print(mn)
+
 ```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    5    9   13   17   21
+## [2,]    2    6   10   14   18   22
+## [3,]    3    7   11   15   19   23
+## [4,]    4    8   12   16   20   24
+```
+
 
 A matrix of characters
 
-```{r letter_matrix, echo=FALSE}
-    ml<-matrix(letters[1:24], nrow=4)
-    print(ml)
+
 ```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,] "a"  "e"  "i"  "m"  "q"  "u" 
+## [2,] "b"  "f"  "j"  "n"  "r"  "v" 
+## [3,] "c"  "g"  "k"  "o"  "s"  "w" 
+## [4,] "d"  "h"  "l"  "p"  "t"  "x"
+```
+
 
 To access values in a matrix we use the "[]" but with two elements inside representing rows and columns.  The first element is for the first dimension (rows) and the second element is for the second dimension (columns)
 
-```{r}
+
+```r
 # first element row = 1 , column = 1
-ml[1,1]
-
-# entire first row
-ml[1,]
-
-#entire first column
-ml[,1]
+ml[1, 1]
+```
 
 ```
+## [1] "a"
+```
+
+```r
+
+# entire first row
+ml[1, ]
+```
+
+```
+## [1] "a" "e" "i" "m" "q" "u"
+```
+
+```r
+
+# entire first column
+ml[, 1]
+```
+
+```
+## [1] "a" "b" "c" "d"
+```
+
 
 
 #### Arrays
 
 An array is like a matrix to but with more dimensions..  
 
-```{r number_array, echo=FALSE}
-   a<-array(1:24, c(3,4,2))
-   print(a)
+
 ```
+## , , 1
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]   13   16   19   22
+## [2,]   14   17   20   23
+## [3,]   15   18   21   24
+```
+
 
 Accessing values in an array is similar to that of matrices but you add more elements in the brackets for each additional dimension [Rows, Columns, Extra Dimension 1, Extra Dimension 2, etc..]
 
-```{r}
+
+```r
 # first element (row = 1, column = 1, extra dimension element = 1)
-a[1,1,1]
+a[1, 1, 1]
+```
+
+```
+## [1] 1
+```
+
+```r
 
 # second column of second extra dimension element
-a[,2,2]
+a[, 2, 2]
+```
+
+```
+## [1] 16 17 18
+```
+
+```r
 
 # third row of first extra dimension element
 
-a[3,,1]
+a[3, , 1]
 ```
+
+```
+## [1]  3  6  9 12
+```
+
 
 #### Data Frames
 Most data tables are represented as data frames in R.  They are two dimensional like a matrix, but allow for mulitple data types with in a single structure.  However, each column of a data frame is has to be a consistant type and all columns must be the same length.
 
-``` {r dataframe, echo=FALSE}
-   df<-data.frame(l,n,b)
-   print(df)
+
 ```
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
+```
+
 
 Accessing elements of a data frame can be done the same way as a matrix using "[row, column]" notation.  Data frame columns can also be referred to by name using the "$" to separate the data frame name and the column name
 
-```{r}
-#first element of the data frame
-df[1,1]
 
-#first row of the data frame
-df[1,]
-
-#first column of the data frame
-df[,1]
-
-# or access the first column by name "l"
-df$l
-
-# first value of the "l" column
-
-df$l[1]
-
-
+```r
+# first element of the data frame
+df[1, 1]
+```
 
 ```
+## [1] a
+## Levels: a b c d e f g h i j k l
+```
+
+```r
+
+# first row of the data frame
+df[1, ]
+```
+
+```
+##   l n    b
+## 1 a 1 TRUE
+```
+
+```r
+
+# first column of the data frame
+df[, 1]
+```
+
+```
+##  [1] a b c d e f g h i j k l
+## Levels: a b c d e f g h i j k l
+```
+
+```r
+
+# or access the first column by name 'l'
+df$l
+```
+
+```
+##  [1] a b c d e f g h i j k l
+## Levels: a b c d e f g h i j k l
+```
+
+```r
+
+# first value of the 'l' column
+
+df$l[1]
+```
+
+```
+## [1] a
+## Levels: a b c d e f g h i j k l
+```
+
+```r
+
+```
+
 
 
 
@@ -237,31 +390,102 @@ df$l[1]
 #### Lists
 You can think of lists as mutli-dimensional data.frames.  Another way to think about them is a list of various objects. They take a bit to wrap your head around, but can be powerful once you do.  Like data frames, lists can contain a heterogenaous set of data types.  However, unlike data frames, the elements of a list don't have to be the same size.
 
-``` {r list, echo=FALSE}
-   lst<-list(l,n,b, df)
-   print(lst)
+
 ```
+## [[1]]
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
+## 
+## [[2]]
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
+## 
+## [[3]]
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+## [12] FALSE
+## 
+## [[4]]
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
+```
+
 To access values in a list you access the object in the list using "[[]]" and then, depending on that object's type, you access the values accordingly.. 
 
-```{r}
-# the first object in lst 
+
+```r
+# the first object in lst
 lst[[1]]
+```
+
+```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l"
+```
+
+```r
 
 # the third item of the first object.
 lst[[1]][3]
+```
+
+```
+## [1] "c"
+```
+
+```r
 
 # the 4th object
 lst[[4]]
+```
+
+```
+##    l  n     b
+## 1  a  1  TRUE
+## 2  b  2  TRUE
+## 3  c  3 FALSE
+## 4  d  4  TRUE
+## 5  e  5  TRUE
+## 6  f  6 FALSE
+## 7  g  7 FALSE
+## 8  h  8 FALSE
+## 9  i  9  TRUE
+## 10 j 10 FALSE
+## 11 k 11  TRUE
+## 12 l 12 FALSE
+```
+
+```r
 
 # the fourth oject in the first column of the 4th object
 
-lst[[4]][4,1]
-
-# or 
-
-lst[[4]]$l[4]
+lst[[4]][4, 1]
+```
 
 ```
+## [1] d
+## Levels: a b c d e f g h i j k l
+```
+
+```r
+
+# or
+
+lst[[4]]$l[4]
+```
+
+```
+## [1] d
+## Levels: a b c d e f g h i j k l
+```
+
 
 #### Numeric
 Numeric variables are simply numbers with a decimal point
@@ -275,20 +499,54 @@ Strings.
 #### Date
 Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..
 
-```{r}
+
+```r
 
 today <- Sys.Date()
 
 format(today, "%d %B %Y")
+```
+
+```
+## [1] "20 March 2014"
+```
+
+```r
 months(today)
+```
+
+```
+## [1] "March"
+```
+
+```r
 weekdays(today)
+```
+
+```
+## [1] "Thursday"
+```
+
+```r
 
 mydates <- c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
 months(mydates)
-mydates2<-as.Date(mydates, "%d%b%Y")
-months(mydates2)
+```
 
 ```
+## Error: no applicable method for 'months' applied to an object of class
+## "character"
+```
+
+```r
+mydates2 <- as.Date(mydates, "%d%b%Y")
+months(mydates2)
+```
+
+```
+## [1] "January" "January" "March"   "July"
+```
+
 
 More on dates later..
 
@@ -303,19 +561,54 @@ Factors as a data type in R serve two main purposes...
 
 2.) We often need factors anyway in our statistics.   For example, in an ANOVA we might want to compare a dependant variable like growth among treatments.  These treatments are "factors". By identifing this variable as a factor, R will treat it as such in analysis.   
 
-``` {r factors, echo=TRUE}
-#list of treatments by sample
-treatments<-c(1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,4,4,4,4)
-print(treatments)
-summary(treatments)
-# This is Min, Median, Max, etc.. of the numeric values of the treatment numbers. Not what we want.
 
-#Turn treatments into a factor
-treatments<-factor(treatments)
+```r
+# list of treatments by sample
+treatments <- c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4)
 print(treatments)
-summary(treatments)
-# now the summary of the treatments is the count by treatment. Makes much more sense.
 ```
+
+```
+##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+```
+
+```r
+summary(treatments)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.50    2.00    2.26    3.00    4.00
+```
+
+```r
+# This is Min, Median, Max, etc.. of the numeric values of the treatment
+# numbers. Not what we want.
+
+# Turn treatments into a factor
+treatments <- factor(treatments)
+print(treatments)
+```
+
+```
+##  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 4 4 4 4
+## Levels: 1 2 3 4
+```
+
+```r
+summary(treatments)
+```
+
+```
+## 1 2 3 4 
+## 5 8 2 4
+```
+
+```r
+# now the summary of the treatments is the count by treatment. Makes much
+# more sense.
+```
+
 
 
 ### 2.6 NULL and NA
@@ -335,31 +628,39 @@ NA represents a missing value within an object. NA's appear within an object as 
 Most people are familiar with the "wide" data format where each row represents an observation and each column represents all the various attributes for that observation.  In the following example, each species has its own column of count data.
 
 
-```{r wide_table, results='asis', echo=FALSE} 
-# loading a useful package for creating formatted tables
+|Site  |Date        |  species1|  species2|  species3|  species4|
+|:-----|:-----------|---------:|---------:|---------:|---------:|
+|A     |2009-03-10  |         1|         0|         0|         4|
+|B     |2009-03-10  |         2|         7|         0|         0|
+|C     |2009-03-10  |         0|         2|         2|         0|
+|A     |2009-04-13  |         0|         1|         1|         5|
+|B     |2009-04-13  |         0|         2|         1|         2|
+|C     |2009-04-13  |         1|         5|         2|         0|
 
-spdat<-read.csv("data/wk1spdat.csv")
-kable(spdat, row.names=FALSE)
-
-``` 
 
 
 #### 2.7.2 Narrow Data Format
 
 Another representation of this data is called the "narrow" data format.  In this next example, species name becomes a single data field called "Species" and a new column called "Count" is created.  Also in this example, counts of zero for species not present are dropped.
 
-```{r narrow_table, results='asis', echo=FALSE}
-# loading a package for reshaping data between wide and narrow formats 
-library(reshape2) 
+|Site  |Date        |Species   |  Count|
+|:-----|:-----------|:---------|------:|
+|A     |2009-03-10  |species1  |      1|
+|A     |2009-03-10  |species4  |      4|
+|B     |2009-03-10  |species1  |      2|
+|B     |2009-03-10  |species2  |      7|
+|C     |2009-03-10  |species2  |      2|
+|C     |2009-03-10  |species3  |      2|
+|A     |2009-04-13  |species2  |      1|
+|A     |2009-04-13  |species3  |      1|
+|A     |2009-04-13  |species4  |      5|
+|B     |2009-04-13  |species2  |      2|
+|B     |2009-04-13  |species3  |      1|
+|B     |2009-04-13  |species4  |      2|
+|C     |2009-04-13  |species1  |      1|
+|C     |2009-04-13  |species2  |      5|
+|C     |2009-04-13  |species3  |      2|
 
-# converting wide format to narrow format
-spdat2<-melt(spdat, id=c("Site", "Date"), variable.name="Species", value.name="Count")
-# removing data rows where species counts are 0
-spdat2<-spdat2[spdat2$Count>0,]
-spdat2<-spdat2[with(spdat2, order(Date, Site, Species)),]
-kable(spdat2, row.names=FALSE)
-
-```
 
 #### 2.7.3 Which format is best?
 
@@ -381,14 +682,14 @@ Imagine you have sites and sample information.   Each site has a name, a latitud
 
 The following table is includes everything but is unnormalized.
 
-``` {r site_samples_table, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
-    library(dplyr)
-    sites<-read.csv("data/wk1sites.csv")
-    samples<-read.csv("data/wk1samples.csv")
-    site_samples<-left_join(sites, samples, by="siteID") %.% select(sampleID, site, lake, lat, lon, date, sampler, temp_C, fish)
-    kable(site_samples)                
+|  sampleID|site         |lake             |    lat|     lon|date        |sampler  |  temp_C|  fish|
+|---------:|:------------|:----------------|------:|-------:|:-----------|:--------|-------:|-----:|
+|         1|Boat Ramp A  |Henry Hagg Lake  |  45.48|  -123.2|2008-02-22  |BPS      |     9.0|     0|
+|         2|Boat Ramp A  |Henry Hagg Lake  |  45.48|  -123.2|2008-02-26  |BPS      |     9.2|     3|
+|         3|Boat Ramp A  |Henry Hagg Lake  |  45.48|  -123.2|2008-03-01  |BPS      |    10.0|     0|
+|         4|Boat Ramp C  |Henry Hagg Lake  |  45.49|  -123.2|2008-02-22  |BPS      |     8.9|    11|
+|         5|Boat Ramp C  |Henry Hagg Lake  |  45.49|  -123.2|2008-02-26  |BPS      |     9.1|    14|
 
-```
 
 Notice that all of the site related information gets repeated for each sample it has.  
 
@@ -396,17 +697,22 @@ Notice that all of the site related information gets repeated for each sample it
 
 Here is that same information normalized into a "sites" table
 
-``` {r sites_table, results='asis', echo=FALSE}
-    kable(sites)
+|  siteID|site         |lake             |    lat|     lon|
+|-------:|:------------|:----------------|------:|-------:|
+|       1|Boat Ramp A  |Henry Hagg Lake  |  45.48|  -123.2|
+|       2|Boat Ramp C  |Henry Hagg Lake  |  45.49|  -123.2|
 
-```
 
 and a "samples" table
 
-``` {r samples_table, results='asis', echo=FALSE}
-    kable(samples)
+|  sampleID|  siteID|date        |sampler  |  temp_C|  fish|
+|---------:|-------:|:-----------|:--------|-------:|-----:|
+|         1|       1|2008-02-22  |BPS      |     9.0|     0|
+|         2|       1|2008-02-26  |BPS      |     9.2|     3|
+|         3|       1|2008-03-01  |BPS      |    10.0|     0|
+|         4|       2|2008-02-22  |BPS      |     8.9|    11|
+|         5|       2|2008-02-26  |BPS      |     9.1|    14|
 
-```
 
 Now the site related information is only recorded once and we use a "site_id" to related the samples table to the sites table.   
 

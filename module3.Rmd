@@ -60,11 +60,11 @@ Most imported data will end up a data frame by default.  However, you can create
 
 ```{r}
 
-name<-c("Fred","Bob","Bill","Jim")
+names<-c("Fred","Bob","Bill","Jim")
 weight<-c(129,145,234,198)
 height<-c(64,68,72,70)
 
-data<-data.frame(name,weight,height)
+data<-data.frame(names,weight,height)
 print(data)
 
 ```
