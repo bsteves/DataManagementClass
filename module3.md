@@ -160,23 +160,27 @@ print(data)
 
 ```r
 data2 <- list(name, weight, height)
+```
+
+```
+## Error: object 'name' not found
+```
+
+```r
 print(data2)
 ```
 
 ```
-## [[1]]
-## [1] "module3"
-## 
-## [[2]]
-## [1] 129 145 234 198
-## 
-## [[3]]
-## [1] 64 68 72 70
+## Error: object 'data2' not found
 ```
 
 ```r
 
 data3 <- list(name, weight, height, data)
+```
+
+```
+## Error: object 'name' not found
 ```
 
 
@@ -310,6 +314,13 @@ One common database is MySQL.  We can access MySQL databases using either the "R
 ```r
 
 library(RMySQL)
+```
+
+```
+## Loading required package: DBI
+```
+
+```r
 # make a connection to the database
 con <- dbConnect(MySQL(), user = "root", password = "", dbname = "nemesis_development", 
     host = "localhost")
@@ -431,7 +442,7 @@ print(taxanew)
 
 ## Homework
 
-1.   Import the dataset you found for you last homework into R. 
+1.   Import the dataset you found for your last homework into R. 
 
 2.   Submit both the your found datast and an R script of the code you used to import it onto d2l
 

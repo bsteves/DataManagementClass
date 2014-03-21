@@ -216,7 +216,7 @@ print(taxanew)
 
 ## Homework
 
-1.   Import the dataset you found for you last homework into R. 
+1.   Import the dataset you found for your last homework into R. 
 
 2.   Submit both the your found datast and an R script of the code you used to import it onto d2l
 
