@@ -1,0 +1,96 @@
+ESM 505/ESR 605 : Data Management, Spring 2014
+
+Module 5: Reshaping Data
+====================
+
+## Melting Data (from Wide to narrow)
+```{r}
+# loading a wide table
+spdat<-read.csv("data/wk1spdat.csv")
+
+spdat
+
+```
+
+
+```{r}
+
+# secret to reshaping data in R is the package "reshape2"
+
+library(reshape2) 
+
+# converting wide format to narrow format
+spdat2<-melt(spdat, id=c("Site", "Date"), variable.name="Species", value.name="Count")
+
+spdat2
+
+
+```
+
+
+We can go a step further and clean this up a bit
+
+```{r}
+
+# removing data rows where species counts are 0
+spdat2<-spdat2[spdat2$Count>0,]
+
+# order the data frame by Date, Site, then Species
+spdat2[order(spdat2$Date, spdat2$Site, spdat2$Species),]
+
+# a cleaner way to order by multiple fields using the with() function.  It lets you specify columns without needing the full "spdat2$" prefix on everything
+
+spdat2<-spdat2[with(spdat2, order(Site, Date, Species)),]
+
+spdat2
+
+```
+
+
+## Casting Data from Narrow to Wide
+
+```{r}
+# Use dcast() function.  Value.var is the column to aggregate by and fun.aggregate is the function to aggregate with.  In this case we want the sum of the counts.  
+
+spdat3<-dcast(spdat2, Site + Date ~ Species, value.var="Count", fun.aggregate=sum)
+
+spdat3
+
+# It just so happens that the dcast() function would have guessed those last two options by defualt and the same result could be made with this simpiler bit of code but we get a warning message and some NA's instead of 0's.
+
+spdat3<-dcast(spdat2, Site + Date ~ Species)
+spdat3
+
+# We can fix the NA's using a subset with assingment based on is.na()
+
+spdat3[is.na(spdat3)]<-0
+spdat3
+
+
+# Our new spdat3 data frame is the same as our original spdat data frame with the exception of the order of the data which isn't really a big deal.
+
+```
+
+Other aggregation functions can be used like min, mean, max, nrow, length, etc..
+
+```{r}
+# how many records per site, date, species combination
+dcast(spdat2, Site + Date ~ Species,  length)
+
+# mean number of records per site
+dcast(spdat2, Site ~ Species, mean)
+```
+
+
+
+Sometimes you might want some row and column summaries added to your wide data format, particularly if this data is going to eventually become a table.  You set the margins option to TRUE to return all of the summary margins (row and column grand summaries)
+
+```{r}
+
+# sum of all species observations combined by site with grand totals 
+dcast(spdat2, Site  ~ Species, sum, margins=TRUE)
+
+```
+
+
+
