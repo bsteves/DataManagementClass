@@ -4,6 +4,7 @@ Module 5: Reshaping Data
 ====================
 
 ## Melting Data (from Wide to narrow)
+
 ```{r}
 # loading a wide table
 spdat<-read.csv("data/wk1spdat.csv")
@@ -92,5 +93,15 @@ dcast(spdat2, Site  ~ Species, sum, margins=TRUE)
 
 ```
 
+
+## Homework
+
+Determine if your data set(s) are narrow or wide.  Use reshape2's melt() and cast() functions to transform your data.
+
+For example, if your data is narrow, transform a subset of your data into a more useful and more readable wide table.
+
+Likewise, if your data is wide, transform it to narrow format
+
+1.) Upload to this module's dropbox your data and data transformation script.
 
 

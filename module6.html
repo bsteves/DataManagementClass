@@ -183,10 +183,12 @@ hljs.initHighlightingOnLoad();
 
 <h1>Module 6: Writing R Scripts </h1>
 
-<p>There are a couple existing R style guidelines out there. The important thing is to pick one and try and stick to it. </p>
+<p>There are a couple existing R style guidelines out there. The important thing is to pick one and try and stick to it.   I&#39;m not perfect about doing this, but I&#39;m trying.</p>
 
 <p>I am partial to the style guidelines from Hadley Wickham
 <a href="http://adv-r.had.co.nz/Style.html">http://adv-r.had.co.nz/Style.html</a></p>
+
+<p>In fact the following is his style guidelines&hellip;</p>
 
 <h2>Notation and naming</h2>
 
@@ -245,10 +247,10 @@ mean &lt;- function(x) sum(x)
 <p>Place spaces around all infix operators (<code>=</code>, <code>+</code>, <code>-</code>, <code>&lt;-</code>, etc.). The same rule applies when using <code>=</code> in function calls. Always put a space after a comma, and never before (just like in regular English).</p>
 
 <pre><code class="r"># Good
-average &lt;- mean(feet/12 + inches, na.rm = TRUE)
+average &lt;- mean(feet / 12 + inches, na.rm = TRUE)
 
 # Bad
-average &lt;- mean(feet/12 + inches, na.rm = TRUE)
+average&lt;-mean(feet/12+inches,na.rm=TRUE)
 </code></pre>
 
 <p>There&#39;s a small exception to this rule: <code>:</code>, <code>::</code> and <code>:::</code> don&#39;t need spaces around them.</p>
@@ -258,8 +260,8 @@ x &lt;- 1:10
 base::get
 
 # Bad
-x &lt;- 1:10
-base::get
+x &lt;- 1 : 10
+base :: get
 </code></pre>
 
 <p>Place a space before left parentheses, except in a function call.</p>
@@ -269,13 +271,16 @@ if (debug) do(x)
 plot(x, y)
 
 # Bad
-if (debug) do(x)
-plot(x, y)
+if(debug)do(x)
+plot (x, y)
 </code></pre>
 
 <p>Extra spacing (i.e., more than one space in a row) is OK if it improves alignment of equal signs or assignments (<code>&lt;-</code>).</p>
 
-<pre><code class="r">list(total = a + b + c, mean = (a + b + c)/n)
+<pre><code class="r">list(
+  total = a + b + c, 
+  mean  = (a + b + c) / n
+)
 </code></pre>
 
 <p>Do not place spaces around code in parentheses or square brackets (unless there&#39;s a comma, in which case see above).</p>
@@ -285,9 +290,9 @@ if (debug) do(x)
 diamonds[5, ]
 
 # Bad
-if (debug) do(x)  # No spaces around debug
-x[1, ]  # Needs a space after the comma
-x[1, ]  # Space goes after comma not before
+if ( debug ) do(x)  # No spaces around debug
+x[1,]   # Needs a space after the comma
+x[1 ,]  # Space goes after comma not before
 </code></pre>
 
 <h3>Curly braces</h3>
@@ -336,9 +341,9 @@ else {
 
 <p>The only exception is if a function definition runs over multiple lines. In that case, indent the second line to where the definition starts:</p>
 
-<pre><code class="r">long_function_name &lt;- function(a = &quot;a long argument&quot;, b = &quot;another argument&quot;, 
-    c = &quot;another long argument&quot;) {
-    # As usual code is indented by two spaces.
+<pre><code class="r">long_function_name &lt;- function(a = &quot;a long argument&quot;, b = &quot;another argument&quot;,
+                               c = &quot;another long argument&quot;) {
+  # As usual code is indented by two spaces.
 }
 </code></pre>
 

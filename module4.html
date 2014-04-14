@@ -669,8 +669,8 @@ data2[randomrows, ]
 </code></pre>
 
 <pre><code>##   sampleID siteID       date sampler temp_C fish
-## 5        5      2 2008-02-26     BPS    9.1   14
 ## 2        2      1 2008-02-26     BPS    9.2    3
+## 1        1      1 2008-02-22     BPS    9.0    0
 </code></pre>
 
 <pre><code class="r">
@@ -684,8 +684,7 @@ data2[randomrows, ]
 # load a rather large dataset
 load(&quot;data/WSA_data.Rdata&quot;)
 
-# How many rows of data
-
+# How many rows of data using nrow()
 nrow(data)
 </code></pre>
 
@@ -693,33 +692,25 @@ nrow(data)
 </code></pre>
 
 <pre><code class="r">
+# To make my tables neat lets select just the 5 columns of data
+data &lt;- data[, 1:5]
+
+# The head (beginning) of the data
 head(data)
 </code></pre>
 
-<pre><code>##   NVMC_ID NBIC_Vessel Nrt Vessel_Type Transit_Type Analysis_year_arrival
-## 1 1978995     8875384 762       Other    Coastwise                  2011
-## 2 1979680     8875384 762       Other    Coastwise                  2011
-## 3 1984838     8875384 762       Other    Coastwise                  2011
-## 4 2102657     8875384 762       Other    Coastwise                  2012
-## 5 2104970     8875384 762       Other    Coastwise                  2012
-## 6 2107169     8875384 762       Other    Coastwise                  2012
-##   Sub_Type Arrival_Coast      Arrival_Date  Arrival_Port Arrival_Bioregion
-## 1      OSV        G of M  1/6/2011 0:00:00 Port Fourchon             CAR-I
-## 2      OSV        G of M  1/8/2011 0:00:00 Port Fourchon             CAR-I
-## 3      OSV        G of M 1/23/2011 0:00:00 Port Fourchon             CAR-I
-## 4      OSV        G of M 1/10/2012 0:00:00 Port Fourchon             CAR-I
-## 5      OSV        G of M 1/18/2012 0:00:00   Morgan City             CAR-I
-## 6      OSV        G of M 1/25/2012 0:00:00   Morgan City             CAR-I
-##        Last_Port Last_Bioregion
-## 1 Gulf of Mexico          CAR-I
-## 2 Gulf of Mexico          CAR-I
-## 3 Gulf of Mexico          CAR-I
-## 4 Gulf of Mexico          CAR-I
-## 5 Gulf of Mexico          CAR-I
-## 6 Gulf of Mexico          CAR-I
+<pre><code>##   NVMC_ID NBIC_Vessel Nrt Vessel_Type Transit_Type
+## 1 1978995     8875384 762       Other    Coastwise
+## 2 1979680     8875384 762       Other    Coastwise
+## 3 1984838     8875384 762       Other    Coastwise
+## 4 2102657     8875384 762       Other    Coastwise
+## 5 2104970     8875384 762       Other    Coastwise
+## 6 2107169     8875384 762       Other    Coastwise
 </code></pre>
 
 <pre><code class="r">
+
+# The tail (end) of the data
 tail(data)
 </code></pre>
 
@@ -730,99 +721,39 @@ tail(data)
 ## 332631 1908368     8811792 24121      Bulker     Overseas
 ## 332632 1951666     8811792 24121      Bulker     Overseas
 ## 332633 1968302     8811792 24121      Bulker     Overseas
-##        Analysis_year_arrival Sub_Type Arrival_Coast       Arrival_Date
-## 332628                  2011   Bulker          West 11/12/2011 0:00:00
-## 332629                  2012   Bulker        G of M  3/13/2012 0:00:00
-## 332630                  2010   Bulker          East  3/29/2010 0:00:00
-## 332631                  2010   Bulker        G of M  6/23/2010 0:00:00
-## 332632                  2010   Bulker        G of M 10/22/2010 0:00:00
-## 332633                  2010   Bulker        G of M 12/14/2010 0:00:00
-##                   Arrival_Port Arrival_Bioregion   Last_Port
-## 332628                 Astoria            NEP-IV       Busan
-## 332629 Port of South Louisiana             CAR-I      Itaqui
-## 332630           Hampton Roads            NA-ET3 Fos-sur-Mer
-## 332631        Mobile (USA, AL)             CAR-I Point Lisas
-## 332632        Mobile (USA, AL)             CAR-I Point Lisas
-## 332633                 Houston             CAR-I Swinoujscie
-##        Last_Bioregion
-## 332628         NWP-4a
-## 332629          SA-IV
-## 332630         MED-II
-## 332631        CAR-III
-## 332632        CAR-III
-## 332633           BALT
 </code></pre>
 
 <pre><code class="r">
-# the defualt is 5 rows of data, but you can change this by specifing an n
+# the defualt is 6 rows of data, but you can change this by specifing an n
 # value
 
-head(data, 20)
+head(data, n = 20)
 </code></pre>
 
-<pre><code>##    NVMC_ID NBIC_Vessel Nrt Vessel_Type Transit_Type Analysis_year_arrival
-## 1  1978995     8875384 762       Other    Coastwise                  2011
-## 2  1979680     8875384 762       Other    Coastwise                  2011
-## 3  1984838     8875384 762       Other    Coastwise                  2011
-## 4  2102657     8875384 762       Other    Coastwise                  2012
-## 5  2104970     8875384 762       Other    Coastwise                  2012
-## 6  2107169     8875384 762       Other    Coastwise                  2012
-## 7  1987800     8875384 762       Other    Coastwise                  2011
-## 8  1994186     8875384 762       Other    Coastwise                  2011
-## 9  1998928     8875384 762       Other    Coastwise                  2011
-## 10 2006655     8875384 762       Other    Coastwise                  2011
-## 11 2011014     8875384 762       Other    Coastwise                  2011
-## 12 2014870     8875384 762       Other    Coastwise                  2011
-## 13 2018644     8875384 762       Other    Coastwise                  2011
-## 14 2025054     8875384 762       Other    Coastwise                  2011
-## 15 2025702     8875384 762       Other    Coastwise                  2011
-## 16 2028666     8875384 762       Other    Coastwise                  2011
-## 17 2035679     8875384 762       Other    Coastwise                  2011
-## 18 2041133     8875384 762       Other    Coastwise                  2011
-## 19 2043794     8875384 762       Other    Coastwise                  2011
-## 20 2046698     8875384 762       Other    Coastwise                  2011
-##    Sub_Type Arrival_Coast      Arrival_Date  Arrival_Port
-## 1       OSV        G of M  1/6/2011 0:00:00 Port Fourchon
-## 2       OSV        G of M  1/8/2011 0:00:00 Port Fourchon
-## 3       OSV        G of M 1/23/2011 0:00:00 Port Fourchon
-## 4       OSV        G of M 1/10/2012 0:00:00 Port Fourchon
-## 5       OSV        G of M 1/18/2012 0:00:00   Morgan City
-## 6       OSV        G of M 1/25/2012 0:00:00   Morgan City
-## 7       OSV        G of M  2/2/2011 0:00:00 Port Fourchon
-## 8       OSV        G of M 2/22/2011 0:00:00 Port Fourchon
-## 9       OSV        G of M  3/8/2011 0:00:00 Port Fourchon
-## 10      OSV        G of M 3/30/2011 0:00:00 Port Fourchon
-## 11      OSV        G of M 4/12/2011 0:00:00 Port Fourchon
-## 12      OSV        G of M 4/22/2011 0:00:00 Port Fourchon
-## 13      OSV        G of M  5/4/2011 0:00:00 Port Fourchon
-## 14      OSV        G of M 5/22/2011 0:00:00 Port Fourchon
-## 15      OSV        G of M 5/25/2011 0:00:00   Morgan City
-## 16      OSV        G of M  6/3/2011 0:00:00 Port Fourchon
-## 17      OSV        G of M 6/22/2011 0:00:00 Port Fourchon
-## 18      OSV        G of M  7/7/2011 0:00:00 Port Fourchon
-## 19      OSV        G of M 7/15/2011 0:00:00 Port Fourchon
-## 20      OSV        G of M 7/23/2011 0:00:00 Port Fourchon
-##    Arrival_Bioregion                         Last_Port Last_Bioregion
-## 1              CAR-I                    Gulf of Mexico          CAR-I
-## 2              CAR-I                    Gulf of Mexico          CAR-I
-## 3              CAR-I                    Gulf of Mexico          CAR-I
-## 4              CAR-I                    Gulf of Mexico          CAR-I
-## 5              CAR-I                    Gulf of Mexico          CAR-I
-## 6              CAR-I                    Gulf of Mexico          CAR-I
-## 7              CAR-I                    Gulf of Mexico          CAR-I
-## 8              CAR-I Mississippi Canyon Drilling Block          CAR-I
-## 9              CAR-I                    Gulf of Mexico          CAR-I
-## 10             CAR-I                    Gulf of Mexico          CAR-I
-## 11             CAR-I                     Port Fourchon          CAR-I
-## 12             CAR-I                    Gulf of Mexico          CAR-I
-## 13             CAR-I                    Gulf of Mexico          CAR-I
-## 14             CAR-I Mississippi Canyon Drilling Block          CAR-I
-## 15             CAR-I                     US Gulf Coast               
-## 16             CAR-I                    Gulf of Mexico          CAR-I
-## 17             CAR-I                    Gulf of Mexico          CAR-I
-## 18             CAR-I                    Gulf of Mexico          CAR-I
-## 19             CAR-I                    Gulf of Mexico          CAR-I
-## 20             CAR-I                    Gulf of Mexico          CAR-I
+<pre><code>##    NVMC_ID NBIC_Vessel Nrt Vessel_Type Transit_Type
+## 1  1978995     8875384 762       Other    Coastwise
+## 2  1979680     8875384 762       Other    Coastwise
+## 3  1984838     8875384 762       Other    Coastwise
+## 4  2102657     8875384 762       Other    Coastwise
+## 5  2104970     8875384 762       Other    Coastwise
+## 6  2107169     8875384 762       Other    Coastwise
+## 7  1987800     8875384 762       Other    Coastwise
+## 8  1994186     8875384 762       Other    Coastwise
+## 9  1998928     8875384 762       Other    Coastwise
+## 10 2006655     8875384 762       Other    Coastwise
+## 11 2011014     8875384 762       Other    Coastwise
+## 12 2014870     8875384 762       Other    Coastwise
+## 13 2018644     8875384 762       Other    Coastwise
+## 14 2025054     8875384 762       Other    Coastwise
+## 15 2025702     8875384 762       Other    Coastwise
+## 16 2028666     8875384 762       Other    Coastwise
+## 17 2035679     8875384 762       Other    Coastwise
+## 18 2041133     8875384 762       Other    Coastwise
+## 19 2043794     8875384 762       Other    Coastwise
+## 20 2046698     8875384 762       Other    Coastwise
+</code></pre>
+
+<pre><code class="r">
 </code></pre>
 
 <h2>Assigning and Subsetting</h2>
@@ -953,6 +884,8 @@ data3[order(data3$count), ]
 <h2>Homework</h2>
 
 <p>Using the data set you found for Module 2 and imported in Module 3 write a script to create 3 interesting subsets of data that you might want to use for later analysis.  Use which ever methods make the most sense to you but be sure to assign these subsets to new variables with meaningful names. Remember to add code from Module 3 regarding how to import this data into the beginning of your new script.</p>
+
+<p>1.) Upload your data and script to this module&#39;s dropbox on d2l.</p>
 
 </body>
 

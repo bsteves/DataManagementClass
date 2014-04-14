@@ -1,0 +1,243 @@
+ESM 505/ESR 605 : Data Management, Spring 2014
+
+Module 7: Split, Apply, Combine
+====================
+
+I originally developed this module using the "plyr" package.  However, in early 2014 the "dplyr" was released and I think it is much easier to understand and it also happens to be much faster.  Both packages were written by Hadley Wickham and you are welcome to explore the older plyr package on your own.  Here is a paper in the Journal of Statistical Software where the plyr package was introduced.
+
+http://www.jstatsoft.org/v40/i01/paper
+
+## A quick comparison between dplyr and plyr
+
+```{r}
+
+library(plyr, warn.conflict=FALSE)
+
+# saving the baseball dataset from plyr to a local data frame.  Later we will detach the plyr library when we load dplyr and we'll loose the baseball data otherwise. 
+
+my_baseball<-baseball
+
+
+head(my_baseball)
+
+# Recording how long this will take
+plyr_time<-system.time(
+  
+  # Using plyr ddply() function to summarise how long each player played baseball and how many teams he was on
+  player_summaries<-ddply(my_baseball, "id", summarise, duration=max(year)-min(year), nteams=length(unique(team)))
+  
+  )
+
+# Looking at the first 10 players' summaries
+head(player_summaries, 10)
+
+
+```
+
+
+```{r}
+
+# Because plyr and dplyr are so similar we actually need to detach the plyr package before we can load the dplyr package properly
+
+detach("package:plyr", unload=TRUE)
+
+library(dplyr, warn.conflict=FALSE)
+
+my_baseball<-tbl_df(my_baseball)
+
+players <- group_by(my_baseball, id)
+player_summaries2 <- summarize(players, duration=max(year)-min(year), nteams=length(unique(team)))
+
+player_summaries2
+
+# You can nest these commands in dplyr but it gets messy
+
+player_summaries3 <- summarize(group_by(my_baseball, id), duration=max(year)-min(year), nteams=length(unique(team)))
+
+player_summaries3
+
+# However, with dplyr we can combine steps using the `%.%` operator.  When using the `%.%` operator you don't need to include the name of the data table inside the function call.  (i.e.   "mydata %.% filter(x==10)"  is the same as "filter(mydata, x==10)".  
+
+dplyr_time <- system.time(
+  
+  player_summaries4 <- my_baseball %.% 
+    group_by(id) %.% 
+    summarize(duration = max(year) - min(year), nteams = length(unique(team)))
+  
+  )
+
+player_summaries4
+
+# combare speed of plyr vs dplyr
+
+plyr_time
+dplyr_time
+
+```
+In other words dplyr was `r plyr_time['elapsed']/dplyr_time['elapsed']` times faster than plyr in this case. It really didn't matter in this case, but that difference can be huge if you are using very large datasets.
+
+## dplyr verbs
+
+The dplyr package provides a lot of methods (verbs) for helping to work with data.
+
+### filter()
+
+filter() is equivalent to subset()
+
+```{r}
+# select players from the Seattle Mariniers in 1990
+my_baseball %.% filter(team == "SEA" & year == 1990)
+
+```
+
+
+### arrange()
+
+arrange() allows you to reorder the data
+
+
+```{r}
+
+# order data by team then year then by descending number of runs (r) 
+my_baseball %.% arrange(team, year, desc(r))
+
+```
+
+### select()
+
+select() lets you specify which columns you want to return
+
+
+```{r}
+# select id, year, team and r only
+my_baseball %.% select(id, year, team, r)
+
+
+# select everything but year and team
+my_baseball %.% select(-c(year, team)) 
+
+
+# select id through team
+my_baseball %.% select(id:team)
+
+
+```
+
+### mutate()
+mutate() allows you to add new columns
+```{r}
+#add a runs per game column and select only the id and runs_per_game column for return
+my_baseball %.% mutate(runs_per_game = r/g) %.% select(id, runs_per_game)
+
+
+```
+### summarise()
+We already showed an example of summarise().  It really needs to be used in conjunction with group_by() to be of much use.  Without group_by() with out it, summarise() returns a single row of results
+
+```{r}
+# calculate the mean number of games played per year across all players
+my_baseball %.% summarise(mean_g = mean(g))
+```
+
+### grouped_by()
+
+Select() and arrange() aren't affected by group_by() but filter(), mutate(), and summarise() are.
+
+For example can group by team and then summarise
+
+```{r}
+
+my_baseball %.% group_by(team) %.% summarise(mean_g = mean(g))
+
+```
+
+## join
+If you need to combine data from two tables based on a common field you can use the various join functions. The basic format is like the following...
+
+```{r}
+inner_join(players, player_summaries, by="id")
+
+# alternatively you can chain this.
+
+players %.% inner_join(player_summaries, by="id")
+
+```
+
+If you don't specify a "by" then dplyr will match based on common column names
+
+```{r}
+# two small data frames for the following examples
+x <- data.frame(id=c(1,2,3,4,5,6), name=c("Fred","Bob","Jim","Ted","Jane","Sue"))
+y <- data.frame(id=c(1,2,5,6,7,8), score=c(78,84,92,83,45,93))
+
+```
+
+
+### inner_join()
+inner_join() returns all columns from where the two data frames have matching records.
+
+```{r}
+
+inner_join(x,y, by ="id")
+
+```
+
+### left_join()
+left_join() returns all columns from the two data frames.  But it returns all the records from the first data frame (the left one) and only those from the second data frame where there is a match
+
+```{r}
+
+left_join(x,y, by ="id")
+
+```
+
+### semi_join()
+semi_join() returns all rows from the first data frame where there are matching values in the second data frame and it only keeps the columns from the first data frame.
+
+```{r}
+
+semi_join(x,y, by ="id")
+
+```
+### anti_join()
+anti_join() returns all the rows from the first data frame where there are no matches in the second data frame and it only keeps the columns in the first data frame.
+
+```{r}
+
+anti_join(x,y, by ="id")
+
+```
+
+## do()
+
+The do() function allows you to apply a function to a table
+
+For example, you can use group_by and then use a plot call within do() to make a plot for each group.
+
+
+```{r}
+
+
+mtcars %.%
+  group_by(gear) %.%
+  do(function(x){
+      qplot(x$wt, x$mpg) + labs(title = paste(min(x$gear), "Gears"))
+  })
+  
+```
+I find it easier to create the function first and then call it with do()
+
+```{r}
+car_plot <- function(x) {
+      plot(x$wt, x$mpg)
+      title(paste(first(x$gear), "Gears"))
+}
+
+mtcars %.% group_by(gear) %.% do(car_plot)
+
+```
+
+
+
+## Homework
+

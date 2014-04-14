@@ -279,7 +279,7 @@ print(csv_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   4.229   0.032   4.258
+##    5.76    0.08    5.93
 </code></pre>
 
 <p>Here I&#39;ve wrapped the &#39;system.time&#39; function call around the &#39;read.csv&#39; function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.</p>
@@ -294,10 +294,10 @@ print(binary_speed)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.095   0.000   0.094
+##    0.11    0.00    0.11
 </code></pre>
 
-<p>The loading of the binary data file was over <strong>45</strong> times faster than loading the csv file!</p>
+<p>The loading of the binary data file was over <strong>54</strong> times faster than loading the csv file!</p>
 
 <h3>2.5 R Objects</h3>
 
@@ -637,19 +637,19 @@ today &lt;- Sys.Date()
 format(today, &quot;%d %B %Y&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;20 March 2014&quot;
+<pre><code>## [1] &quot;02 April 2014&quot;
 </code></pre>
 
 <pre><code class="r">months(today)
 </code></pre>
 
-<pre><code>## [1] &quot;March&quot;
+<pre><code>## [1] &quot;April&quot;
 </code></pre>
 
 <pre><code class="r">weekdays(today)
 </code></pre>
 
-<pre><code>## [1] &quot;Thursday&quot;
+<pre><code>## [1] &quot;Wednesday&quot;
 </code></pre>
 
 <pre><code class="r">

@@ -88,7 +88,7 @@ print(csv_speed)
 
 ```
 ##    user  system elapsed 
-##   3.973   0.015   3.990
+##    5.76    0.08    5.93
 ```
 
 
@@ -106,11 +106,11 @@ print(binary_speed)
 
 ```
 ##    user  system elapsed 
-##   0.087   0.008   0.095
+##    0.11    0.00    0.11
 ```
 
 
-The loading of the binary data file was over **42** times faster than loading the csv file!
+The loading of the binary data file was over **54** times faster than loading the csv file!
 
 
 ### 2.5 R Objects 
@@ -508,7 +508,7 @@ format(today, "%d %B %Y")
 ```
 
 ```
-## [1] "20 March 2014"
+## [1] "02 April 2014"
 ```
 
 ```r
@@ -516,7 +516,7 @@ months(today)
 ```
 
 ```
-## [1] "March"
+## [1] "April"
 ```
 
 ```r
@@ -524,7 +524,7 @@ weekdays(today)
 ```
 
 ```
-## [1] "Thursday"
+## [1] "Wednesday"
 ```
 
 ```r

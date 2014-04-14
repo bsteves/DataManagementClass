@@ -4,10 +4,12 @@ Module 6: Writing R Scripts
 ====================
 
 
-There are a couple existing R style guidelines out there. The important thing is to pick one and try and stick to it. 
+There are a couple existing R style guidelines out there. The important thing is to pick one and try and stick to it.   I'm not perfect about doing this, but I'm trying.
 
 I am partial to the style guidelines from Hadley Wickham
 http://adv-r.had.co.nz/Style.html
+
+In fact the following is his style guidelines...
 
 ## Notation and naming
 
@@ -70,10 +72,10 @@ Place spaces around all infix operators (`=`, `+`, `-`, `<-`, etc.). The same ru
 
 ```r
 # Good
-average <- mean(feet/12 + inches, na.rm = TRUE)
+average <- mean(feet / 12 + inches, na.rm = TRUE)
 
 # Bad
-average <- mean(feet/12 + inches, na.rm = TRUE)
+average<-mean(feet/12+inches,na.rm=TRUE)
 ```
 
 
@@ -86,8 +88,8 @@ x <- 1:10
 base::get
 
 # Bad
-x <- 1:10
-base::get
+x <- 1 : 10
+base :: get
 ```
 
 
@@ -100,8 +102,8 @@ if (debug) do(x)
 plot(x, y)
 
 # Bad
-if (debug) do(x)
-plot(x, y)
+if(debug)do(x)
+plot (x, y)
 ```
 
 
@@ -109,7 +111,10 @@ Extra spacing (i.e., more than one space in a row) is OK if it improves alignmen
 
 
 ```r
-list(total = a + b + c, mean = (a + b + c)/n)
+list(
+  total = a + b + c, 
+  mean  = (a + b + c) / n
+)
 ```
 
 
@@ -122,9 +127,9 @@ if (debug) do(x)
 diamonds[5, ]
 
 # Bad
-if (debug) do(x)  # No spaces around debug
-x[1, ]  # Needs a space after the comma
-x[1, ]  # Space goes after comma not before
+if ( debug ) do(x)  # No spaces around debug
+x[1,]   # Needs a space after the comma
+x[1 ,]  # Space goes after comma not before
 ```
 
 
@@ -182,9 +187,9 @@ The only exception is if a function definition runs over multiple lines. In that
 
 
 ```r
-long_function_name <- function(a = "a long argument", b = "another argument", 
-    c = "another long argument") {
-    # As usual code is indented by two spaces.
+long_function_name <- function(a = "a long argument", b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
 }
 ```
 

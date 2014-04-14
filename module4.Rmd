@@ -369,6 +369,8 @@ http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
 
 Using the data set you found for Module 2 and imported in Module 3 write a script to create 3 interesting subsets of data that you might want to use for later analysis.  Use which ever methods make the most sense to you but be sure to assign these subsets to new variables with meaningful names. Remember to add code from Module 3 regarding how to import this data into the beginning of your new script.
 
+1.) Upload your data and script to this module's dropbox on d2l.
+
 
 
 
