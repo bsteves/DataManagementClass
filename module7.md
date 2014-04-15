@@ -3,7 +3,7 @@ ESM 505/ESR 605 : Data Management, Spring 2014
 Module 7: Split, Apply, Combine
 ====================
 
-I originally developed this module useing the "plyr" package.  However, in early 2014 the "dplyr" was released and I think it is much easier to understand and it also happens to be much faster.  Both packages were written by Hadley Wickham and you are welcome to explore the older plyr package on your own.  Here is a paper in the Journal of Statistical Software where the plyr package was introduced.
+I originally developed this module using the "plyr" package.  However, in early 2014 the "dplyr" was released and I think it is much easier to understand and it also happens to be much faster.  Both packages were written by Hadley Wickham and you are welcome to explore the older plyr package on your own.  Here is a paper in the Journal of Statistical Software where the plyr package was introduced.
 
 http://www.jstatsoft.org/v40/i01/paper
 
@@ -142,7 +142,7 @@ player_summaries3
 
 ```r
 
-# However, with dplyr we can combine steps using the `%.%` operator
+# However, with dplyr we can combine steps using the `%.%` operator.  When using the `%.%` operator you don't need to include the name of the data table inside the function call.  (i.e.   "mydata %.% filter(x==10)"  is the same as "filter(mydata, x==10)".  
 
 dplyr_time <- system.time(
   
@@ -181,7 +181,7 @@ plyr_time
 
 ```
 ##    user  system elapsed 
-##    0.64    0.00    0.64
+##    0.69    0.00    0.69
 ```
 
 ```r
@@ -193,9 +193,11 @@ dplyr_time
 ##    0.02    0.00    0.02
 ```
 
-That's a 32 times difference in speed.
+In other words dplyr was 34.5 times faster than plyr in this case. It really didn't matter in this case, but that difference can be huge if you are using very large datasets.
 
 ## dplyr verbs
+
+The dplyr package provides a lot of methods (verbs) for helping to work with data.
 
 ### filter()
 
@@ -417,6 +419,145 @@ my_baseball %.% group_by(team) %.% summarise(mean_g = mean(g))
 ```
 
 
+## join
+If you need to combine data from two tables based on a common field you can use the various join functions. The basic format is like the following...
+
+
+```r
+inner_join(players, player_summaries, by = "id")
+```
+
+```
+## Source: local data frame [21,699 x 24]
+## Groups: id
+## 
+##           id year stint team lg   g  ab   r   h X2b X3b hr rbi sb cs bb so
+## 1  aaronha01 1954     1  ML1 NL 122 468  58 131  27   6 13  69  2  2 28 39
+## 2  aaronha01 1955     1  ML1 NL 153 602 105 189  37   9 27 106  3  1 49 61
+## 3  aaronha01 1956     1  ML1 NL 153 609 106 200  34  14 26  92  2  4 37 54
+## 4  aaronha01 1957     1  ML1 NL 151 615 118 198  27   6 44 132  1  1 57 58
+## 5  aaronha01 1958     1  ML1 NL 153 601 109 196  34   4 30  95  4  1 59 49
+## 6  aaronha01 1959     1  ML1 NL 154 629 116 223  46   7 39 123  8  0 51 54
+## 7  aaronha01 1960     1  ML1 NL 153 590 102 172  20  11 40 126 16  7 60 63
+## 8  aaronha01 1961     1  ML1 NL 155 603 115 197  39  10 34 120 21  9 56 64
+## 9  aaronha01 1962     1  ML1 NL 156 592 127 191  28   6 45 128 15  7 66 73
+## 10 aaronha01 1963     1  ML1 NL 161 631 121 201  29   4 44 130 31  5 78 94
+## ..       ...  ...   ...  ... .. ... ... ... ... ... ... .. ... .. .. .. ..
+## Variables not shown: ibb (int), hbp (int), sh (int), sf (int), gidp (int),
+##   duration (int), nteams (int)
+```
+
+```r
+
+# alternatively you can chain this.
+
+players %.% inner_join(player_summaries, by = "id")
+```
+
+```
+## Source: local data frame [21,699 x 24]
+## Groups: id
+## 
+##           id year stint team lg   g  ab   r   h X2b X3b hr rbi sb cs bb so
+## 1  aaronha01 1954     1  ML1 NL 122 468  58 131  27   6 13  69  2  2 28 39
+## 2  aaronha01 1955     1  ML1 NL 153 602 105 189  37   9 27 106  3  1 49 61
+## 3  aaronha01 1956     1  ML1 NL 153 609 106 200  34  14 26  92  2  4 37 54
+## 4  aaronha01 1957     1  ML1 NL 151 615 118 198  27   6 44 132  1  1 57 58
+## 5  aaronha01 1958     1  ML1 NL 153 601 109 196  34   4 30  95  4  1 59 49
+## 6  aaronha01 1959     1  ML1 NL 154 629 116 223  46   7 39 123  8  0 51 54
+## 7  aaronha01 1960     1  ML1 NL 153 590 102 172  20  11 40 126 16  7 60 63
+## 8  aaronha01 1961     1  ML1 NL 155 603 115 197  39  10 34 120 21  9 56 64
+## 9  aaronha01 1962     1  ML1 NL 156 592 127 191  28   6 45 128 15  7 66 73
+## 10 aaronha01 1963     1  ML1 NL 161 631 121 201  29   4 44 130 31  5 78 94
+## ..       ...  ...   ...  ... .. ... ... ... ... ... ... .. ... .. .. .. ..
+## Variables not shown: ibb (int), hbp (int), sh (int), sf (int), gidp (int),
+##   duration (int), nteams (int)
+```
+
+
+If you don't specify a "by" then dplyr will match based on common column names
+
+
+```r
+# two small data frames for the following examples
+x <- data.frame(id = c(1, 2, 3, 4, 5, 6), name = c("Fred", "Bob", "Jim", "Ted", 
+    "Jane", "Sue"))
+y <- data.frame(id = c(1, 2, 5, 6, 7, 8), score = c(78, 84, 92, 83, 45, 93))
+```
+
+
+
+### inner_join()
+inner_join() returns all columns from where the two data frames have matching records.
+
+
+```r
+
+inner_join(x, y, by = "id")
+```
+
+```
+##   id name score
+## 1  1 Fred    78
+## 2  2  Bob    84
+## 3  5 Jane    92
+## 4  6  Sue    83
+```
+
+
+### left_join()
+left_join() returns all columns from the two data frames.  But it returns all the records from the first data frame (the left one) and only those from the second data frame where there is a match
+
+
+```r
+
+left_join(x, y, by = "id")
+```
+
+```
+##   id name score
+## 1  1 Fred    78
+## 2  2  Bob    84
+## 3  3  Jim    NA
+## 4  4  Ted    NA
+## 5  5 Jane    92
+## 6  6  Sue    83
+```
+
+
+### semi_join()
+semi_join() returns all rows from the first data frame where there are matching values in the second data frame and it only keeps the columns from the first data frame.
+
+
+```r
+
+semi_join(x, y, by = "id")
+```
+
+```
+##   id name
+## 1  1 Fred
+## 2  2  Bob
+## 3  5 Jane
+## 4  6  Sue
+```
+
+### anti_join()
+anti_join() returns all the rows from the first data frame where there are no matches in the second data frame and it only keeps the columns in the first data frame.
+
+
+```r
+
+anti_join(x, y, by = "id")
+```
+
+```
+##   id name
+## 1  4  Ted
+## 2  3  Jim
+```
+
+
 ## do()
 
 The do() function allows you to apply a function to a table
@@ -429,16 +570,12 @@ For example, you can use group_by and then use a plot call within do() to make a
 
 
 mtcars %.% group_by(gear) %.% do(function(x) {
-    plot(x$wt, x$mpg)
-    title(paste(min(x$gear), "Gears"))
+    qplot(x$wt, x$mpg) + labs(title = paste(min(x$gear), "Gears"))
 })
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-91.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-92.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-93.png) 
-
 ```
-## [[1]]
-## NULL
+## Error: could not find function "qplot"
 ```
 
 I find it easier to create the function first and then call it with do()
@@ -453,7 +590,7 @@ car_plot <- function(x) {
 mtcars %.% group_by(gear) %.% do(car_plot)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-101.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-102.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-103.png) 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-161.png) ![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-162.png) ![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-163.png) 
 
 ```
 ## [[1]]
@@ -464,4 +601,9 @@ mtcars %.% group_by(gear) %.% do(car_plot)
 
 
 ## Homework
+
+Using dplyr, write an R script that imports your data and then manipulate that data using the filter(), group_by(), select(), arrange() and summarise() functions.  Upload the R file to the module's dropbox.
+
+
+
 

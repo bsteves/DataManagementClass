@@ -241,3 +241,8 @@ mtcars %.% group_by(gear) %.% do(car_plot)
 
 ## Homework
 
+Using dplyr, write an R script that imports your data and then manipulate that data using the filter(), group_by(), select(), arrange() and summarise() functions.  Upload the R file to the module's dropbox.
+
+
+
+
