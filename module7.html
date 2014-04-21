@@ -251,12 +251,7 @@ head(player_summaries, 10)
 detach(&quot;package:plyr&quot;, unload=TRUE)
 
 library(dplyr, warn.conflict=FALSE)
-</code></pre>
 
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.0.3
-</code></pre>
-
-<pre><code class="r">
 my_baseball&lt;-tbl_df(my_baseball)
 
 players &lt;- group_by(my_baseball, id)
@@ -342,17 +337,17 @@ plyr_time
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##    0.69    0.00    0.69
+##    0.63    0.00    0.67
 </code></pre>
 
 <pre><code class="r">dplyr_time
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##    0.02    0.00    0.02
+##    0.01    0.00    0.01
 </code></pre>
 
-<p>In other words dplyr was 34.5 times faster than plyr in this case. It really didn&#39;t matter in this case, but that difference can be huge if you are using very large datasets.</p>
+<p>In other words dplyr was 67 times faster than plyr in this case. It really didn&#39;t matter in this case, but that difference can be huge if you are using very large datasets.</p>
 
 <h2>dplyr verbs</h2>
 
@@ -664,8 +659,8 @@ anti_join(x, y, by = &quot;id&quot;)
 </code></pre>
 
 <pre><code>##   id name
-## 1  4  Ted
-## 2  3  Jim
+## 1  3  Jim
+## 2  4  Ted
 </code></pre>
 
 <h2>do()</h2>

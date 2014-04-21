@@ -7,7 +7,7 @@ Module 9: Creating Plots
 
 ## Creating Plots
 
-### Basic Plot Functions
+### Base Plot Functions
 
 #### plot()
 The plot() function is a generic function for plotting objects in R. The most basic form of plot() is plotting coordinates X and Y.  
@@ -268,5 +268,12 @@ There are several preset themes and you can even create your own.
 
 A ggplot2 cheat sheet
 http://www.stat.iastate.edu/centers/CCGS/R%20workshops/02-r-graphics/pdfs/ggplot2.pdf
+
+
+
+## Homework
+
+Make two plots from your data, one using the base plotting and another using ggplot2.  Upload your R script to the d2l dropbox for this module.
+
 
 

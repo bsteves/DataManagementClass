@@ -127,9 +127,10 @@ for (i in 1:num_of_loops){
 Notice that we skipped over loop number 5 using the `next` and stopped at  loop 7 by using `break`.
 
 
+
 ## Homework
 
-Using your data, provide an R script that loads your data and performs a loop and an if statement on the data.  Load the R script to the dropbox.
+Using your data, provide an R script that loads your data and performs at least one loop and and at least one if statement on the data.  Load the R script to the d2l dropbox for this module.
 
 
 

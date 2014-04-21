@@ -17,7 +17,7 @@ print(x)
 ```
 
 ```
-## [1] 8
+## [1] 4
 ```
 
 ```r
@@ -30,14 +30,17 @@ if (guess == x) {
 if (guess > x) {
     print("too high!")
 }
+```
+
+```
+## [1] "too high!"
+```
+
+```r
 
 if (guess < x) {
     print("too low!")
 }
-```
-
-```
-## [1] "too low!"
 ```
 
 
@@ -103,7 +106,7 @@ print(paste("The flip is", coin[x]))
 ```
 
 ```
-## [1] "The flip is Tails"
+## [1] "The flip is Heads"
 ```
 
 ```r
@@ -112,7 +115,7 @@ ifelse(guess == coin[x], "You win!", "You loose!")
 ```
 
 ```
-## [1] "You win!"
+## [1] "You loose!"
 ```
 
 
@@ -184,21 +187,12 @@ while (x < 5) {
 ```
 
 ```
-## [1] -4.563
-## [1] -3.199
-## [1] 1.887
-## [1] -2.817
-## [1] -0.1786
-## [1] -5.897
-## [1] 2.022
-## [1] -4.08
-## [1] -7.194
-## [1] -3.339
-## [1] -1.286
-## [1] -0.3345
-## [1] 2.987
-## [1] 2.721
-## [1] 5.333
+## [1] -3.822
+## [1] -0.502
+## [1] 1.455
+## [1] 1.352
+## [1] 2.867
+## [1] 7.35
 ```
 
 
@@ -217,8 +211,10 @@ repeat {
 ```
 
 ```
-## [1] -0.8956
-## [1] 7.063
+## [1] 3.304
+## [1] 4.215
+## [1] -8.344
+## [1] 9.442
 ```
 
 
@@ -252,9 +248,10 @@ for (i in 1:num_of_loops) {
 Notice that we skipped over loop number 5 using the `next` and stopped at  loop 7 by using `break`.
 
 
+
 ## Homework
 
-Using your data, provide an R script that loads your data and performs a loop and an if statement on the data.  Load the R script to the dropbox.
+Using your data, provide an R script that loads your data and performs at least one loop and and at least one if statement on the data.  Load the R script to the d2l dropbox for this module.
 
 
 

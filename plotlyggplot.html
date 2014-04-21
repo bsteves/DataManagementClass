@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>- maps</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<hr/>
+
+<p>name: ggplotly
+layout: post
+title: Make your ggplots shareable, collaborative, and with D3
+date: 2014-04-17
+author: Matt Sundquist
+authorurl: <a href="https://plot.ly/team">https://plot.ly/team</a>
+tags:</p>
+
+<ul>
+<li>R</li>
+<li>API</li>
+<li>plotly</li>
+<li>ggplot2</li>
+<li>data</li>
+</ul>
+
+<h2>- maps</h2>
+
+<p><a href="https://github.com/ropensci/plotly">Ggplotly</a> and <a href="https://plot.ly/api/r">Plotly&#39;s R API</a> let you make ggplot2 plots, add <code>py$ggplotly()</code>, and make your plots interactive, online, and drawn with D3. Let&#39;s make some.</p>
+
+<h2>1. Getting Started and Examples</h2>
+
+<p>Here is Fisher&#39;s iris data.</p>
+
+<pre><code class="r">library(&quot;ggplot2&quot;)
+ggiris &lt;- qplot(Petal.Width, Sepal.Length, data = iris, color = Species)
+print(ggiris)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABDlBMVEUAAAAAADoAAGYAOmYAOpAAZrYAujg6AAA6ADo6AGY6OgA6Ojo6OmY6OpA6ZmY6ZrY6kNthnP9mAABmADpmAGZmOgBmOjpmOpBmZgBmZjpmZmZmtrZmtv9/f39/f5V/f6t/lcF/q9aQOgCQOjqQOmaQtpCQ2/+Vf3+Vf6uVlcGVq9aVweurf6urlZWrlcGrq6ur1v+2ZgC2Zjq2kDq2kJC2tma225C22/+2/7a2/9u2///BlX/BlZXBlavBq8HBwdbB6//Wq3/Wq5XW///bkDrbtmbb25Db29vb/7bb/9vb///l5eXrwZXr///y8vL4dm3/tmb/1qv/25D/27b/68H//7b//9b//9v//+v///8yMyYVAAAACXBIWXMAAAsSAAALEgHS3X78AAAVoElEQVR4nO2dDX/b1n2FadeKk2VeJMddXyamsdOq29x2lrdlm9Kt9sxtqWwrkhZZ5vf/IsUFX44IEiB4cQ94AJznZyugSP1zLh7fC+DyChxNzSAZ7TuA2Q8WP1AsfqBY/ECx+IFi8QPF4geKxQ8Uix8oFj9QLH6gWPxAsfiBUk/827dvw99qLra+IkWNngch6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFq8VhKwbWLxWELJuUC7+9firV4ttVjMjavQ8SCvSA6Xir75+n/2ZP2A1M6JGz4O0pL1C/I//8P7qadgYZ7QWx7RF+VB/NV52ePf41oK0Ij1QKv7d0+mPf/9m/oDVzIgaPQ/SkvYq8c+nH35n8W0HaUl7hfiP343HLxYPWM2MqNHzIO1Yn/o6Xi0IWTeweK0gZN3A4rWCkHUDi9cKQtYNLD62xtERIwhZN7D4yBpHR9vNW3xZMyNqqASx+CbNjKghE8RDfYNmRtToeRCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFq8VhKwbWLxWELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFh9bo2LN3eKpi20vtPj6NVSCVKyyXT51seWFFr9DDZUgFl9/X/VKvIf6JQMT75O7Bs2MqNHzIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOLTxJk87W6xZc1M6KGZJCS2TmLL2tmRA3JIBa/YzMjamgG8VC/WzMjavQ8CFk3sHitIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTeweK0gZN2gnviLi4vwtykpavQ8CFk3cI/XCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTeweK0gZN3A4rWCkHUDi69fo7CwzuLjmxlRY39BiktpLT6+mRE1LD4NFl+/hof6ZM2MqNHzIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTew+KoaVXcjtfgGzYyo0WaQyvsPW3yDZkbUsPg0WHxVDQ/1AxXffhCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFr/5Yr2d6/j1+mTdwOI3T8+1MnO3oT5ZN7B4i68gSTNFxXuoryBNM0XFSwUh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFq8VhKwbWLxWELJuYPFJgvhTqHZrZkQNySD+3LkdmxlRQzKIxe/YzIgamkE81O/WzIgaPQ9C1g0sXisIWTeweK0gZN3A4rWCkHUDi9cKQtYNLF4rCFk3sHitIGTdwOK1gpB1g1Lx78YZz+cPWM2MqBFX5JNPRIJsq9GS9uoe//G/3s+3WM2MqBFV5JNPVs1bfKX4/34Vvoae31IYGkH8vjOIUSH+6ulyk/XvO6KGh/o0VIifdfgcVjMjavQ8SAvKZ5SL//CH98ttVjMjavQ8SBvOc8rF//iP2GY1M6JGz4O0oHyGr+O1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3WCQ4gtX9QmCVK252+l37Mm6wRDFFydwmwepWmVbeXcFi69dw+LTMETxHuqnAxUvHISsG1i8VhCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm5g8VpByLrBQMSzl175Or6SvYlnr7L1zF3tXRVdw+LTMAzxHurXGIj4zgQh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFq8VhKwbWLxWELJuYPFaQci6wUDEr07gVK25mz+3fe4lbgJn9YX+FKr6NRJM2Vatsl08t322NWrKdvWF/ty5HWpYfBqGId5D/RoDEd+ZIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g36K37lYt13tizSW/Er03O+ifEaFs8OslsNsm7QW/Ee6qvpr/huBiHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm4wSPG172xZtfSq4rnFUxZf1syIGgmK1L6XbdViy4rnlk91X/zFxUX425QUNRIUCeJrvTAYjHiu6scKrDWGrBsMscd7qJ8OVLxwELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wYWrxWErBv0V3zFLE3kBE5hymZa+tTqBE4nbml6OQrcP+u++IoJ+ci5+uLs/LTsqdW5+k7cxPjmy5ONr9oUcfO+qsTii8iIf1Ls6zM2Rdy8ryrxUF9ERfx0crjxVZsiluyrKnTPqWSCtKB8xl3xN49Ho94c4zsaZC/iy2E1M6JGz4MU9/zpaLRpEL7+dPPJWKz42TF+/UjPamZEjZ4HWRd8ea+p463il0P9g3OL31OQoviHob9f3vur4GTW+yej0UHe4/OHt8/Cw4bi+3VW380gxT0/CWdcWae/eXw4uX928/g43z7OxM8eZhv//2/NxZfBamZEjZ4HWd/3Wae/zM62Tw9Ow2B8OMmH48z37GHo92vn4ruLXwz2xVKsZkbUSHEdv3plvfGFO17HVwWp+F9vvbPlvJePjkOPz5VnPf722WHo8YsDcvaCxuKnp+GQMjm4LBzlY5tZbFWCGglm7lbn0ja/cLeZu6ogFf/r7feyDYfwB+eX93+efZ1th8H/wXkmfvZw/s2m4hdn9f9eONZHNrOIxcfdxPgyajDfRXw2iGRfJw/+91Hne3w/hvq2xOcTBqODtaNGbDOLrUpQo+dBkguuK34zrGZG1Oh5ELJuYPFaQQo7nvcbVr1diNHRIHsSX3ZJyGpmRI2eB9mXeE/Z7jnInsTPJnAsfnDi51O2PsZrif/hh43i/yVmxm6z+DJYzYyoscc1d5FBmqy5m3tfmr/73M3PLH5DkfSrbCODNFpluy4+u+46nr0Vfzo6CBsHy2/t9L58Qfzts9GD79fXWNdvZiUWv7XGJvErQ/3Lk+n/XWaKJ8dZjw8bp8fhW9dfTG+/2WWpztpc/fWj8+J7c50U36OhfuXk7vrh6HCSvxWfiZ9kV9+Xh+Fb4U27ndZorV3OZeK95k7s5G71rP760f/k117LHh++9c+HCXr8pBc9vptBtoo/nR/Qw9qMB+f5kT18K+v1936xy4KM9WP8pjf2Wc2MqNHzIFvFp6K3Z/UdDbJX8T7GW7zFtxzE4qlFdIOkM7uFPolfXJ5vuI6PXC6X5Dq+Cvf42jXKiywn5NZn7iIXyCaZuatEQ3zHf03a4mPFl8NqZkQND/UW38cgexXf0WN8L4LsVfw6rGZG1Oh5kI3i8YEam+Ss9tOyZZMWrx1kk/g7H6WyXVWM+I6f1fciyFbxL0+m14/O8yU4k8/v/2t4ly5Tnf8Kbf5WXXiUb2TPVv0TcI/XCrJJ/MpQf5kpPZ4twZkc5OtxZosoMtH5m/PZo9m79JPqlVgWrxVko/i7J3f577DPluBMDvP1OEF1/kvO+XKc7NFso+SWhSXiJxjq343HTwXF1142VUHkr0kX2NNZ/eSXh9Nc9OxulNePvp/1+MtRocfvIv7my5MwlIRB4iqz/vqFnPjaCyUriLwxQpE9ic9vcZcvwZnkd8BZHOPvnxWO8TuJf3I2+5N1+H+a9/hxRmWJVgmamtYIPmtVXH3hPmjrOv72m5Psz/VnmfjXmfV3ej3eQz1F/DRzfjm7iWaQfvVcT3zPg+xLPLgS7fE9D5LO7BbKL+eys/pFh7f41oIUJLTW4/Pl1etX/qxmRtToeZA9iZ/f7mzNPKuZETV6HmRP4n3b8n0H2ZP4WWd3jx+c+LL351jNjKjR8yB7El8Gq5kRNdLM+9asITKBc3RUEH/3YLzcrvtO/HDFt3tjhEpqiQ8xWric68kdMSrotPh8Icb3T84mn9//j2ej+784CW/Hf/5w9OB8dUHGbuL7dEeMCro81OcLMcKb7vn7bzdfnszWYdx+c7JYkPE3te6K4jtiaAXZKP7uyV2+ECOIP8zvhfEy9/3FfGP+Pn2du6L4jhhaQbaKzxdizMSjxy/EzxZk1Loriu+IoRVku/iwEGMm/nZ5jF+IzxdkfFvrrihDPKtXDrJdPJgc7ngJZ/G6QXYRH4bn6vVVdcXfPD4I6zbX12OzmhlRo+dBdhHfiBXxp+G4cey5+j0G2Yv4cMAI6+12vJz74YfoZq7RaM3d6q9Jpw+S/lOoRFbg5KeF2Sl9vtiytvhwi93SfVVo1dZXNFlevXpjhPRB0n/unIr46elxvhLjdKeh3uJ3KCIq/uZxmPJ9vOPSKw/1OxSRHOrLiW1msVUJavQ8CFk3sHitIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdYPk4hdX9W83PGr1Or5qfVWKIJXLsuoW6Y/45Tze2/VHrc7cVa6oTBCkeiFmzSIWX3tXWXwiPNTHBvFQ36CZETV6HoSsG1i8VhCybmDxWkHIuoHFawUh6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesG3Ra/eZJm6wROituiegKnSTMjatwtUjItu23KNsUdsD1l26iZETUsPg2dFu+hPp5ui+9fELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wYJxO/x16RXL8jbXXM3ePF7vDHC6hRcu6tshyE+3HaneB+eBUF82XPFW/fUfF0Fdz5ZufCg8lH6IGmKEO9utAUP9bFBBtHjWc2MqNHzIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTcgT+Ck//34NPO+IkE6Lb5qrj79HTFSFEmyytbiLb5BkS6L91DfoEinxTdoZkSNngch6wYWrxWErBtYvFYQsm5g8VpByLqBxWsFIesGFq8VhKwbWLxWELJu0Lk1dxafhq4tr7b4RFi8VhCybuChXisIWTfwyZ1WELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wZR4jd/0pTy/i4strL4KPElny0nLL64vNLiLb7dIFtrkHUDD/XtBtlWg6wb+OROKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTeweK0gZN3A4rWCkHUDi9cKQtYNkq+52zy5s+GpyF21EqTqU6jq1kgSJLZIl8WvTtmWTOeuPxW7q+4Gqfrcubo1kgSJLmLxtXeVxafBQ32SILFFOi2+QTMjavQ8CFk3sHitIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdYNy8a/H469ezbcrm1n7On61xsar+u27KsldKS2+XPzHP77Cg6pm1p65W62xeR5v665Kcx9aiy8X/+H3vx0/DRvjjKoKwWC9RxU/VpsgPuLHTJFS8Ve/ejN992L+oPLft4f6hEFa0r7l5O7q+XyD1cyIGj0P0oLyGeU9PpNer8c3aGZEjZ4HaUn7lrP6RYe3+NaCtCI94Ot4rSBk3cDitYKQdQOL1wpC1g0sXisIWTfo3K9Js6/jj45q1hig+H3eGIE9ZXt0NDNv8TlvLX6XIg2CkHUDD/UFPNTfhdXMiBo9D0LWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTeweK0gZN3A4rWCkHWD5BM4Vb8Lrbu/ZYKQdYPUU7aVdz/Q3d8yQci6gcVrBSHrBh7qtYKQdQOf3GkFIesGFq8VhKwbWLxWELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybpD8zpY7NXMNi2+L1Pey3a2Za1h8W1i8VhCybuChXisIWTfwyZ1WELJuYPFaQci6gcVrBSHrBhavFYSsG1i8VhCybmDxWkHIuoHFawUh6wbkDyPa0sw1LL4tuB8/RthVFp8Gi9cKQtYNPNRrBSHrBj650wpC1g0sXisIWTeweK0gZN3A4rWCkHUDi9cKQtYNLF4rCFk3sHitIGTdwOK1gpB1g+TiPYHTKAhZN0gt3lO2zYKQdYN64i8uLsLfGgTxpU/WrFFNiiK6Qci6gYd6rSBk3cAnd1pByLqBxWsFIesGFq8VhKwbWLxWELJuYPFaQci6gcVrBSHrBhavFYSsG/jXpLWCkHUD3xhBKwhZN7B4rSBk3cBDvVYQsm7gkzutIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTdI8ClUDZoZUcPi09D8c+eaNDOihsWnweK1gpB1Aw/1WkHIuoFP7rSCkHUDi9cKQtYNLF4rCFk3sHitIGTdwOK1gpB1A4vXCkLWDSxeKwhZN7B4rSBk3cDitYKQdQOL1wpC1g0sXisIWTeweK0gZN3A4rWCkHUDi9cKQtYNLF4rCFk3sHitIGTdwOK1gpB1A4vXCkLWDeqJzxgn+J+lqOEgabD4vRax+HaL9CtIFBa/1yIdEG/6hcUPFIsfKBY/UCx+oGwX/3r81avVjd25UyO+yPTD7940DXKnRnSRj9+Nx1+/bxbkbo0GrWnAVvFXX7+/yiMuN3Zn+aMf/9igjVfjX71ZqdagRpMgV08zXS+aBVnWaLRHmrBV/Lvn816y3Nid5Y9++P1vx0+jSmS76E8f//PNSrUGNZoEyTO8aBZkWaNpkGi2i38xne2s5cbuLH/0KutveXujWIiPD7Ks0SxI3mEbBpnXaBgknnZ7fODqeVSNKcQ36Wh3TMUHeT3ro42CvEY/jw/SgHaP8aGJjXt8k2P8skaDIB+/m/9ggyCo0WiPNKDmWf2HP7xvfFY/qzGO/+cdpDUMcqdGdJDsR7Mfbhbkbo0Ge6QBvo4fKBY/UCx+oFj8QLH4gdJl8dcPRxmHy4efna1snR5Pp5ej8OVg/tTts+NsC68bMp0WHwzefHly9+GdrUn2T2Lyy8PZRo7Fg86Lz2RObx6P7p/lX8IgcDwXf/3o/Pab34QvJ+Eb2fM/+enfZS/69rOfhxcNnM6Lv/70ZHp6OJ0chIeh+y/79M2Ts5uf/fnXZ9l/wzeyF2UDf3j2Ybb14Hzf6fdMp8Xnx/jjfLSf251OsRV6+hfZkT77Ev5NPDm7M9R7uO+0+Lm9bBAfje7l4/n0dBQG/NkTk+PJ8fTyMDvEL0aBU4tf0AvxT87mD28eH2Ooz87mX2Yj/xcvT9zj1+mD+Pzw/eB84fTTk8Wg/7ePzrMB/69nnnGMt/hpT8RnY/29k6w/3z+bjLJT94Xd22cH2ZOnB7NX3j4LT2Uv+tbip90Wbxpg8QPF4geKxQ8Uix8oFj9QLH6gWPxAsfiBYvED5S/p9dFzsFpSDgAAAABJRU5ErkJggg==" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<p>Let&#39;s make it in Plotly. Install:</p>
+
+<p>Load.</p>
+
+<pre><code class="r">library(&quot;plotly&quot;)
+</code></pre>
+
+<pre><code>## Loading required package: RCurl
+## Loading required package: bitops
+## Loading required package: RJSONIO
+</code></pre>
+
+<pre><code class="r">username &lt;- &quot;bsteves&quot;
+api_key &lt;- &quot;hlc84pq6aq&quot;
+py &lt;- plotly(username, api_key)
+</code></pre>
+
+<p>It just works.</p>
+
+<pre><code class="r">py$ggplotly(ggiris)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/14" width="600" frameBorder="0"></iframe>
+
+<p>The call opens a browser tab. Or in an <code>.Rmd</code> document, the plot is embedded if you specify the <code>plotly=TRUE</code> chunk option (see <a href="https://gist.github.com/msund/10820797">source</a>). If you&#39;re running this from the source, it makes all the graphs at once in your browser. Reaction my first time: here be dragons. </p>
+
+<p>If you click the <em>data and graph</em> link in the embed, it takes you to Plotly&#39;s GUI, where you can edit the graph, see the data, and share your plot with collaborators. </p>
+
+<p><br><br></p>
+
+<h3>1.2 Maps</h3>
+
+<p>Next: Maps!</p>
+
+<pre><code class="r">data(canada.cities, package=&quot;maps&quot;)
+viz &lt;- ggplot(canada.cities, aes(long, lat)) +
+  borders(regions=&quot;canada&quot;, name=&quot;borders&quot;) +
+  coord_equal() +
+  geom_point(aes(text=name, size=pop), colour=&quot;red&quot;, alpha=1/2, name=&quot;cities&quot;)
+</code></pre>
+
+<p>Call Plotly.</p>
+
+<pre><code class="r">py$ggplotly(viz)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/15" width="600" frameBorder="0"></iframe>
+
+<p><br><br></p>
+
+<h3>1.3 Scatter</h3>
+
+<p>Want to make a scatter and add a <a href="http://docs.ggplot2.org/current/geom_smooth.html">smoothed conditional mean</a>? Here&#39;s how to do it in Plotly. For the rest of the plots, we&#39;ll just print the Plotly version to save space. You can hover on text to get data, or click and drag across a section to zoom in.</p>
+
+<pre><code class="r">model &lt;- lm(mpg ~ wt + factor(cyl), data=mtcars)
+grid &lt;- with(mtcars, expand.grid(
+  wt = seq(min(wt), max(wt), length = 20),
+  cyl = levels(factor(cyl))
+))
+
+grid$mpg &lt;- stats::predict(model, newdata=grid)
+
+viz2 &lt;- qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
+py$ggplotly(viz2)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/16" width="600" frameBorder="0"></iframe>
+
+<p><br><br></p>
+
+<h3>1.4 Lines</h3>
+
+<p>Or, take <code>ggplotly</code> for a spin with the orange dataset:</p>
+
+<pre><code class="r">orange &lt;- qplot(age, circumference, data = Orange, colour = Tree, geom = &quot;line&quot;)
+py$ggplotly(orange)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/17" width="600" frameBorder="0"></iframe>
+
+<p><br><br></p>
+
+<h3>1.5 Alpha blend</h3>
+
+<p>Or, make plots <a href="http://mandymejia.wordpress.com/2013/11/13/10-reasons-to-switch-to-ggplot-7/">beautiful</a>. </p>
+
+<pre><code class="r">prettyPlot &lt;- ggplot(data=diamonds, aes(x=carat, y=price, colour=clarity))
+prettyPlot &lt;- prettyPlot + geom_point(alpha = 1/10)
+py$ggplotly(prettyPlot)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/18" width="600" frameBorder="0"></iframe>
+
+<p><br><br></p>
+
+<h3>1.6 Functions</h3>
+
+<p>Want to <a href="http://stackoverflow.com/questions/1853703/plotting-functions-in-r">draw functions</a> with a <code>curve</code>?</p>
+
+<pre><code class="r">eq &lt;- function(x) {x*x}
+tmp &lt;- data.frame(x=1:50, y=eq(1:50))
+
+# Make plot object
+p &lt;- qplot(x, y, data=tmp, xlab=&quot;X-axis&quot;, ylab=&quot;Y-axis&quot;)
+c &lt;- stat_function(fun=eq)
+
+py$ggplotly(p + c)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/19" width="600" frameBorder="0"></iframe>
+
+<p><br><br></p>
+
+<h2>2. A GitHub for data and graphs</h2>
+
+<p>Like we might work together on code on GitHub or a project in a Google Doc, we can edit graphs and data together on Plotly. Here&#39;s how it works: </p>
+
+<ul>
+<li>Your URL is shareable. </li>
+<li>Public use is free.</li>
+<li>You can set <a href="http://plot.ly/api/r/docs/privacy">the privacy</a> of your graph. </li>
+<li>You can edit and add to plots from our GUI or with R or <a href="https://plot.ly/api">APIs</a> for Python, MATLA, Julia, Perl, Arduino, Raspberry Pi, and REST. </li>
+<li>You get a profile of graphs, like <a href="https://plot.ly/%7ERhettAllain/">Rhett Allain</a> from Wired Science.</li>
+<li>You can <a href="http://plot.ly/api/r/docs/iframes">embed interactive graphs in iframes</a>.</li>
+</ul>
+
+<p><br><br></p>
+
+<h3>2.1 Inspiration and team</h3>
+
+<p>Plotly&#39;s API is part of <code>[rOpenSci](ropensci.org)</code>, being developed by the brilliant <a href="http://cbio.ensmp.fr/%7Ethocking/">Toby Hocking</a>, and on <a href="https://github.com/ropensci/plotly">GitHub</a>. Your thoughts, issues, and pull requests are welcome. Right now, you can make scatter and line plots; let us know what you&#39;d like to see next.</p>
+
+<p>The project was inspired by <a href="https://github.com/hadley/">Hadley Wickham</a> and the elegance and precision of <a href="http://ggplot2.org/"><code>ggplot2</code></a>. Thanks to <a href="scottchamberlain.info">Scott Chamberlain</a>, <a href="https://github.com/jcheng5">Joe Cheng</a>, and <a href="https://twitter.com/efvmw">Elizabeth Morrison-Wells</a> for their help.</p>
+
+<p><br><br></p>
+
+<h2>3. ggthemes and Plotly</h2>
+
+<p>Using <a href="https://github.com/jrnold/ggthemes"><code>ggthemes</code></a> opens up another set of custom graph filters for styling your graphs. To get started, you&#39;ll want to install <code>ggthemes</code>.</p>
+
+<pre><code class="r">library(&quot;devtools&quot;)
+install_github(&quot;ggthemes&quot;, &quot;jrnold&quot;)
+</code></pre>
+
+<p>and load your data.</p>
+
+<pre><code class="r">library(&quot;ggplot2&quot;)
+library(&quot;ggthemes&quot;)
+dsamp &lt;- diamonds[sample(nrow(diamonds), 1000), ]
+</code></pre>
+
+<p><br><br>
+Inverse gray.</p>
+
+<pre><code class="r">gray &lt;- (qplot(carat, price, data = dsamp, colour = cut) + 
+           theme_igray())
+py$ggplotly(gray)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/20" width="600" frameBorder="0"></iframe>
+
+<p><br><br>
+The Tableau scale.</p>
+
+<pre><code class="r">tableau &lt;- (qplot(carat, price, data = dsamp, colour = cut) + 
+              theme_igray() + 
+              scale_colour_tableau())
+py$ggplotly(tableau)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/21" width="600" frameBorder="0"></iframe>
+
+<p><br><br>
+<a href="http://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf">Stephen Few&#39;s</a> scale.</p>
+
+<pre><code class="r">few &lt;- (qplot(carat, price, data = dsamp, colour = cut) + 
+          theme_few() + 
+          scale_colour_few())
+py$ggplotly(few)
+</code></pre>
+
+<iframe height="600" id="igraph" scrolling="no" seamless="seamless"
+                src="https://plot.ly/~bsteves/22" width="600" frameBorder="0"></iframe>
+
+</body>
+
+</html>
+
