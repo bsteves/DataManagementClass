@@ -11,24 +11,41 @@ We've already learned a bit about creating R scripts that allow us to rerun our 
 
 You can export figures to images and paste them into a word processor like Microsoft Word.   This sort of works, but everytime you rerun your analysis you will need to update your numbers, tables and figures in your Word document.  
 
-```{r}
-x <- seq(1,10,by=0.1)
+
+```r
+x <- seq(1, 10, by = 0.1)
 y <- sin(x)
 
 png("myfigure.png")
-plot(x,y)
+plot(x, y)
 dev.off()
+```
+
+```
+## pdf 
+##   2
+```
+
+```r
 
 # You can specify the output location, size, background color, etc..
 
-png("figure/myfigure2.png", width=600, height=400, units="px", bg="light gray")
-plot(x,y)
+png("figure/myfigure2.png", width = 600, height = 400, units = "px", bg = "light gray")
+plot(x, y)
 dev.off()
-
-# Other options for graphic output include tiff, bmp, and jpeg
-# See help file (i.e. ?png) for details
+```
 
 ```
+## pdf 
+##   2
+```
+
+```r
+
+# Other options for graphic output include tiff, bmp, and jpeg See help file
+# (i.e. ?png) for details
+```
+
 
 Note that when you save your plot to a file you don't get to see the plot until you open the file you saved.
 
@@ -85,7 +102,7 @@ You can also evaluate R code outside of the chunks.  The format is single backqu
 
 ![inline code](figure/markdownInline.png)
 
-Which will produce **"I counted `r 1 + 1` red trucks on the highway."**
+Which will produce **"I counted 2 red trucks on the highway."**
 
 This can useful in your report when you want to include summary or calculated information about your analysis within a sentence or your report's text. 
 
