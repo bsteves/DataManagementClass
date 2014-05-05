@@ -70,6 +70,17 @@ By default, your new R Markdown file will have some example markdown code.  Take
 
 There is the word **"title"** with a line of equal signs **"==="** underneath.   The equal signs make the word **"Title"** the title or top header of this document.
 
+Subsequent headers can be written using **"#"** a series of one or more hashes to tag your header text.  In fact, a single hash **"#"**  at the beginning of some text is equivalent to a Header 1 created with **"===="** under the text.  Header 2 can be tagged with **"------"** a line of single dashes under a line of test, or by tagging the text with **"##"** double hashes at the begining of the text.  
+
+Header 1 = **"# some text"** 
+
+Header 2 = **"## some text"**
+
+Header 3 = **"### some text"**
+
+etc..
+
+
 Below that is a couple sentences of text.  The words surrounded by double asterix "**" are going to be emphasised/bold 
 
 After this text is our first chunk of R code.  You specify R code useing the three single back quotes followed by **"r"** in curly brackets **"{}"**.  You can find the single back quote on most windows keyboards just to the left of the 1 key.   Alternatively you can create a new chunk of R code using the "insert chunk" option in the "Chunks" menu.   The keycode **"Cntrl+Alt+I"** is an even quicker shortcut for this.
@@ -96,6 +107,24 @@ Or if you want the code to show, but don't want the results to show use "eval=FA
 
 Go ahead and edit the default markdown text in your new file and try these options out.
 
+
+### Inserting figures
+
+Figures can be inserted directly into a document by placing the code in one of the **{r}** chunks.  Your figure will be saved as a png file in a subdirectory named "figure" within your current working directory.  You can of course specify some figure style within your **{r}** chunk.
+
+For example, if I use the following options, I can center the figure add a caption.
+
+***{r, fig.align="center", fig.cap="Figure 1: this is the caption"}***
+
+
+```r
+
+plot(x, y)
+```
+
+<img src="figure/unnamed-chunk-2.png" title="Figure 1: this is the caption" alt="Figure 1: this is the caption" style="display: block; margin: auto;" />
+
+
 ### Inline R Code
 
 You can also evaluate R code outside of the chunks.  The format is single backquote, the letter r, your bit of r code, and closed with another single backquote.  For example.. 
@@ -105,6 +134,13 @@ You can also evaluate R code outside of the chunks.  The format is single backqu
 Which will produce **"I counted 2 red trucks on the highway."**
 
 This can useful in your report when you want to include summary or calculated information about your analysis within a sentence or your report's text. 
+
+
+
+### inserting images
+
+
+
 
 ### Getting help with markdown syntax
 
