@@ -1,0 +1,7 @@
+ESM 505/ESR 605 : Data Management, Spring 2014
+
+Module 12: Version Control with Git 
+====================
+
+http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
+

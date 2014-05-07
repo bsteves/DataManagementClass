@@ -1,0 +1,57 @@
+ESM 505/ESR 605 : Data Management, Spring 2014
+
+Module 13: Mapping in R 
+====================
+
+http://statacumen.com/teach/SC1/SC1_16_Maps.pdf
+
+https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles
+
+http://cran.r-project.org/web/views/Spatial.html
+
+http://www.molecularecologist.com/2012/09/making-maps-with-r/
+
+http://cameron.bracken.bz/finally-an-easy-way-to-fix-the-horizontal-lines-in-ggplot2-maps
+
+
+
+```{r}
+library(ggplot2)
+map<-ggplot() + borders("world", fill="gray") + borders("state") + theme_bw() + coord_equal()
+map
+
+
+xlim<-c(-130, -100)
+ylim<-c(30,60)
+
+map + coord_equal(xlim=xlim, ylim=ylim)
+
+```
+
+
+```{r}
+library(PBSmapping)
+library(ggplot2)
+library(maps)
+
+
+# plot limits
+xlim <- c(-140,-100)
+ylim <- c(30,50)
+
+worldmap <- map_data("world")
+names(worldmap)<- c("X","Y","PID","POS","region","subregion")
+worldmap2 <- clipPolys(worldmap, xlim=xlim,ylim=ylim, keepExtra=TRUE)
+
+statemap <- map_data("state")
+names(statemap)<- c("X","Y","PID","POS","region","subregion")
+statemap2 <- clipPolys(statemap, xlim=xlim,ylim=ylim, keepExtra=TRUE)
+
+p <- ggplot() +  coord_map(xlim=xlim,ylim=ylim) + geom_polygon(data=worldmap,aes(X,Y,group=PID), fill = "darkseagreen",color="grey50") +  geom_polygon(data=statemap,aes(X,Y,group=PID), fill = "darkseagreen",color="grey50") + labs(y="",x="") +  theme_bw()
+print(p)
+
+
+p2 <- ggplot() + coord_map(xlim=xlim,ylim=ylim) +  geom_polygon(data=worldmap2,aes(X,Y,group=PID), fill = "darkseagreen",color="grey50") + geom_polygon(data=statemap2,aes(X,Y,group=PID), fill = "darkseagreen",color="grey50") + labs(y="",x="") + theme_bw()
+print(p2)
+
+```
