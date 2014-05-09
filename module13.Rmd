@@ -13,7 +13,7 @@ http://www.molecularecologist.com/2012/09/making-maps-with-r/
 
 http://cameron.bracken.bz/finally-an-easy-way-to-fix-the-horizontal-lines-in-ggplot2-maps
 
-
+http://rpubs.com/alobo/getmapCRS
 
 ```{r}
 library(ggplot2)
