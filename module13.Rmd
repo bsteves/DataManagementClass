@@ -15,6 +15,62 @@ http://cameron.bracken.bz/finally-an-easy-way-to-fix-the-horizontal-lines-in-ggp
 
 http://rpubs.com/alobo/getmapCRS
 
+
+## Simple maps using "maps" package
+
+```{r}
+# simple map of the world
+map()  
+
+# add a point (roughly portland)
+pdx_lat <- 45.52
+pdx_lon <- -122.68
+points(pdx_lon, pdx_lat, col="red", pch=20)
+
+# map of 
+map("state", region=c("Washington", "Oregon"))
+points(pdx_lon, pdx_lat, col="red", pch=20)
+
+# Add counties to Oregon
+map("county", "Oregon", add=T)
+
+```
+
+## plotting a shapefile using "maptools" package
+
+```{r}
+library(maptools)
+## use readShapePoly to read a polygon shapefile.  Use readShapeLine for a line shapefile and readShapePoint for a points shapefile
+countries <- readShapePoly("~/Geoprocessing_Shapefiles/Countries.shp")
+plot(countries)
+
+# add a point for Portland, OR
+points(pdx_lon, pdx_lat, col="red", pch=20)
+
+```
+
+## plotting a shapefile using the "rgdal" package
+
+```{r}
+
+library(rgdal)
+dsn<-path.expand("~/Geoprocessing_Shapefiles/Countries.shp")
+countries2 <- readOGR(dsn,"Countries")
+plot(countries2)
+
+## fill in the polygons with gray and use white borders
+plot(countries2, col="gray", border="white")
+
+```
+
+
+
+## Plotting a map in "ggplot2"" package
+
+## Plotting a shapefile in "ggplot2" package
+
+## Plotting onto a Google Map in "ggmaps" package
+
 ```{r}
 library(ggplot2)
 map<-ggplot() + borders("world", fill="gray") + borders("state") + theme_bw() + coord_equal()
