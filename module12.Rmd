@@ -23,8 +23,9 @@ http://learndataanalysis.com/easy-access-github-rstudio
 Github is a hosting site for GIT based programming repositories.  Think of it as an advanced Dropbox type site.   GitHub adds a few features to your Git repository..
 
 1. Easy access your repository from the web
-2. Viewing of files in your repository from the web
-3. 
+2. Viewing your files directly
+3. Issue tracker
+4. 
 
 There are two basic options.. 
 
