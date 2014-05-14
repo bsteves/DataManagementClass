@@ -1,17 +1,11 @@
 Title
 ========================================================
 
-```{r}
-library("plotly")
-library("ggplot2")
-username<-"bsteves"
-api_key<-"hlc84pq6aq"
-py<-plotly(username, api_key)
-```
 
-```{r, plotly=TRUE}
-ggiris <- qplot(Petal.Width, Sepal.Length, data = iris, color = Species)
-py$ggplotly(ggiris)
-```
 
- 
+```{r dismo, results='hide'}
+library(dismo)
+OR_map <- gmap("United States")
+plot(OR_map, interpolate = TRUE, main = "Map of Oregon")
+
+```
