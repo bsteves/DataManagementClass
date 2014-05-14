@@ -493,13 +493,54 @@ ggmap(hhl)
 
 ## Advanced topics (GIS in R)
 
-### Working with Projections
-
 ### Point in Polygon analysis
 
-### Raster overlays
 
-### Saving data as shapefiles
+```r
+# load sp package for 'over()' function
+library(sp)
+# turn beaver data.frame into a spatial data frame by setting coordinates
+coordinates(beaver) <- c("lon", "lat")
+
+# reload the countries shapefile from before
+dsn <- path.expand("~/Geoprocessing_Shapefiles")
+world <- readOGR(dsn, "Countries")
+```
+
+```
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/home/stevesb/Geoprocessing_Shapefiles", layer: "Countries"
+## with 250 features and 8 fields
+## Feature type: wkbPolygon with 2 dimensions
+```
+
+```r
+
+# set the projection of the beaver spatial data to the same as the countries
+# shapefile
+proj4string(beaver) <- proj4string(world)
+
+# overlay beaver and world and return the 'CNTRY_NAME' for each beaver
+# occurrence
+overlay <- over(beaver, world)
+
+# add this new CNTRY_NAME field to the beaver spatial data frame
+beaver$CNTRY_NAME <- overlay$CNTRY_NAME
+
+
+# Let's look to see where these beaver lat/lons are outside of the US and
+# Canada
+Non_NorthAmerican_Beavers <- subset(beaver, CNTRY_NAME != "USA" & CNTRY_NAME != 
+    "Canada")
+
+# Let's plot that
+plot(world)
+points(beaver, pch = 20, col = "blue")
+points(Non_NorthAmerican_Beavers, pch = 20, col = "red")
+```
+
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9.png) 
+
 
 
 
