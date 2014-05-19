@@ -2,7 +2,7 @@ ESM 505/ESR 605 : Data Management, Spring 2014
 
 Some test text!!
 
-Module 7: Split, Apply, Combine
+Module 7: Split, Apply
 ====================
 
 I originally developed this module using the "plyr" package.  However, in early 2014 the "dplyr" was released and I think it is much easier to understand and it also happens to be much faster.  Both packages were written by Hadley Wickham and you are welcome to explore the older plyr package on your own.  Here is a paper in the Journal of Statistical Software where the plyr package was introduced.
