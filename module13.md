@@ -238,7 +238,8 @@ beaver <- gbif("Castor", "canadensis", geo = TRUE)
 
 ```
 ## Castor canadensis : 1262 occurrences found
-## 1-1000-1262
+## 1-1000Start tag expected, '<' not found
+## -1262
 ```
 
 ```r
@@ -542,5 +543,7 @@ points(Non_NorthAmerican_Beavers, pch = 20, col = "red")
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9.png) 
 
 
+## Homework
 
+Make two maps (for your data if possible).  The first map should be large regional map using a shapefile or other vector style outline showing your study location.  For the second, zoom in a bit to your study location and use a raster based map (like Google Maps) to give a bit more context to the local geography.  Place both maps in an R Markdown (.Rmd) document and upload it to the dropbox.
 
