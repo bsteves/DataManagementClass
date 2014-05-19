@@ -2,10 +2,10 @@ Title
 ========================================================
 
 
+```{r include=FALSE}
 
-```{r dismo, results='hide'}
-library(dismo)
-OR_map <- gmap("United States")
-plot(OR_map, interpolate = TRUE, main = "Map of Oregon")
+x<-4 + 3
 
 ```
+
+The size is `r x`.

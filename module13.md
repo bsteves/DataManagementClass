@@ -238,8 +238,7 @@ beaver <- gbif("Castor", "canadensis", geo = TRUE)
 
 ```
 ## Castor canadensis : 1262 occurrences found
-## 1-1000Start tag expected, '<' not found
-## -1262
+## 1-1000-1262
 ```
 
 ```r
