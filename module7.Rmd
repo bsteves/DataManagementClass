@@ -1,9 +1,10 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+ESM 505/ESR 605 : Data Management, Spring 2016
 
-Some test text!!
-
-Module 7: Split, Apply
+Module 7: Dplyr and Tidyr
 ====================
+
+
+# plyr and dplyr 
 
 I originally developed this module using the "plyr" package.  However, in early 2014 the "dplyr" was released and I think it is much easier to understand and it also happens to be much faster.  Both packages were written by Hadley Wickham and you are welcome to explore the older plyr package on your own.  Here is a paper in the Journal of Statistical Software where the plyr package was introduced.
 
@@ -25,8 +26,8 @@ head(my_baseball)
 # Recording how long this will take
 plyr_time<-system.time(
   
-  # Using plyr ddply() function to summarise how long each player played baseball and how many teams he was on
-  player_summaries<-ddply(my_baseball, "id", summarise, duration=max(year)-min(year), nteams=length(unique(team)))
+  # Using plyr ddply() function to summarize how long each player played baseball and how many teams he was on
+  player_summaries<-ddply(my_baseball, "id", summarize, duration=max(year)-min(year), nteams=length(unique(team)))
   
   )
 
@@ -58,12 +59,12 @@ player_summaries3 <- summarize(group_by(my_baseball, id), duration=max(year)-min
 
 player_summaries3
 
-# However, with dplyr we can combine steps using the `%.%` operator.  When using the `%.%` operator you don't need to include the name of the data table inside the function call.  (i.e.   "mydata %.% filter(x==10)"  is the same as "filter(mydata, x==10)".  
+# However, with dplyr we can combine steps using the `%>%` operator.  When using the `%>%` operator you don't need to include the name of the data table inside the function call.  (i.e.   "mydata %>% filter(x==10)"  is the same as "filter(mydata, x==10)".  
 
 dplyr_time <- system.time(
   
-  player_summaries4 <- my_baseball %.% 
-    group_by(id) %.% 
+  player_summaries4 <- my_baseball %>% 
+    group_by(id) %>% 
     summarize(duration = max(year) - min(year), nteams = length(unique(team)))
   
   )
@@ -88,7 +89,7 @@ filter() is equivalent to subset()
 
 ```{r}
 # select players from the Seattle Mariniers in 1990
-my_baseball %.% filter(team == "SEA" & year == 1990)
+my_baseball %>% filter(team == "SEA" & year == 1990)
 
 ```
 
@@ -101,7 +102,7 @@ arrange() allows you to reorder the data
 ```{r}
 
 # order data by team then year then by descending number of runs (r) 
-my_baseball %.% arrange(team, year, desc(r))
+my_baseball %>% arrange(team, year, desc(r))
 
 ```
 
@@ -112,15 +113,15 @@ select() lets you specify which columns you want to return
 
 ```{r}
 # select id, year, team and r only
-my_baseball %.% select(id, year, team, r)
+my_baseball %>% select(id, year, team, r)
 
 
 # select everything but year and team
-my_baseball %.% select(-c(year, team)) 
+my_baseball %>% select(-c(year, team)) 
 
 
 # select id through team
-my_baseball %.% select(id:team)
+my_baseball %>% select(id:team)
 
 
 ```
@@ -129,29 +130,86 @@ my_baseball %.% select(id:team)
 mutate() allows you to add new columns
 ```{r}
 #add a runs per game column and select only the id and runs_per_game column for return
-my_baseball %.% mutate(runs_per_game = r/g) %.% select(id, runs_per_game)
+my_baseball %>% mutate(runs_per_game = r/g) %>% select(id, runs_per_game)
 
 
 ```
-### summarise()
-We already showed an example of summarise().  It really needs to be used in conjunction with group_by() to be of much use.  Without group_by() with out it, summarise() returns a single row of results
+### summarize()
+We already showed an example of summarize().  It really needs to be used in conjunction with group_by() to be of much use.  Without group_by() with out it, summarize() returns a single row of results
 
 ```{r}
 # calculate the mean number of games played per year across all players
-my_baseball %.% summarise(mean_g = mean(g))
+my_baseball %>% summarize(mean_g = mean(g))
 ```
 
-### grouped_by()
 
-Select() and arrange() aren't affected by group_by() but filter(), mutate(), and summarise() are.
+### group_by()
 
-For example can group by team and then summarise
+Select() and arrange() aren't affected by group_by() but filter(), mutate(), and summarize() are.
+
+For example can group by team and then summarize
 
 ```{r}
 
-my_baseball %.% group_by(team) %.% summarise(mean_g = mean(g))
+my_baseball %>% group_by(team) %>% summarize(mean_g = mean(g))
 
 ```
+
+
+## summary functions
+
+There are a variety of summary functions that can be used with summarize().   These include mean, sd, var, min, max, median, first, last, nth, n, and n_distinct.  The last two n and n_distinct are particularly useful.
+
+
+n() gives you the count of data rows and doesn't take an arguement
+n_distinct() gives you the count of unique values and requires an arguement
+
+```{r}
+
+# number of players by team
+my_baseball %>% group_by(team) %>% summarize(count = n())
+
+# number of years each team played
+my_baseball %>% group_by(team) %>% summarize(year_count = n_distinct(year))
+
+```
+
+## window functions
+
+The mutate() verb we mentioned early has a wide range of window functions you can use which are very helpful.
+
+Some shift the data up or down... (lead, lag)
+
+```{r}
+measdat <- data.frame(observation = c(1,2,3,4,5,6), size = c(10, 13, 11, 17, 10, 9) )
+
+#shifting up
+measdat %>% mutate(next_size = lead(size))
+
+#shifting down
+measdat %>% mutate(last_size = lag(size))
+
+```
+
+
+Some are used to rank data... (dense_rank, min_rank, percent_rank, row_number, ntile, between, ntile)
+
+```{r}
+# rank the size measurements
+measdat %>% mutate(dense_rank(size))
+
+```
+
+
+Some do cumulative values .. (cumall, cumany, cummean, cumsum, cummax, cumprod)
+
+```{r}
+
+# running mean of size measurements
+measdat %>% mutate(cummean(size))
+
+```
+
 
 ## join
 If you need to combine data from two tables based on a common field you can use the various join functions. The basic format is like the following...
@@ -161,7 +219,7 @@ inner_join(players, player_summaries, by="id")
 
 # alternatively you can chain this.
 
-players %.% inner_join(player_summaries, by="id")
+players %>% inner_join(player_summaries, by="id")
 
 ```
 
@@ -210,40 +268,126 @@ anti_join(x,y, by ="id")
 
 ```
 
-## do()
+### do()
 
 The do() function allows you to apply a function to a table
 
-For example, you can use group_by and then use a plot call within do() to make a plot for each group.
+For example, you can use group_by and then use a plot call within do() to make a plot for each group.  Here we are using the ggplot2 package which we will cover in a later module.
+
+
+```{r}
+library(ggplot2)
+output <- mtcars %>% group_by(gear) %>% do(plots = ggplot(data=., aes(wt, mpg)) + geom_point() + ggtitle(paste(.$gear, " Speed")))
+output$plots
+
+
+```
+
+## glimpse() and View()
+
+Glimpse and View are helper functions that provide alternative ways to view a data.  
+
+View() is specific to Rstudio and creates a spreadsheet like view of the dataframe as a tab. You can create views by double clicking on data frames in the Environment list in RStudio.
+
+Glimpse is provides an output that is information dense.
+
+```{r}
+glimpse(mtcars)
+
+```
+
+
+# tidyr package for "tidy" data
+
+Just as dplyr has replaced plyr, the reshape2 package has been replaced by the tidyr package.
+
+In reshape2 we had "melt" and "dcast".   In tidyr we use "gather" and "spread". However, we can use the "%>%" pipe to link dplyr verbs and tidyr verbs together.
+
+
+## gather()
+
+The key to using the gather() to collapse wide data frames into long data frames is think in terms of key-value pairs.  The iris dataset is a good example of a wide dataset.  For each iris flower, there are four measurements and each of those measurements are kept in four columns. The "key" is a meaurement type and the "value" is the value of that measurement.  Setting up gather is a little different. 
+
+gather(data, keyname, valuename, fields_to_gather)
+
+In the case of the iris data, the fields we want to gather the key value pairs from the following four columns   Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+
+We can represent that by either listing them.
+gather(iris, key, value, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
+
+We can use the colon  "through" operator ":"
+gather(iris, key, value, Sepal.Length:Petal.Width)
+
+Or we can simply use the "-" operator to remove the fields we don't want to gather and gather all the rest.
+
+gather(iris, key, value, -Species, -iris_id)
+
+```{r}
+
+library(tidyr)
+data(iris)
+
+# need way to identify individual flowers... creating an id column by using the current rowname
+iris$iris_id <- rownames(iris)
+head(iris)
+
+# you can rename the key and value within the gather function
+long_iris <- gather(iris, key=flower_attribute, value=measurement, Sepal.Length:Petal.Width)
+head(long_iris)
+
+
+```
+
+## spread()
+
+Similar to dcast, we use the spread function to spread long data out into the wide format.  Again we use the key,value pair.  This time however, we don't need to list the column names, it will pull the new column names from the key.
 
 
 ```{r}
 
+wide_iris <- spread(long_iris, key=flower_attribute, value=measurement)
+head(wide_iris)
 
-mtcars %.%
-  group_by(gear) %.%
-  do(function(x){
-      qplot(x$wt, x$mpg) + labs(title = paste(min(x$gear), "Gears"))
-  })
-  
 ```
-I find it easier to create the function first and then call it with do()
+
+##  separate()
+
+Sometimes we have a data field that really should be multiple data fields.  For example, if genus and species are listed as a binomial in a single field and we really want a "genus" field and a "species" field.
 
 ```{r}
-car_plot <- function(x) {
-      plot(x$wt, x$mpg)
-      title(paste(first(x$gear), "Gears"))
-}
+# make some fake data.
+spdat <- data.frame(id = c(1,2), taxon=c("Carcinus meanas", "Bugula neritina"), count=c(12,20))
 
-mtcars %.% group_by(gear) %.% do(car_plot)
+spdat2 <- spdat %>% separate(taxon, c("Genus","Species"), sep=" ")
+spdat2
+
 
 ```
 
+
+## unite()
+
+Unite is the opposite of separate.  Sometimes you need to merge columns together.
+
+```{r}
+
+spdat2 %>% unite(taxon, Genus, Species, sep=" ")
+
+```
+
+
+
+
+Here are some links to helpful resources for dplyr and tidyr
+
+https://rpubs.com/bradleyboehmke/data_wrangling
+
+http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
 
 ## Homework
 
-Using dplyr, write an R script that imports your data and then manipulate that data using the filter(), group_by(), select(), arrange() and summarise() functions.  Upload the R file to the module's dropbox.
+Using dplyr, write an R script that imports your data and then manipulate that data using the filter(), group_by(), select(), arrange() and summarize() functions.  Upload the R file to the module's dropbox.
 
 
 
