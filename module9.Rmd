@@ -1,4 +1,7 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+---
+output: html_document
+---
+ESM 505/ESR 605 : Data Management, Spring 2016
 
 Module 9: Creating Plots
 ====================
@@ -153,8 +156,10 @@ There are several preset themes and you can even create your own.
 
 
 A ggplot2 cheat sheet
-http://www.stat.iastate.edu/centers/CCGS/R%20workshops/02-r-graphics/pdfs/ggplot2.pdf
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
+ggplot2 documentation site
+http://docs.ggplot2.org/current/index.html
 
 
 ## Homework
