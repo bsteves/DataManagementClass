@@ -19,33 +19,17 @@ Flow Control
 if()
 ==========================
 
-
-```r
+```{r}
 x <- sample(10,1)
 print(x)
-```
-
-```
-[1] 8
-```
-
-```r
 x<- sample(10,1)
 print(x)
-```
-
-```
-[1] 8
-```
-
-```r
 guess <- 5
 ```
 
 ***
 
-
-```r
+```{r}
 if (guess == x) {
   print("Yes!")
 }
@@ -59,37 +43,22 @@ if (guess < x) {
 }
 ```
 
-```
-[1] "too low!"
-```
-
 else 
 ============================
 
-
-```r
+```{r}
 coin <- c("Heads","Tails")
 guess <- "Tails"
 print(paste("You called", guess))
-```
 
-```
-[1] "You called Tails"
-```
-
-```r
 x <- sample(2,1)
 print(paste("The flip is", coin[x]))
 ```
 
-```
-[1] "The flip is Tails"
-```
-
 ***
 
+```{r}
 
-```r
 if(guess == coin[x]){
   print("You win!")
   } else {
@@ -97,61 +66,32 @@ if(guess == coin[x]){
   }
 ```
 
-```
-[1] "You win!"
-```
-
 
 Ifelse()
 ==============================
 The Ifelse() function is a shortcut to an if else statement.  It takes the following form.. ifelse(test, yes, no)
 
-
-```r
+```{r}
 coin <- c("Heads","Tails")
 guess <- "Tails"
 print(paste("You called", guess))
 ```
-
-```
-[1] "You called Tails"
-```
 ***
-
-```r
+```{r}
 x <- sample(2,1) #random number 1 to 2
 print(paste("The flip is", coin[x]))
-```
-
-```
-[1] "The flip is Heads"
-```
-
-```r
 ifelse(guess == coin[x], "You win!", "You loose!")
-```
-
-```
-[1] "You loose!"
 ```
 
 For Loop
 =============================
 If you need to run a chunk of code a specific number of times you will want to use a `for` loop.  Think.. "For every value in the sequence do the following"
 
-
-```r
+```{r}
 num_of_loops <- 4
 for (i in 1:num_of_loops){
   print(paste("loop number",i))
 }
-```
-
-```
-[1] "loop number 1"
-[1] "loop number 2"
-[1] "loop number 3"
-[1] "loop number 4"
 ```
 
 Looping through a dataset
@@ -159,17 +99,11 @@ Looping through a dataset
 
 You might want a loop for each row of data in your data frame.  The nrow() function returns the number of rows in a data frame.
 
-
-```r
+```{r}
 dat<-read.csv("data/wk1sites.csv")
 for (i in 1:nrow(dat)){
   print(paste("Latitude:",dat$lat[i], ", Longitude:", dat$lon[i]))
 }
-```
-
-```
-[1] "Latitude: 45.482414 , Longitude: -123.210945"
-[1] "Latitude: 45.488943 , Longitude: -123.228111"
 ```
 
 
@@ -177,8 +111,7 @@ While
 ====================================
 Think... "While the this condition is still true, do the following."
 
-
-```r
+```{r}
 x<-0
 while (x < 3) {
   x <- rnorm(1)*5
@@ -186,17 +119,11 @@ while (x < 3) {
 }
 ```
 
-```
-[1] 1.464269
-[1] 5.141923
-```
-
 Repeat
 =============================
 A repeat loop is very similar to a while loop. A while loop won't even start if the conditional starts out as false, but a repeat loop will run once first and then check the conditional. You also have to specify when to stop using "break".
 
-
-```r
+```{r}
 repeat {
   x<-rnorm(1)*5
   print(x)
@@ -204,31 +131,19 @@ repeat {
 }
 ```
 
-```
-[1] -1.778032
-[1] 4.957572
-```
-
 
 Break and Next
 ========================
 The break statement is used to stop a loop.  The Next statement is used to skip the current loop.  
 
+```{r}
 
-```r
 num_of_loops <- 15
 for (i in 1:num_of_loops){
   if (i == 3) next
   if (i > 5) break
   print(paste("loop number",i))
 }
-```
-
-```
-[1] "loop number 1"
-[1] "loop number 2"
-[1] "loop number 4"
-[1] "loop number 5"
 ```
 
 
