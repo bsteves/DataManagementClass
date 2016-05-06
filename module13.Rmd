@@ -120,7 +120,7 @@ points(PSU_coords , col='red', pch=20)
 # The dismo package comes with a function that lets you pull down species data from the GBIF network of occurrence records
 
 # Let's get some beaver data
-beaver <- gbif("Castor", "canadensis", geo=TRUE)
+beaver <- gbif("Castor", "canadensis", geo=TRUE, end=1000)
 
 # drop NA lat/lon data
 beaver <- subset(beaver, !is.na(lat) & !is.na(lon))
