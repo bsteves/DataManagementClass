@@ -77,7 +77,9 @@ dsn<-path.expand("~/Geoprocessing_Shapefiles")
 countries2 <- readOGR(dsn,"Countries")
 plot(countries2, col="black")
 ```
-***
+
+==================================================
+
 
 ```
 OGR data source with driver: ESRI Shapefile 
