@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+ESM 505/ESR 605 : Data Management, Spring 2016
 
 Module 12: Version Control with Git 
 ====================
@@ -14,8 +14,6 @@ https://www.rstudio.com/ide/docs/version_control/overview
 http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
 
 http://nyuccl.org/pages/GitTutorial/
-
-http://learndataanalysis.com/easy-access-github-rstudio
 
 
 ## Github
@@ -40,11 +38,16 @@ In fact, I've written all the code for these modules using R Markdown and all of
 https://github.com/bsteves/DataManagementClass
 
 
+#BitBucket
+
+BitBucket is an alternative to GitHub.  However, it allows for free private repositories as long as you don't want to share them with a lot of people.
+
 ## Homework
 
-I highly recommend everyone sign up for a free GitHub account.
+I highly recommend everyone sign up for a free GitHub or BitBucket account.
 
 https://github.com/
+https://bitbucket.com/
 
 If you are comfortable enough with git and github it would be an ideal place to host your final report files.
 
