@@ -1,0 +1,35 @@
+Module 11: Knitr & R Markdown
+========================================================
+author: 
+date: 
+autosize: true
+
+
+
+Slide With Code
+========================================================
+```{r}
+x <- seq(1,10,by=0.1)
+y <- sin(x)
+
+png("myfigure.png")
+plot(x,y)
+dev.off()
+
+# You can specify the output location, size, background color, etc..
+
+png("figure/myfigure2.png", width=600, height=400, units="px", bg="light gray")
+plot(x,y)
+dev.off()
+
+# Other options for graphic output include tiff, bmp, and jpeg
+# See help file (i.e. ?png) for details
+
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```

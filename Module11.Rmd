@@ -124,23 +124,16 @@ This can useful in your report when you want to include summary or calculated in
 
 ### Getting help with markdown syntax
 
-In the new markdown toolbar, just to the left of the "Knit HTML" button is a question mark icon with a pull down.  The "Using R Markdown" option will take you to the following..
+The R Markdown Reference Guide from RStudio
 
-http://www.rstudio.com/ide/docs/authoring/using_markdown
+https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
 
 You'll want to take a look at that.
-
-The other option.. "Markdown Quick Reference" is a reference page for various markdown syntax (italic, bold, headers of different sizes, lists, links, images, quote blocks, etc..).  It's not a bad idea to print that out and have it handy.
 
 
 Like just about everything with R, you can dive deeper into R Markdown and Knitr and get it to do a whole lot more.  
 
 
-### Pandoc
-
-If you are interested in having your report in some format other than an HTML file you will want to consider installing a program called Pandoc.
-
-http://yihui.name/knitr/demo/pandoc/
 
 
 
