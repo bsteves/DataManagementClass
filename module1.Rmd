@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+Reproducible Analysis, Spring 2021
 
 Module 1: Introduction to R
 ====================
@@ -167,13 +167,13 @@ http://cran.r-project.org/web/views/Environmetrics.html
 
 
 #### 4.1.2 Searching Google
-If you already know which statistical technique you are looking to employ but don't know which R package might need you can always search Google for it.  Unfortuneatly, the letter "R" isn't much of a unique name for a Google search on R code. However, if you change "R" to  "CRAN R" in that query to refer to the "Comprehensive R Archive Network" you will often get better results.
+If you already know which statistical technique you are looking to employ but don't know which R package might need you can always search Google for it.  Unfortunately, the letter "R" isn't much of a unique name for a Google search on R code. However, if you change "R" to  "CRAN R" in that query to refer to the "Comprehensive R Archive Network" you will often get better results.
 
 ### 4.2 Installing Packages
 Once you know which R package you want to install you use the "install.packages()" command to install it.
 
 ```{r}
-install.packages("vegan")
+install.packages("vegan", repos='http://cran.us.r-project.org')
 ```
 If you haven't told R or RStudio where you want to download this package from, it may ask you for you to select a mirror.  You'll probably want to pick either the closest mirror server or one that you feel is the quickest.    Once the package is downloaded, R will attempt to install it on your computer.  If anything goes wrong in the installation an error will be reported.  Packages can be installed for all users on the computer or just one specific user.  If you don't have full admin rights on your computer your package will be installed in a local user library of packages.
 

@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+ESM 505/ESR 605 : Data Management, Spring 2021
 
 Module 10: Writing functions 
 ====================

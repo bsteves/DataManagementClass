@@ -1,0 +1,216 @@
+Reproducible Research, Spring 2021
+
+Module 3b : Dealing with Dates, Strings, and Factors
+=======================
+
+
+## Lubridate
+
+### Dealing with dates
+
+Dealing with dates in base are is a hassle.  Dates often get imported as readable strings that mean nothing to the computer. 
+```{r}
+string_date <- "28 August 1972"
+string_date2 <- "09/22/2002"
+
+
+```
+Alternatively, dates exist that are readable by the computer but are ugly to look at.
+
+```{r}
+mynow <- Sys.time()
+mynow
+str(mynow)
+
+```
+What's a POSIXct format?  It's one of many date/time formats in R and it's annoying.
+In base R, we can output that into something readable using format.date(), but you have to remember a bunch of formatting codes.
+
+```{r}
+format.Date(mynow, "%m/%d/%Y")
+
+
+```
+Likewise those format codes can be used to turn a string date into a Date
+```{r}
+
+str(string_date)
+mydate <- as.Date(string_date, "%d %B %Y")
+str(mydate)
+```
+
+There are a bunch of base R functions to deal with formatting and manipulating dates and times, but the lubridate package simplifies that.
+
+Here's how to convert string dates into the date data type.
+```{r}
+library(lubridate)
+mydate <- dmy(string_date) 
+mydate
+str(mydate)
+mydate2 <- mdy(string_date2)
+mydate2
+str(mydate2)
+
+```
+Lubridate is very robust and can handle variation that often creeps into data.
+```{r}
+mydates <- c("10/22/2003", "Oct 23, 2004", "11-2-2005")
+mydates <- mdy(mydates)
+mydates
+
+```
+
+
+For output, Lubridate allows you to use a human friendly template called stamp()
+```{r, message=FALSE}
+date_stamp <- stamp("Sunday, March 1, 2021")
+date_stamp(mydates)
+
+
+```
+
+### Date Math
+
+Lubridate makes math with dates easy.
+
+```{r}
+
+# difference between two dates
+mydates - ymd("2000-03-01")
+
+# subtract days or weeks from a date.  A date is returned
+mydates - days(35)
+mydates - weeks(3)
+
+# subtract an array of days from a date and an array of dates is returned
+mydates[1] - days(1:5)
+
+# can do date math without a specified date, just units of time
+out <- months(3) - weeks(2) + days(3) - hours(6)
+out
+as.period(out, "day")
+as.period(out, "minute")
+
+```
+
+
+
+Here's a cheat sheet for lubridate
+https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_lubridate.pdf
+
+
+
+## Stingr
+
+### Dealing with strings and characters
+```{r}
+library(stringr)
+
+# create an array of strings
+x <- c("Ty", "Tom", "John","Philip","Alexander")
+
+# how long is each string
+str_length(x)
+
+# collpase the array of strings into a single string
+str_c(x, collapse = ", ")
+str_c(x, collapse = "####")
+
+# get the 1-2 character of each string
+str_sub(x, 1, 2)
+
+# select the strings in the array that have an x,y, or z
+str_subset(x, "[xyz]")
+
+# do the strings contain P or J
+str_detect(x, "[PJ]")
+
+# how many vowels does each string have
+str_count(x, "[aeiou]")
+
+# replace the first vowel of each string with a '#'
+str_replace(x, "[aeiou]","#" )
+
+# replace all the vowels in each string with '#'s
+str_replace_all(x, "[aeiou]", "#")
+
+# pad the strings so that that are all 10 characters long, check the length
+str_pad(x, 10, "right")
+str_length(str_pad(x, 10, "right"))
+
+# truncate any string over 7 characters long, eding with '...'
+str_trunc(x, 7)
+
+# you can specify the ellipsis character
+str_trunc(x, 3, ellipsis = '#')
+
+
+# replacing, trimming, and squishing strings
+z = " hello    there "
+str_replace_all(z, " ", "")
+str_trim(z)
+str_squish(z)
+
+
+# changing letter case
+b <- "oNCe UPon A timE."
+str_to_lower(b)
+str_to_upper(b)
+str_to_title(b)
+str_to_sentence(b)
+
+
+# Using str_glue() instead of paste()
+species <- "Carcinus maenas"
+count <- 120
+catch_date <- ymd("2020-10-12")
+
+paste("We caught", count, species, Sys.Date() - catch_date, "days ago!", sep=" ")
+
+str_glue("We caught {count} {species} {Sys.Date() - catch_date} days ago!")
+
+
+
+```
+
+More can be done if you learn a bit about regular expressions.   
+
+
+http://edrub.in/CheatSheets/cheatSheetStringr.pdf
+
+
+## Forcats
+
+### Dealing with factors (categorical variables)
+
+Factors generally aren't a problem until you try to put them in a table or graph.
+In particular, it's often nice to have bar plots ordered from low to high.  We'll revist this often when we start plotting with ggplot2.
+
+fct_reorder(): Reordering a factor by another variable.
+fct_infreq(): Reordering a factor by the frequency of values.
+fct_relevel(): Changing the order of a factor by hand.
+fct_lump(): Collapsing the least/most frequent values of a factor into “other”.
+
+
+```{r}
+library(forcats)
+library(dplyr)
+starwars %>% count(species)
+# That was not in any order.  Try fct_infreq() to order by frequency
+starwars %>% mutate(species = fct_infreq(species)) %>% count(species)
+# better order, still too many species, let's lump any species with 2 or less
+starwars %>% filter(!is.na(species)) %>% mutate(species = fct_infreq(species)) %>% mutate(species = fct_lump_min(species, 2)) %>% count(species)
+# better order and lumped all infrequent species together as "other"
+```
+
+
+```{r}
+starwars %>% mutate(height_bin = cut(height, breaks = c(0,100,200,300), labels=c("small","medium","large"))) %>% count(height_bin)
+
+```
+
+## Homework
+
+Explore the dates, strings, and factors in your data.     Upload your R script to the d2l dropbox for this module.
+
+

@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+Reproducible Research, Spring 2021
 
 Module 2: Reproducible Research and Data
 ====================
@@ -9,7 +9,7 @@ This course is designed to explore the concept of reproducible research for envi
 ### 1.1 What is "Reproducible Research"?
 In a very general sense, reproducible research is one of the fundamental aims of science.  When we write a paper we include methods and results sections so that, in theory, other researchers can potentially reproduce and confirm our results.
 
-Lately, the term "Reproducible Research" has been used to really mean "Reproducible Data Analysis".  Every step of data analysis (often in the form of code) is prodvided.. 
+Lately, the term "Reproducible Research" has been used to really mean "Reproducible Data Analysis".  Every step of data analysis (often in the form of code) is provided.. 
 * Import, manipulate and transform raw data and meta-data into processed data.   
 * Run statistical analysis.
 * Create plots and tables.
@@ -81,8 +81,9 @@ Almost every spreadsheet and database can export properly formatted data into CS
 The following code shows how long it takes to load a 44.6 Mb file with 332,633 rows of data and 13 variables.  
 
 ```{r import_csv}
-    csv_speed<-system.time(data<-read.csv("~/WSA/Data/WSA_data.csv"))
+    csv_speed<-system.time(data<-read.csv("C:/Users/stevesb/Downloads/5m Sales Records.csv"))
     print(csv_speed)
+     
 ```
 
 Here I've wrapped the 'system.time' function call around the 'read.csv' function that loads the data file so that I can time it. This can be useful if you ever want to know how long a particular part of your analysis takes.
@@ -91,9 +92,10 @@ Here I've wrapped the 'system.time' function call around the 'read.csv' function
 One option to speed this process up in R is to save the data in a binary Rdata file.  This file format compresses the data in such a way that it can be reopened at least 10 times faster then .
 
 ```{r open_binary}
-save(data, file="data/WSA_data.Rdata")
-binary_speed<-system.time(load(file="data/WSA_data.Rdata"))
+save(data, file="data/5m_Sales_Records.Rdata")
+binary_speed<-system.time(load(file="data/5m_Sales_Records.Rdata"))
 print(binary_speed)
+  
 ```
 
 The loading of the binary data file was over **`r round(as.numeric(csv_speed[3]/binary_speed[3]),0)`** times faster than loading the csv file!
@@ -103,7 +105,7 @@ The loading of the binary data file was over **`r round(as.numeric(csv_speed[3]/
 
 ``` {r fundamental_structures_table, results='asis', echo=FALSE}
 fund_strs<-data.frame(Dimensions=c("1d","2d","3d"), Homogeneous=c("Atomic Vector","Matrix","array"), Heterogeneous=c("List","Data Frame",""))
-kable(fund_strs, row.names=FALSE)
+knitr::kable(fund_strs, row.names=FALSE)
 
 ```
 
@@ -275,7 +277,7 @@ Strings.
 #### Date
 Dates can be tricky and there a variety of R functions and packages designed to help deal with them.  Often dates are imported as character strings and need to be converted to date format if you want to treat them as dates.   This is important for timelines and grouping by year, month, day, etc..
 
-```{r}
+```{r, error=TRUE}
 
 today <- Sys.Date()
 
@@ -339,7 +341,7 @@ Most people are familiar with the "wide" data format where each row represents a
 # loading a useful package for creating formatted tables
 
 spdat<-read.csv("data/wk1spdat.csv")
-kable(spdat, row.names=FALSE)
+knitr::kable(spdat, row.names=FALSE)
 
 ``` 
 
@@ -357,7 +359,7 @@ spdat2<-melt(spdat, id=c("Site", "Date"), variable.name="Species", value.name="C
 # removing data rows where species counts are 0
 spdat2<-spdat2[spdat2$Count>0,]
 spdat2<-spdat2[with(spdat2, order(Date, Site, Species)),]
-kable(spdat2, row.names=FALSE)
+knitr::kable(spdat2, row.names=FALSE)
 
 ```
 
@@ -385,8 +387,8 @@ The following table is includes everything but is unnormalized.
     library(dplyr)
     sites<-read.csv("data/wk1sites.csv")
     samples<-read.csv("data/wk1samples.csv")
-    site_samples<-left_join(sites, samples, by="siteID") %.% select(sampleID, site, lake, lat, lon, date, sampler, temp_C, fish)
-    kable(site_samples)                
+    site_samples<-left_join(sites, samples, by="siteID") %>% select(sampleID, site, lake, lat, lon, date, sampler, temp_C, fish)
+    knitr::kable(site_samples)                
 
 ```
 
@@ -397,14 +399,14 @@ Notice that all of the site related information gets repeated for each sample it
 Here is that same information normalized into a "sites" table
 
 ``` {r sites_table, results='asis', echo=FALSE}
-    kable(sites)
+    knitr::kable(sites)
 
 ```
 
 and a "samples" table
 
 ``` {r samples_table, results='asis', echo=FALSE}
-    kable(samples)
+    knitr::kable(samples)
 
 ```
 

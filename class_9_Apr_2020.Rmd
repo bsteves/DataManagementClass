@@ -1,0 +1,26 @@
+---
+title: "Reproducibel Research Class"
+author: "Brian P Steves"
+date: "4/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+```{r}
+bike_dat <- read_csv("https://s3.amazonaws.com/biketown-tripdata-public/2016_07.csv")
+gl
+
+```
+
+Tsunami debris data
+[https://datadryad.org/stash/dataset/doi:10.5061/dryad.rh01m]
+
+```{r}
+tsunami_dat <- read_csv("C:/Users/stevesb/Downloads/doi_10.5061_dryad.3gv5c78__v1.zip")
+```
+

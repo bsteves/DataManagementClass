@@ -1,7 +1,4 @@
----
-output: html_document
----
-ESM 505/ESR 605 : Data Management, Spring 2016
+Reproducible Research, Spring 2021
 
 Module 9: Creating Plots
 ====================
@@ -104,8 +101,7 @@ Here's a simple example..
 ```{r ggplot_sine_curve}
 library(ggplot2)
 dat <- data.frame(xdat, ydat)
-p <- ggplot(dat, aes(x=xdat, y=ydat))
-p <- p + geom_line()
+p <- ggplot(dat, aes(x=xdat, y=ydat)) + geom_line()
 print(p)
 
 ```
@@ -132,8 +128,7 @@ Here's another example.  We set up the x and y aesthetic within the main ggplot 
 ```{r ggplot_smooth}
 # using some data about cars
 head(mpg)
-p <- ggplot(mpg, aes(x=displ, y=hwy))
-p <- p + geom_point() + geom_smooth(method=lm)
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point() + geom_smooth(method=lm)
 p
 ```
 

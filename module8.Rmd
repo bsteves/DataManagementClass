@@ -1,8 +1,7 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+Reproducible Research, Spring 2021
 
 Module 8: Loops and Flow Control 
 ====================
-
 
 
 
@@ -78,12 +77,14 @@ for (i in 1:num_of_loops){
 For loops are even more useful when you assign the number of loops based on your data.  For example, you might want a loop for each row of data in your data frame.  The nrow() function returns the number of rows in a data frame.
 
 ```{r}
-
-dat<-read.csv("data/wk1sites.csv")
+library(readr)
+dat<-read_csv("data/wk1sites.csv")
 print(dat)
 for (i in 1:nrow(dat)){
-  print(paste("Latitude:",dat$lat[i], ", Longitude:", dat$lon[i]))
+ print(paste("Latitude:",dat$lat[i], ", Longitude:", dat$lon[i]))
 }
+
+
 ```
 
 
@@ -116,10 +117,17 @@ The break statement is used to stop a loop.  The Next statement is used to skip 
 
 ```{r}
 
-num_of_loops <- 10
+num_of_loops <- 100
 for (i in 1:num_of_loops){
-  if (i == 5) next
-  if (i > 7) break
+  if (i == 5) {
+    print("skip 5") 
+    next
+  }  
+  if (i > 7) {
+    print("stop after 7")
+    break 
+    
+  }
   print(paste("loop number",i))
 }
 ```

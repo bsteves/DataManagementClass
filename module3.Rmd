@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+Reproducible Research, Spring 2021
 
 Module 3: Creating, Importing, & Exporting Data
 ====================
@@ -40,7 +40,7 @@ matrix(c(1,2,3,4,5,6,7,8,9), nrow=2)
 
 ```
 
-Using cbind or rbind to bind columns or rows will also work.  If the vectors you are binding are of the same class (numeric, character, logical), the resulting matrix will also be that class.  However, if the vectors differ the matrix will defualt to the most compatible type.  
+Using cbind or rbind to bind columns or rows will also work.  If the vectors you are binding are of the same class (numeric, character, logical), the resulting matrix will also be that class.  However, if the vectors differ the matrix will default to the most compatible type.  
 
 ```{r}
 
@@ -60,11 +60,11 @@ Most imported data will end up a data frame by default.  However, you can create
 
 ```{r}
 
-names<-c("Fred","Bob","Bill","Jim")
+name<-c("Fred","Bob","Bill","Jim")
 weight<-c(129,145,234,198)
 height<-c(64,68,72,70)
 
-data<-data.frame(names,weight,height)
+data<-data.frame(name,weight,height)
 print(data)
 
 ```
@@ -105,69 +105,229 @@ class(c)
 
 Getting your data into R can sometimes be the hardest part.  Luckily there are packages and functions to help with this.
 
-### 2.1 Copy/Paste
+
+## 2.1 Text Files
+
+One of the most common types of data files you might find are deliminated text files (csv, tsv, etc..).  These can be read by any text editor, but it requires parsing to turn a text file into data columns.   Base R provides read.table and read.csv to do this, but the Tidyverse has better functions in the 'readr' package.
+
+```{r}
+library(readr) 
+
+# list of example files, note that csv, tsv, txt, zip, bz2
+readr_example()
+
+readr_example("mtcars.csv")
+mtcars <- read_csv("C:/Users/stevesb/Documents/R/win-library/4.0/readr/extdata/mtcars.csv")
+
+```
+You can also just specify file location by wrapping read_csv around readr_example()
+
+```{r}
+mtcars <- read_csv(readr_example("mtcars.csv"))
+
+```
+Readr guesses based on the first 1000 records.  
+What if the first 1000 records are NA for a column?  Here is an example of data that doesn't get guessed properly.
+
+```{r}
+df1 <- read_csv(readr_example("challenge.csv"))
+# check out problems
+problems(df1)
+
+# change guess to use 1001 rows
+df2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
+
+
+# Or specifiy the columns
+df3 <- read_csv(
+  readr_example("challenge.csv"), 
+  col_types = cols(
+    x = col_double(),
+    y = col_date(format = "")
+  )
+)
+
+```
+readr has many options for parsing out column names, setting column definitions, and even skipping rows when needed (e.g. sometimes metadata exists at the top of text data files)
+
+Note that csv files in a zip can be read as well.
+
+```{r}
+mtcars2 <- read_csv(readr_example("mtcars.csv.zip"))
+
+
+dat <- "a,b,c
+1,2,3
+4,5,6"
+
+print(dat)
+
+read_csv(dat)
+
+dat <- read_csv("a,b,c
+1,2,3
+4,5,6")
+
+```
+
+Quick comparison in speed between base R's read.csv() and readr's read_csv().  The usage of read.csv() is very similar to read_csv().  
+
+
+```{r}
+WSA_dat<-read.csv("data/WSA_data.csv")
+
+# read.csv time
+system.time(read.csv("data/WSA_data.csv"))
+
+# read_csv time
+system.time(read_csv("data/WSA_data.csv"))
+
+
+
+```
+Beyond the speed increase, here are a couple other benefits to using readr over base R for text file importing.
+
+1.) readr returns a tibble, which is a tidyverse improvement over a plain data.frame.  Tibbles don't mess up your column names, don't force characters into factors, and display better in console output.
+
+2.) readr output is more reproducible.  Base R's read.csv() inherits some behavior from your operating system, but readr does not.
+
+
+
+### 2.2 Copy/Paste
 
 If you try to copy and paste some data in from a text file or an Excel spreadsheet and assign it to an object you just end up with a character vector with a single element made up of long string of characters. 
 
 ``` {r}
-HaresLynx <- "Year  Hares  Lynx
-1900 30 4
-1901 47.2 6.1
-1902 70.2 9.8
-1903 77.4 35.2
-1904 36.3 59.4
-1905 20.6 41.7"
+excel_copy_paste_dat <- "A 	B 	C
+1	2	3
+7	6	5
+"
 
-print(HaresLynx)
+print(excel_copy_paste_dat)
 
 ```
 Probably not what you wanted.
 
-To remedy this we use read.table and TextConnection to parse the characters into a data frame
+It looks similar to the CSV file we just hand wrote and read in using read_csv.  Let's try that.
 
 ```{r}
-HaresLynx2 <- read.table(textConnection(HaresLynx), header=TRUE)
-print(HaresLynx2)
+read_csv(excel_copy_paste_dat)
+
+```
+
+Nope, that's not it. Looks like it's deliminated by '\t' and not commas.  Those are tabs, and readr has read_tsv().
+
+```{r}
+read_tsv(excel_copy_paste_dat)
+```
+
+Much better.  Use "read_tsv()" when copying and pasting Excel data.  It's important to figure out what the deliminator is when using these functions. In fact, read_delim() is a function that lets you set the deliminator.  Also, if you come across European style csv files (';' deliminated with ',' for decimals) you can use read_csv2().
+
+
+### 2.3 Excel Files
+
+The readxl package handles opening Excel files (xls, xlsx).  
+Like readr, the package comes with an example workbook and the readxl_example() function returns the location of that file on your system.
+
+```{r}
+library(readxl)
+datasets <- readxl_example("datasets.xlsx")
+
+
+
+```
+This datasets.xlsx is an Excel file, with a different data set on each sheet.
+Use excel_sheets() function to return list of sheets
+```{r}
+
+excel_sheets(datasets)
+```
+
+Use the read_excel() function to return a sheet, either by name or sheet number
+
+```{r}
+
+iris <- read_excel(datasets, 1) 
+head(iris)
+
+chickwts <- read_excel(datasets, "chickwts") 
+head(chickwts)
+
+```
+You can even specify a cell range.  Don't forget that column labels are in cells.
+Here we'll grab columsn A through D and the first 11 rows (column labels and 10 rows of data)
+```{r}
+sel_iris <- read_excel(datasets, "iris", range="A1:D11")
+sel_iris
 
 ```
 
 
-### 2.2 Text Files
-Probably the easiest way to import data is via text file.  I find CSV files to work the best..
-
-```{r}
-sites<-read.csv("data/wk1sites.csv")
-print(sites)
-
-```
-
-
-
-### 2.3 Database Connection
+### 2.4 Database Connection
 
 Connections can be made directly with a database.  However, which databases you can connect to is dependent on your operating system.  For example, you need to be using Windows to connect to a MS Access database.  
 
-One common database is MySQL.  We can access MySQL databases using either the "RODBC" library or the "RMySQL" library 
 
-```{r}
+```{r, error=TRUE}
+library(odbc)
+library(DBI)
 
-library(RMySQL)
-# make a connection to the database
-con<-dbConnect(MySQL(), user="root", password="", dbname="nemesis_development", host="localhost")
+# list drivers
+odbcListDrivers()
 
-# list the tables in that database
-dbListTables(con)
+# see if any ODBC DSN's have been set up on computer
+odbcListDataSources()
 
-# run a select query on a table in the database and limit it to 10 records
-taxa<-dbGetQuery(con, "select id, binomial, taxa_group from taxa limit 10;")
-print(taxa)
+# create a connection to a DSN.  This is set up ahead of time on your computer.
+con <- dbConnect(odbc(), "GlobalInvHist_be")
+
+
+# create a connection without a DSN
+
+con <- dbConnect(odbc::odbc(), 
+                 Driver = "MySQL ODBC 8.0 Unicode Driver",
+                 Host = "localhost",
+                 Database = "globalinvhist_be",
+                 UID = "username",
+                 PWD = "password")
+```
+This isn't very secure to save passwords in a script, esp. if you share your scripts on places like GitHub.  This example will throw an error on my computer because those credentials are fake.
+
+In Rstudio, you can set up prompts to ask for username and/or password
+```{r error=TRUE}
+con <- DBI::dbConnect(odbc::odbc(),
+                      Driver = "MySQL ODBC 8.0 Unicode Driver", 
+                      Host   = "localhost",
+                      Database = "globalinvhist_be",
+                      UID    = rstudioapi::askForPassword("Database user"),
+                      PWD    = rstudioapi::askForPassword("Database password")
+)
 
 ```
 
+In newer versions of RStudio, ther is a 'connections' tab in the upper righthand panel. This will let you explore databases, tables, columns of your database connection.  Alternatively, you can access that information with in the console.
 
-### 2.4 Other formats (JSON, XML, etc..)
+```{r}
+# list tables.
+dbListTables(con)
+
+# list fields in a table
+dbListFields(con, "taxanew")
+
+# return a whole table
+taxanew <- dbReadTable(con, "taxanew")
+
+# get results of a query to a table
+sel_taxa <- dbGetQuery(con, "SELECT count(*) FROM taxonomy WHERE TXA_Binomial IS NOT NULL;")
+
+```
+
+You can also send a query using dbSendQuery() for advanced queries like delete, modify, etc..  Sometimes you don't want to return all of the records at once.  In those cases you can use dbSendQuery() and then fetch() the results as you need them.  I generally don't use the dbSendQuery() and fetch() method.
+
+### 2.5 Other formats (JSON, XML, etc..)
 
 Sometimes you'll find data in other formats.  It's worth looking to see if a package has been made to help import that kind of data.
+
 
 ## 3 Exporting Data
 
@@ -176,29 +336,41 @@ An analog to read.csv is write.csv.  You can write just about any data frame int
 
 ```{r}
 
-write.csv(taxa, "taxa.csv")
+write_csv(taxanew, "taxanew.csv")
 
 ```
+### 3.2 Excel Files
+The readxl package doesn't have a write_excel() function. But you can always just use write_csv() and save to a csv file that Excel can open.
 
-
-### 3.2 Database Connection
+### 3.3 Database Connection
 
 You can run append, insert, and update queries using a connection to the database.   You can also write a data frame into a table useing "dbWriteTable(con, "table name", a.data.frame)
 
-### 3.3 Other formats (JSON, XML, etc..)
+
+Writing data to a database table.  Using the existing connection and dataframe from before.
+
+```{r}
+dbWriteTable(con, "taxanew", taxanew, overwrite=TRUE)
+```
+Options for dbWriteTable include "append=TRUE", "overwrite=TRUE", "row.names=FALSE"
+
+
+### 3.4 Other formats (JSON, XML, etc..)
 
 The same specialized R packages you used to import other types of data will likely have a function for writing that type of data from R objects.
 
 
-### 3.4 dput function
+### 3.5 dput function
 
-It is often useful to useful to export an R object into an R statement that can be used to recreate that object elsewhere.  For example, say you wanted to ask an R question on http://stackoverflow.com/ and needed to include some small snippit of your data to help explain your issue.   Just doing a copynig and pasting will cause formatting issues and it will be difficult for others to usee your data to help you out.   However, if we use the "dput" function we can transform an R object into a the command we'd need to recreate that structure.
+It is often useful to useful to export an R object into an R statement that can be used to recreate that object elsewhere.  For example, say you wanted to ask an R question on http://stackoverflow.com/ and needed to include some small snippet of your data to help explain your issue.   Just doing a copying and pasting will cause formatting issues and it will be difficult for others to use your data to help you out.   However, if we use the "dput" function we can transform an R object into a the command we'd need to recreate that structure.
 
 ```{r}
-dput(taxa)
+dput(taxanew)
+```
 
-#If I copy the output to that and assign it to an object..
+If I copy the output to that and assign it to an object..
 
+```{r}
 taxanew<-structure(list(id = c(-578L, -577L, -576L, -575L, -574L, -572L, 
 -571L, -570L, -569L, -568L), binomial = c("Dasya sp. A", "Dasya sessilis", 
 "Pkea yoshizakii", "Chondracanthus teedei", NA, "Tricellaria inopinata", 
@@ -218,6 +390,6 @@ print(taxanew)
 
 1.   Import the dataset you found for your last homework into R. 
 
-2.   Submit both the your found datast and an R script of the code you used to import it onto d2l
+2.   Submit both your dataset (or small part of it) and an R script of the code you used to import it onto d2l
 
 

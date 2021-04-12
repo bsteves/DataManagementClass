@@ -1,4 +1,4 @@
-ESM 505/ESR 605 : Data Management, Spring 2014
+Reproducible Research, Spring 2021
 
 Module 4: Filtering and Subsetting Data
 ====================
@@ -38,9 +38,37 @@ str(dat)
 
 ```
 
+
+## Head and Tail
+
+Large data frames take a long time to print out to the screen.  Because of this, sometimes you just want to view the first portion (the head) or the last portion (the tail) of a data frame.  To get a sense of what the data looks like.   
+
+```{r}
+
+data(iris)
+
+# How many rows of data using nrow()
+nrow(iris)
+
+# too much to show on screen
+
+
+# The head (beginning) of the data
+head(iris)
+
+
+# The tail (end) of the data
+tail(iris)
+
+# the defualt is 6 rows of data, but you can change this by specifing an n value
+
+head(iris, n=20)
+
+```
+
 ##  Selecting Variables (data frame columns)
 
-### Selecting Single columns
+### Selecting Single columns using Base R
 
 ```{r}
 
@@ -139,14 +167,56 @@ dat
 
 ```
 
-##  Selecting Observations (data frame rows)
+## selecting columns using Tidyverse's 'dplyr' package.  
+
+```{r}
+library(dplyr)
+dat<-data.frame(sites, dates, lat, lon, treatment)
+names(dat)<-c("SiteName", "VisitDate", "Latitude", "Longitude", "TreatmentApplied")
+
+select(dat, SiteName, Latitude)
+
+```
+
+Note that the first input to the select function is the name of the data frame.
+
+The dplyr package uses a new type of notation called piping using "%>%" between expressions. This eliminates the need to nest functions within each other and streamlines a lot of coding.
+
+```{r}
+
+dat %>% select(Latitude, Longitude)
+```
+Note that we start with the data frame and then pipe in the 'select' function. In doing so we don't need to include the data frame name as the first input of the the select function. The result of this bit of code can then be piped into more dplyr expressions (more on that later)
+
+
+The dplyr select() function will accept a wide range of helper functions that help select columns based on criteria.
+
+```{r}
+
+head(iris)
+
+iris %>% select(contains("Sepal")) %>% head()
+
+iris %>% select(contains("Width")) %>% head()
+
+# all columns except "Species"
+iris %>% select(-Species) %>% head()
+
+# select Species and then the two middle measurement columns
+iris %>% select(Species, Sepal.Width:Petal.Length) %>% head()
+
+```
+
+
+
+##  Selecting Observations (data frame rows) firs using Base R
 
 ``` {r}
 # loading some real data with lots of records
+library(readr)
+mtcars <- read_csv(readr_example("mtcars.csv"))
 
-data2<-read.csv("data/wk1samples.csv")
-
-str(data2)
+str(mtcars)
 
 ```
 
@@ -155,13 +225,13 @@ str(data2)
 ```{r}
 
 # select first two records
-data2[1:2,]
+mtcars[1:2,]
 
 # selecting second and fourth records
-data2[c(2,4),]
+mtcars[c(2,4),]
 
 # selecting not the third and fifth record
-data2[c(-3,-5),]
+mtcars[c(-3,-5),]
 
 ```
 
@@ -169,24 +239,23 @@ data2[c(-3,-5),]
 
 ``` {r}
 
-# Selecting data2 where there weren't any fish
-data2[data2$fish == 0,]
+# Selecting cars with 4 cylinders
+mtcars[mtcars$cyl == 4,]
 
 # Using & to combine conditions
-data2[data2$fish > 9 & data2$siteID == 2,]
+mtcars[mtcars$cyl == 4 & mtcars$mpg > 30,]
 
 ```
 
 ##  Selecting Observations and Variables
 
 ``` {r}
-# Sites and dates where we collected zero fish
+# mpg and hp for 4 cylinder cars 
 
-data2[data2$fish == 0,c("siteID","date")]
+mtcars[mtcars$cyl == 4,c("mpg","hp")]
 
-# sample IDs where zero fish were collected
-data2[data2$fish == 0,]$sampleID
-
+# Number of gears for 4 cylinder cars
+mtcars[mtcars$cyl == 4,]$gear
 ```
 
 ##  Subset Function
@@ -194,22 +263,22 @@ data2[data2$fish == 0,]$sampleID
 The subset() function is a shortcut to selecting observations and variables
 
 ``` {r}
-# this isn't any shorter than the previous method of finding the sites and dates where we collected zero fish, but it's a bit more readable.
+# this isn't any shorter than the previous method of finding the cars based on cyl, hp, mpg.
 
-subset(data2, fish == 0, select=c(siteID,date))
+subset(mtcars, cyl == 4, select=c(mpg, hp))
 
 # we can also drop columns using the select option
 
-subset(data2, fish==0, select=c(-siteID, -date))
+subset(mtcars, cyl==4, select=c(-mpg, -hp))
 
 # Subset makes it easier to combine multiple conditions
 
-subset(data2, fish==0 & siteID ==1 & date == "2008-03-01")
+subset(mtcars, cyl==4 & mpg > 30 & hp > 100)
 
 # You can even do "OR" conditions using the "|" operator
-# here we are selecting where fish collection was less than or equal to 3 or greater than 11
+# here we are selecting where cyl  = 4 or mpg < 15
 
-subset(data2, fish <=3 | fish > 11)
+subset(mtcars, cyl ==4 | mpg < 15)
 
 
 
@@ -224,19 +293,19 @@ subset(data2, fish <=3 | fish > 11)
 
 ```{r}
 
- subset(data2, !(fish  == 3 & siteID == 1))
+ subset(mtcars, !(cyl  == 4 & gear == 4))
  
  # is the same as 
 
- subset(data2, !fish == 3 | !siteID==1)
+ subset(mtcars, !cyl == 4 | !gear == 4 )
 
- # and
+ # and likewise
 
- subset(data2, !(fish == 3 | siteID == 2))
+ subset(mtcars, !(cyl == 4 | gear == 4))
 
  # is the same as 
 
- subset(data2, !fish == 3 & !siteID == 2)
+ subset(mtcars, !cyl == 4 & !gear == 4)
 
 
 
@@ -246,62 +315,94 @@ You can also use the %in% operator to match multiple values at once.
 
 ```{r}
 
-dates_of_interest<-c("2008-02-22", "2008-03-01")
-subset(data2, date %in% dates_of_interest)
+hp_of_interest<-c(110, 180, 245)
+subset(mtcars, hp %in% hp_of_interest)
  
 # is the same as 
-subset(data2, date == "2008-02-22" | date == "2008-03-01")
+subset(mtcars, hp == 110 | hp == 180 | hp == 245)
 
 
 ```
 
+## subsetting data using tidyverse's dplyr
+
+Use commas to separate "and" statements.
+Use | to separate "or" statements.
+
+```{r}
+mtcars %>% filter(hp == 110)
+
+mtcars %>% filter(hp < 110,cyl == 4, wt>3)
+
+mtcars %>% filter(hp > 100 | cyl == 4)
+
+mtcars %>% filter(hp %in% hp_of_interest)
+```
+
+## combining dplyr filter and select
+
+```{r}
+mtcars %>% filter(cyl == 4) %>% select(cyl, mpg, hp)
+```
 
 
-##  Random samples
+
+
+##  Random samples in Base R
 Sometimes you will want a random subset of your data.  To do this, use the sample() function without replacement.
 
 ```{r}
 
 # first determine how many rows of data you have
-rowcount<-nrow(data2)
+rowcount<-nrow(mtcars)
 
 # select two random rows
 randomrows<-sample(rowcount, 2)
 
 # use the "randomrows" to select those rows from the data frame
-data2[randomrows,]
+mtcars[randomrows,]
 
 
 ``` 
 
-## Head and Tail
+## Select random rows in dplyr using slice_sample() function
 
-Large data frames take a long time to print out to the screen.  Because of this, sometimes you just want to view the first portion (the head) or the last portion (the tail) of a data frame.  To get a sense of what the data looks like.   
+We'll randomly select two rows and do it twice so show that they are random
+
+```{r}
+mtcars %>% slice_sample(n=2)
+mtcars %>% slice_sample(n=2)
+```
+Can also slice a proportion of the data.  Here 10% of 32 records returns 3 random records
+```{r}
+mtcars %>% slice_sample(prop=0.1)
+```
+
+
+
+## Head, Tail, Glimpse with dplyr
+
+head and tail can be passed into the pipe using %>%
 
 ```{r}
 
-# load a rather large dataset
-load("data/WSA_data.Rdata")
+iris %>% head()
 
-# How many rows of data using nrow()
-nrow(data)
+iris %>% tail()
 
-# To make my tables neat lets select just the 5 columns of data
-data<-data[,1:5]
-
-# The head (beginning) of the data
-head(data)
-
-
-# The tail (end) of the data
-tail(data)
-
-# the defualt is 6 rows of data, but you can change this by specifing an n value
-
-head(data, n=20)
+iris %>% head(n=20)
 
 
 ```
+
+dplyr also has the "glimpse()" function that gives an alternative view of the data
+
+```{r}
+iris %>% glimpse()
+
+```
+
+
 ##  Assigning and Subsetting
 
 Sometimes you want to select data so that you can reassign values in the data frame. This is useful when you are cleaning up your data.
@@ -325,34 +426,37 @@ data3
 
 ```
 
+This is much easier with dplyr using mutate() and replace()
+
+The usage is replace(variable, condition, replacement)
+
+```{r}
+data3<-data.frame(site=c(1,1,1,2,2,2),count=c(2,4,3,NA,5,NA))
+
+data3 %>% mutate(count = replace(count, is.na(count), 0))
+data3 %>% mutate(count = replace(count, site==2, 100))
+```
+
+Mutate can also be used to create new variables
+```{r}
+
+iris %>% mutate(Sepal.Area = Sepal.Length * Sepal.Width)
+
+```
+
+
+
 ##  Ordering
 
-While not exactly a form of subsetting, ordering of data frames is a related action.  We can use the order() and sort() functions to accomplish this.
+Ordering data in base R is annoying. I'm not even going to bother showing it to you. But it's pretty simple with dplyr's arrange() function.
 
 ```{r}
 
-# A simple ordering of a vector
-x<-c(2,3,5,3,2,1)
-order(x)
+# ascending
+mtcars %>% arrange(mpg)  
 
-# Well that's now what we want. What is happening here?  The order function returns the values of the vector index in order of the values we specified.  In this case the 6th value was the lowest (first) and the 3rd value was the highest (last).  To get the results we wanted we need to use order in a slightly different way.
-
-x[order(x)]
-
-
-# Using sort() gives us what we probably were expecting.
-
-sort(x)
-
-
-
-#  Then why bother with order().  Well, sort() doesn't work on data frames.   
-
-data3
-
-# to sort the data3 data frame by count
-
-data3[order(data3$count),]
+#descending
+mtcars %>% arrange(desc(mpg))
 
 
 ```
@@ -360,14 +464,13 @@ data3[order(data3$count),]
 
 ## Bonus Material
 
-The following PDF is a 6 page cheat sheet for many of the basic operators, functions, and other important bits of R.  I try to keep a copy handy when I'm coding in R in case I need a reminder on which function I might need for a particular job.
+Here's a cheat sheet for wrangling data with dplyr.  We still have much to cover with dplyr as well as the related package called tidyr.
 
-http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
-
+https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
 ## Homework
 
-Using the data set you found for Module 2 and imported in Module 3 write a script to create 3 interesting subsets of data that you might want to use for later analysis.  Use which ever methods make the most sense to you but be sure to assign these subsets to new variables with meaningful names. Remember to add code from Module 3 regarding how to import this data into the beginning of your new script.
+Using the data set you found, write  R code to create 3 interesting subsets of data that you might want to use for later analysis.  Use which ever methods make the most sense to you but be sure to assign these subsets to new variables with meaningful names. Remember to add code to import this data first.
 
 1.) Upload your data and script to this module's dropbox on d2l.
 

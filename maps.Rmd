@@ -1,0 +1,50 @@
+---
+title: "Mapping with ggplot2"
+author: "Brian P Steves"
+date: "4/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(tidyverse)
+library(maps)
+world <- map_data("world")
+```
+
+```{r}
+dat <- read_csv("C:/Users/stevesb/Downloads/doi_10.5061_dryad.rh01m__v1/JTMD_Data.csv")
+dat <- dat %>% filter(!is.na(Latitude)) %>% mutate(SizeClass = fct_relevel(SizeClass, c("S","M","L","XL")))
+
+```
+
+
+```{r}
+map <- ggplot() +
+  geom_map(
+    data = world, map = world,
+    aes(x=long, y=lat, map_id = region)
+  ) + coord_map(xlim=c(-180, 180))
+```
+
+```{r}
+map + geom_point(data=dat, aes(x=Longitude, y=Latitude, color=SizeClass), alpha=0.5) 
+
+```
+```{r}
+ library(rnaturalearth)
+ library(sf)
+ library(ggplot2) # with support for geom_sf
+ 
+ w <- ne_countries(returnclass = "sf", scale="medium")
+ crs <- st_crs(w)
+ gg2 <- ggplot(data = w) +
+   geom_sf(fill = "lightgrey", colour = "grey") +
+   coord_sf(crs = crs, xlim = c(-170, -120), ylim = c(15, 60))
+ gg2 <- gg2 + geom_point(data=dat, aes(x=Longitude, y=Latitude, color=SizeClass), alpha=0.5, size=2) 
+ gg2 + theme_bw()
+
+```
+
