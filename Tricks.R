@@ -2,6 +2,7 @@ library(tidyverse)
 library(broom)
 
 # Need new data to work with.  Maybe from a package.
+# should fix issue #3.
 
 wsa <- read_csv("data/WSA_data.csv")
 
